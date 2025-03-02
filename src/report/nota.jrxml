@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="164" pageHeight="842" columnWidth="144" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="10" isIgnorePagination="true" uuid="4d4ecf9b-f216-4927-bc44-963daae6ffd2">
+	<property name="ireport.zoom" value="4.594972986357222"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="387"/>
+	<parameter name="id_transaksi" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT t.id_transaksi, t.nama_member, t.tgl_penjualan, dt.nama_resep, dt.harga_jual, dt.jumlah_beli, (dt.harga_jual * dt.jumlah_beli) AS harga, t.total_harga, t.jumlah_bayar, t.kembalian, us.nama AS nama_petugas
+FROM transaksi t
+INNER JOIN detail_transaksi dt ON t.id_transaksi = dt.id_transaksi
+INNER JOIN user us ON us.id_user = t.id_user
+WHERE t.id_transaksi = $P{id_transaksi}]]>
+	</queryString>
+	<field name="id_transaksi" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nama_member" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tgl_penjualan" class="java.time.LocalDateTime">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nama_resep" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="harga_jual" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="jumlah_beli" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="harga" class="java.lang.Long"/>
+	<field name="total_harga" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="jumlah_bayar" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="kembalian" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nama_petugas" class="java.lang.String"/>
+	<title>
+		<band height="77" splitType="Stretch">
+			<image>
+				<reportElement x="33" y="0" width="100" height="40" uuid="0f218b95-28f3-4354-8d87-25eaf398476c"/>
+				<imageExpression><![CDATA["../img/logo_kasir.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="40" width="144" height="20" uuid="ba03e5c3-7cea-4d84-8837-6cc5751c877d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Consolas" size="6"/>
+				</textElement>
+				<text><![CDATA[Jl. Durian, Desa Pecoro, Kecamatan Rambipuji, Jember]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="57" width="144" height="11" uuid="6ac59fa0-11d6-4009-a430-575d45aeb6fd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Consolas" size="6"/>
+				</textElement>
+				<text><![CDATA[Telp. +62 895-2012-9948]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="72" width="144" height="1" uuid="ab616314-de54-4072-8d52-2222c95bbefa"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="51" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="3" width="68" height="10" uuid="1c2495e5-d469-4f04-95fe-bc32ade01374"/>
+				<textElement>
+					<font fontName="Consolas" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tgl_penjualan} != null ? java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd").format($F{tgl_penjualan}) : "N/A"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="12" width="68" height="10" uuid="1e54907d-8c8a-4d99-9ccb-9b5b42b4a985"/>
+				<textElement>
+					<font fontName="Consolas" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tgl_penjualan} != null ? java.time.format.DateTimeFormatter.ofPattern("HH:mm:ss").format($F{tgl_penjualan}) : "N/A"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="34" width="72" height="10" uuid="d7f1555c-3f98-45d0-b587-57d286b25485"/>
+				<textElement>
+					<font fontName="Consolas" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Member : " + $F{nama_member}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="112" y="3" width="35" height="10" uuid="564eff3a-9718-4d94-9a65-4861da2b80a5"/>
+				<textElement textAlignment="Right">
+					<font fontName="Consolas" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Petugas : "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="96" y="12" width="35" height="10" uuid="ea0ef1ac-875e-4ec5-a904-0cfe723a48c8"/>
+				<textElement textAlignment="Right">
+					<font fontName="Consolas" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nama_petugas}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="49" width="144" height="1" uuid="336c00fd-d3b2-4928-ac36-3b61c881e741"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="13" width="72" height="10" uuid="9b78b9c5-b105-43ca-be45-5d62e90ebc6a"/>
+				<textElement>
+					<font fontName="Consolas" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jumlah_beli} + " x " +  new java.text.DecimalFormat("#,##0").format($F{harga_jual}.intValue())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="3" width="72" height="10" uuid="0ac93050-c3ce-434a-9037-4ab18f9db8d8"/>
+				<textElement>
+					<font fontName="Consolas" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nama_resep}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="72" y="13" width="72" height="10" uuid="002edad0-35cf-4a09-adad-93900384574b"/>
+				<textElement textAlignment="Right">
+					<font fontName="Consolas" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Rp. " + new java.text.DecimalFormat("#,##0").format($F{harga}.intValue())]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="88" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="144" height="1" uuid="447fc5f4-02e7-44d7-9e5b-519aad916f2a"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="0" y="27" width="72" height="10" uuid="d122018b-f66f-4089-bef6-91284b3e5b36"/>
+				<textElement>
+					<font fontName="Consolas" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Kembali"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="7" width="72" height="10" uuid="461796a6-7513-41af-b7c0-4e09b3732f47"/>
+				<textElement>
+					<font fontName="Consolas" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Total   "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="17" width="72" height="10" uuid="063e5fc1-b7c9-4639-8b5a-df49d564e377"/>
+				<textElement>
+					<font fontName="Consolas" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Bayar  "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="72" y="17" width="72" height="10" uuid="d6811288-0504-46b8-8352-6d86cadc9932"/>
+				<textElement textAlignment="Right">
+					<font fontName="Consolas" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Rp. " + new java.text.DecimalFormat("#,##0").format($F{jumlah_bayar}.intValue())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="72" y="27" width="72" height="10" uuid="f9100f0b-db10-4383-9b09-00fb421a6468"/>
+				<textElement textAlignment="Right">
+					<font fontName="Consolas" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Rp. " + new java.text.DecimalFormat("#,##0").format($F{kembalian}.intValue())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="72" y="7" width="72" height="10" uuid="37b56131-a5b6-498b-bbcf-5dc0bc6767d1"/>
+				<textElement textAlignment="Right">
+					<font fontName="Consolas" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Rp. " + new java.text.DecimalFormat("#,##0").format($F{total_harga}.intValue())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="48" width="144" height="11" uuid="56fa62a2-b35f-48f2-ac5d-7df7e9f7d649"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Consolas" size="6"/>
+				</textElement>
+				<text><![CDATA[Terima kasih Telah Berbelanja]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="57" width="144" height="11" uuid="dd2118c7-f8b0-4dd0-bb6f-4e1eb93a21b2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Consolas" size="6"/>
+				</textElement>
+				<text><![CDATA[Selamat Menikmati]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="75" width="144" height="11" uuid="c01b9b74-4a1a-4049-bff8-1a0d6c50b50b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Consolas" size="6"/>
+				</textElement>
+				<text><![CDATA[Telp. +62 859-5489-5624]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="66" width="144" height="11" uuid="12859f53-4330-4572-881f-7e94d16c1d67"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Consolas" size="6"/>
+				</textElement>
+				<text><![CDATA[Made By Someone]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
