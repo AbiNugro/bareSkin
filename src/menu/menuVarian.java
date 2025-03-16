@@ -102,7 +102,7 @@ public class menuVarian extends javax.swing.JPanel {
 
         panelMain.setLayout(new java.awt.CardLayout());
 
-        panelView.setBackground(new java.awt.Color(255, 255, 255));
+        panelView.setBackground(new java.awt.Color(248, 231, 246));
 
         tblData.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         tblData.setModel(new javax.swing.table.DefaultTableModel(
