@@ -13,7 +13,7 @@ import menu.menuBahan;
  *
  * @author user
  */
-public class menuDashboard extends javax.swing.JFrame{
+public class menuDashboardAdmin extends javax.swing.JFrame{
 
     /**
      * Creates new form template
@@ -21,7 +21,7 @@ public class menuDashboard extends javax.swing.JFrame{
     
     private JLabel activeButton = null;
     
-    public menuDashboard() {
+    public menuDashboardAdmin() {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         
@@ -47,42 +47,52 @@ public class menuDashboard extends javax.swing.JFrame{
         jLabel2 = new javax.swing.JLabel();
         pnDashboard = new custom.PanelCustom();
         tDashboard = new javax.swing.JLabel();
-        panelCustom2 = new custom.PanelCustom();
+        Kdashboard = new custom.PanelCustom();
         iDashboardT = new javax.swing.JLabel();
         iDashboardG = new javax.swing.JLabel();
+        iDashboardH = new javax.swing.JLabel();
         pnProduct = new custom.PanelCustom();
         tProduct = new javax.swing.JLabel();
-        panelCustom5 = new custom.PanelCustom();
+        Kproduct = new custom.PanelCustom();
         iProductG = new javax.swing.JLabel();
         iProductT = new javax.swing.JLabel();
+        iProductH = new javax.swing.JLabel();
         pnMember = new custom.PanelCustom();
         tMember = new javax.swing.JLabel();
-        panelCustom7 = new custom.PanelCustom();
+        Kmember = new custom.PanelCustom();
         iMemberG = new javax.swing.JLabel();
         iMemberT = new javax.swing.JLabel();
+        iMemberH = new javax.swing.JLabel();
         pnKaryawan = new custom.PanelCustom();
         tKaryawan = new javax.swing.JLabel();
-        panelCustom9 = new custom.PanelCustom();
+        Kkaryawan = new custom.PanelCustom();
         iKaryawanG = new javax.swing.JLabel();
         iKaryawanT = new javax.swing.JLabel();
+        iKaryawanH = new javax.swing.JLabel();
         pnPenjualan = new custom.PanelCustom();
         tPenjualan = new javax.swing.JLabel();
-        panelCustom11 = new custom.PanelCustom();
+        Kpenjualan = new custom.PanelCustom();
         iPenjualanG = new javax.swing.JLabel();
         iPenjualanT = new javax.swing.JLabel();
+        iPenjualanH = new javax.swing.JLabel();
         pnPembelian = new custom.PanelCustom();
         tPembelian = new javax.swing.JLabel();
-        panelCustom13 = new custom.PanelCustom();
+        Kpembelian = new custom.PanelCustom();
         iPembelianG = new javax.swing.JLabel();
         iPembelianT = new javax.swing.JLabel();
+        iPembelianH = new javax.swing.JLabel();
         pnLaporan = new custom.PanelCustom();
         tLaporan = new javax.swing.JLabel();
-        panelCustom15 = new custom.PanelCustom();
+        Klaporan = new custom.PanelCustom();
         iLaporanG = new javax.swing.JLabel();
         iLaporanT = new javax.swing.JLabel();
-        pnLaporan1 = new custom.PanelCustom();
-        tLaporan1 = new javax.swing.JLabel();
-        panelCustom16 = new custom.PanelCustom();
+        iLaporanH = new javax.swing.JLabel();
+        pnLogout = new custom.PanelCustom();
+        tLogout = new javax.swing.JLabel();
+        Klogout = new custom.PanelCustom();
+        iLogoutG = new javax.swing.JLabel();
+        iLogoutT = new javax.swing.JLabel();
+        iLogoutH = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         pn_utama = new javax.swing.JPanel();
 
@@ -121,30 +131,33 @@ public class menuDashboard extends javax.swing.JFrame{
         tDashboard.setText("Dashboard");
         pnDashboard.add(tDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, -1, -1));
 
-        panelCustom2.setBackground(new java.awt.Color(221, 136, 207));
-        panelCustom2.setRoundBottomLeft(10);
-        panelCustom2.setRoundBottomRight(10);
-        panelCustom2.setRoundTopLeft(10);
-        panelCustom2.setRoundTopRight(10);
+        Kdashboard.setBackground(new java.awt.Color(221, 136, 207));
+        Kdashboard.setRoundBottomLeft(10);
+        Kdashboard.setRoundBottomRight(10);
+        Kdashboard.setRoundTopLeft(10);
+        Kdashboard.setRoundTopRight(10);
 
-        javax.swing.GroupLayout panelCustom2Layout = new javax.swing.GroupLayout(panelCustom2);
-        panelCustom2.setLayout(panelCustom2Layout);
-        panelCustom2Layout.setHorizontalGroup(
-            panelCustom2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout KdashboardLayout = new javax.swing.GroupLayout(Kdashboard);
+        Kdashboard.setLayout(KdashboardLayout);
+        KdashboardLayout.setHorizontalGroup(
+            KdashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 13, Short.MAX_VALUE)
         );
-        panelCustom2Layout.setVerticalGroup(
-            panelCustom2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        KdashboardLayout.setVerticalGroup(
+            KdashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 60, Short.MAX_VALUE)
         );
 
-        pnDashboard.add(panelCustom2, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 6, -1, -1));
+        pnDashboard.add(Kdashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 6, -1, -1));
 
         iDashboardT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Dashboard T (1).png"))); // NOI18N
         pnDashboard.add(iDashboardT, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 18, -1, -1));
 
         iDashboardG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Dashboard G (1).png"))); // NOI18N
         pnDashboard.add(iDashboardG, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 18, -1, -1));
+
+        iDashboardH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Dashboard H.png"))); // NOI18N
+        pnDashboard.add(iDashboardH, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 18, -1, -1));
 
         pn_kiri.add(pnDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 240, 70));
 
@@ -172,30 +185,33 @@ public class menuDashboard extends javax.swing.JFrame{
         tProduct.setText("Product");
         pnProduct.add(tProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, -1, -1));
 
-        panelCustom5.setBackground(new java.awt.Color(221, 136, 207));
-        panelCustom5.setRoundBottomLeft(10);
-        panelCustom5.setRoundBottomRight(10);
-        panelCustom5.setRoundTopLeft(10);
-        panelCustom5.setRoundTopRight(10);
+        Kproduct.setBackground(new java.awt.Color(221, 136, 207));
+        Kproduct.setRoundBottomLeft(10);
+        Kproduct.setRoundBottomRight(10);
+        Kproduct.setRoundTopLeft(10);
+        Kproduct.setRoundTopRight(10);
 
-        javax.swing.GroupLayout panelCustom5Layout = new javax.swing.GroupLayout(panelCustom5);
-        panelCustom5.setLayout(panelCustom5Layout);
-        panelCustom5Layout.setHorizontalGroup(
-            panelCustom5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout KproductLayout = new javax.swing.GroupLayout(Kproduct);
+        Kproduct.setLayout(KproductLayout);
+        KproductLayout.setHorizontalGroup(
+            KproductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 13, Short.MAX_VALUE)
         );
-        panelCustom5Layout.setVerticalGroup(
-            panelCustom5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        KproductLayout.setVerticalGroup(
+            KproductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 60, Short.MAX_VALUE)
         );
 
-        pnProduct.add(panelCustom5, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 6, -1, 60));
+        pnProduct.add(Kproduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 6, -1, 60));
 
         iProductG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Product G.png"))); // NOI18N
         pnProduct.add(iProductG, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
         iProductT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Product T.png"))); // NOI18N
         pnProduct.add(iProductT, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+
+        iProductH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Product H.png"))); // NOI18N
+        pnProduct.add(iProductH, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
         pn_kiri.add(pnProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 240, 70));
 
@@ -223,30 +239,33 @@ public class menuDashboard extends javax.swing.JFrame{
         tMember.setText("Member");
         pnMember.add(tMember, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 17, -1, -1));
 
-        panelCustom7.setBackground(new java.awt.Color(221, 136, 207));
-        panelCustom7.setRoundBottomLeft(10);
-        panelCustom7.setRoundBottomRight(10);
-        panelCustom7.setRoundTopLeft(10);
-        panelCustom7.setRoundTopRight(10);
+        Kmember.setBackground(new java.awt.Color(221, 136, 207));
+        Kmember.setRoundBottomLeft(10);
+        Kmember.setRoundBottomRight(10);
+        Kmember.setRoundTopLeft(10);
+        Kmember.setRoundTopRight(10);
 
-        javax.swing.GroupLayout panelCustom7Layout = new javax.swing.GroupLayout(panelCustom7);
-        panelCustom7.setLayout(panelCustom7Layout);
-        panelCustom7Layout.setHorizontalGroup(
-            panelCustom7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout KmemberLayout = new javax.swing.GroupLayout(Kmember);
+        Kmember.setLayout(KmemberLayout);
+        KmemberLayout.setHorizontalGroup(
+            KmemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 13, Short.MAX_VALUE)
         );
-        panelCustom7Layout.setVerticalGroup(
-            panelCustom7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        KmemberLayout.setVerticalGroup(
+            KmemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 60, Short.MAX_VALUE)
         );
 
-        pnMember.add(panelCustom7, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 6, -1, -1));
+        pnMember.add(Kmember, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 6, -1, -1));
 
         iMemberG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Member G (1).png"))); // NOI18N
         pnMember.add(iMemberG, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
         iMemberT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Member T.png"))); // NOI18N
         pnMember.add(iMemberT, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+
+        iMemberH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Member H (1).png"))); // NOI18N
+        pnMember.add(iMemberH, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
         pn_kiri.add(pnMember, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 240, 70));
 
@@ -274,30 +293,33 @@ public class menuDashboard extends javax.swing.JFrame{
         tKaryawan.setText("Karyawan");
         pnKaryawan.add(tKaryawan, new org.netbeans.lib.awtextra.AbsoluteConstraints(89, 16, -1, -1));
 
-        panelCustom9.setBackground(new java.awt.Color(221, 136, 207));
-        panelCustom9.setRoundBottomLeft(10);
-        panelCustom9.setRoundBottomRight(10);
-        panelCustom9.setRoundTopLeft(10);
-        panelCustom9.setRoundTopRight(10);
+        Kkaryawan.setBackground(new java.awt.Color(221, 136, 207));
+        Kkaryawan.setRoundBottomLeft(10);
+        Kkaryawan.setRoundBottomRight(10);
+        Kkaryawan.setRoundTopLeft(10);
+        Kkaryawan.setRoundTopRight(10);
 
-        javax.swing.GroupLayout panelCustom9Layout = new javax.swing.GroupLayout(panelCustom9);
-        panelCustom9.setLayout(panelCustom9Layout);
-        panelCustom9Layout.setHorizontalGroup(
-            panelCustom9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout KkaryawanLayout = new javax.swing.GroupLayout(Kkaryawan);
+        Kkaryawan.setLayout(KkaryawanLayout);
+        KkaryawanLayout.setHorizontalGroup(
+            KkaryawanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 13, Short.MAX_VALUE)
         );
-        panelCustom9Layout.setVerticalGroup(
-            panelCustom9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        KkaryawanLayout.setVerticalGroup(
+            KkaryawanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 60, Short.MAX_VALUE)
         );
 
-        pnKaryawan.add(panelCustom9, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 6, -1, -1));
+        pnKaryawan.add(Kkaryawan, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 6, -1, -1));
 
         iKaryawanG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Karyawan G.png"))); // NOI18N
         pnKaryawan.add(iKaryawanG, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
         iKaryawanT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Karyawan T.png"))); // NOI18N
         pnKaryawan.add(iKaryawanT, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+
+        iKaryawanH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Member H.png"))); // NOI18N
+        pnKaryawan.add(iKaryawanH, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
         pn_kiri.add(pnKaryawan, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 240, 70));
 
@@ -325,30 +347,33 @@ public class menuDashboard extends javax.swing.JFrame{
         tPenjualan.setText("Penjualan");
         pnPenjualan.add(tPenjualan, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 18, -1, -1));
 
-        panelCustom11.setBackground(new java.awt.Color(221, 136, 207));
-        panelCustom11.setRoundBottomLeft(10);
-        panelCustom11.setRoundBottomRight(10);
-        panelCustom11.setRoundTopLeft(10);
-        panelCustom11.setRoundTopRight(10);
+        Kpenjualan.setBackground(new java.awt.Color(221, 136, 207));
+        Kpenjualan.setRoundBottomLeft(10);
+        Kpenjualan.setRoundBottomRight(10);
+        Kpenjualan.setRoundTopLeft(10);
+        Kpenjualan.setRoundTopRight(10);
 
-        javax.swing.GroupLayout panelCustom11Layout = new javax.swing.GroupLayout(panelCustom11);
-        panelCustom11.setLayout(panelCustom11Layout);
-        panelCustom11Layout.setHorizontalGroup(
-            panelCustom11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout KpenjualanLayout = new javax.swing.GroupLayout(Kpenjualan);
+        Kpenjualan.setLayout(KpenjualanLayout);
+        KpenjualanLayout.setHorizontalGroup(
+            KpenjualanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 13, Short.MAX_VALUE)
         );
-        panelCustom11Layout.setVerticalGroup(
-            panelCustom11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        KpenjualanLayout.setVerticalGroup(
+            KpenjualanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 60, Short.MAX_VALUE)
         );
 
-        pnPenjualan.add(panelCustom11, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 6, -1, -1));
+        pnPenjualan.add(Kpenjualan, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 6, -1, -1));
 
         iPenjualanG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Penjualan G (1).png"))); // NOI18N
         pnPenjualan.add(iPenjualanG, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
         iPenjualanT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Penjualan T.png"))); // NOI18N
         pnPenjualan.add(iPenjualanT, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+
+        iPenjualanH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Penjualan H.png"))); // NOI18N
+        pnPenjualan.add(iPenjualanH, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
         pn_kiri.add(pnPenjualan, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, 240, 70));
 
@@ -376,30 +401,33 @@ public class menuDashboard extends javax.swing.JFrame{
         tPembelian.setText("Pembelian");
         pnPembelian.add(tPembelian, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 18, -1, -1));
 
-        panelCustom13.setBackground(new java.awt.Color(221, 136, 207));
-        panelCustom13.setRoundBottomLeft(10);
-        panelCustom13.setRoundBottomRight(10);
-        panelCustom13.setRoundTopLeft(10);
-        panelCustom13.setRoundTopRight(10);
+        Kpembelian.setBackground(new java.awt.Color(221, 136, 207));
+        Kpembelian.setRoundBottomLeft(10);
+        Kpembelian.setRoundBottomRight(10);
+        Kpembelian.setRoundTopLeft(10);
+        Kpembelian.setRoundTopRight(10);
 
-        javax.swing.GroupLayout panelCustom13Layout = new javax.swing.GroupLayout(panelCustom13);
-        panelCustom13.setLayout(panelCustom13Layout);
-        panelCustom13Layout.setHorizontalGroup(
-            panelCustom13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout KpembelianLayout = new javax.swing.GroupLayout(Kpembelian);
+        Kpembelian.setLayout(KpembelianLayout);
+        KpembelianLayout.setHorizontalGroup(
+            KpembelianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 13, Short.MAX_VALUE)
         );
-        panelCustom13Layout.setVerticalGroup(
-            panelCustom13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        KpembelianLayout.setVerticalGroup(
+            KpembelianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 60, Short.MAX_VALUE)
         );
 
-        pnPembelian.add(panelCustom13, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 6, -1, -1));
+        pnPembelian.add(Kpembelian, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 6, -1, -1));
 
         iPembelianG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Pembelian G (1).png"))); // NOI18N
         pnPembelian.add(iPembelianG, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
         iPembelianT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Pembelian T.png"))); // NOI18N
         pnPembelian.add(iPembelianT, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+
+        iPembelianH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Pembelian H.png"))); // NOI18N
+        pnPembelian.add(iPembelianH, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
         pn_kiri.add(pnPembelian, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 600, 240, 70));
 
@@ -427,24 +455,24 @@ public class menuDashboard extends javax.swing.JFrame{
         tLaporan.setText("Laporan");
         pnLaporan.add(tLaporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(89, 17, -1, -1));
 
-        panelCustom15.setBackground(new java.awt.Color(221, 136, 207));
-        panelCustom15.setRoundBottomLeft(10);
-        panelCustom15.setRoundBottomRight(10);
-        panelCustom15.setRoundTopLeft(10);
-        panelCustom15.setRoundTopRight(10);
+        Klaporan.setBackground(new java.awt.Color(221, 136, 207));
+        Klaporan.setRoundBottomLeft(10);
+        Klaporan.setRoundBottomRight(10);
+        Klaporan.setRoundTopLeft(10);
+        Klaporan.setRoundTopRight(10);
 
-        javax.swing.GroupLayout panelCustom15Layout = new javax.swing.GroupLayout(panelCustom15);
-        panelCustom15.setLayout(panelCustom15Layout);
-        panelCustom15Layout.setHorizontalGroup(
-            panelCustom15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout KlaporanLayout = new javax.swing.GroupLayout(Klaporan);
+        Klaporan.setLayout(KlaporanLayout);
+        KlaporanLayout.setHorizontalGroup(
+            KlaporanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 13, Short.MAX_VALUE)
         );
-        panelCustom15Layout.setVerticalGroup(
-            panelCustom15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        KlaporanLayout.setVerticalGroup(
+            KlaporanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 60, Short.MAX_VALUE)
         );
 
-        pnLaporan.add(panelCustom15, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 6, -1, -1));
+        pnLaporan.add(Klaporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 6, -1, -1));
 
         iLaporanG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Laporan G (1).png"))); // NOI18N
         pnLaporan.add(iLaporanG, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
@@ -452,52 +480,64 @@ public class menuDashboard extends javax.swing.JFrame{
         iLaporanT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Laporan T (1).png"))); // NOI18N
         pnLaporan.add(iLaporanT, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
+        iLaporanH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Laporan H.png"))); // NOI18N
+        pnLaporan.add(iLaporanH, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+
         pn_kiri.add(pnLaporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 690, 240, 70));
 
-        pnLaporan1.setBackground(new java.awt.Color(221, 136, 207));
-        pnLaporan1.setRoundBottomLeft(10);
-        pnLaporan1.setRoundBottomRight(40);
-        pnLaporan1.setRoundTopLeft(10);
-        pnLaporan1.setRoundTopRight(10);
-        pnLaporan1.addMouseListener(new java.awt.event.MouseAdapter() {
+        pnLogout.setBackground(new java.awt.Color(221, 136, 207));
+        pnLogout.setRoundBottomLeft(10);
+        pnLogout.setRoundBottomRight(40);
+        pnLogout.setRoundTopLeft(10);
+        pnLogout.setRoundTopRight(10);
+        pnLogout.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pnLaporan1MouseClicked(evt);
+                pnLogoutMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                pnLaporan1MouseEntered(evt);
+                pnLogoutMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                pnLaporan1MouseExited(evt);
+                pnLogoutMouseExited(evt);
             }
         });
-        pnLaporan1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnLogout.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tLaporan1.setBackground(new java.awt.Color(245, 245, 245));
-        tLaporan1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
-        tLaporan1.setForeground(new java.awt.Color(75, 22, 76));
-        tLaporan1.setText("Log Out");
-        pnLaporan1.add(tLaporan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(89, 17, -1, -1));
+        tLogout.setBackground(new java.awt.Color(245, 245, 245));
+        tLogout.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        tLogout.setForeground(new java.awt.Color(75, 22, 76));
+        tLogout.setText("Log Out");
+        pnLogout.add(tLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(89, 17, -1, -1));
 
-        panelCustom16.setBackground(new java.awt.Color(221, 136, 207));
-        panelCustom16.setRoundBottomLeft(10);
-        panelCustom16.setRoundBottomRight(10);
-        panelCustom16.setRoundTopLeft(10);
-        panelCustom16.setRoundTopRight(10);
+        Klogout.setBackground(new java.awt.Color(221, 136, 207));
+        Klogout.setRoundBottomLeft(10);
+        Klogout.setRoundBottomRight(10);
+        Klogout.setRoundTopLeft(10);
+        Klogout.setRoundTopRight(10);
 
-        javax.swing.GroupLayout panelCustom16Layout = new javax.swing.GroupLayout(panelCustom16);
-        panelCustom16.setLayout(panelCustom16Layout);
-        panelCustom16Layout.setHorizontalGroup(
-            panelCustom16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout KlogoutLayout = new javax.swing.GroupLayout(Klogout);
+        Klogout.setLayout(KlogoutLayout);
+        KlogoutLayout.setHorizontalGroup(
+            KlogoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 13, Short.MAX_VALUE)
         );
-        panelCustom16Layout.setVerticalGroup(
-            panelCustom16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        KlogoutLayout.setVerticalGroup(
+            KlogoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 60, Short.MAX_VALUE)
         );
 
-        pnLaporan1.add(panelCustom16, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 6, -1, -1));
+        pnLogout.add(Klogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 6, -1, -1));
 
-        pn_kiri.add(pnLaporan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 930, 240, 70));
+        iLogoutG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Logout G (2).png"))); // NOI18N
+        pnLogout.add(iLogoutG, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+
+        iLogoutT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Logout T (1).png"))); // NOI18N
+        pnLogout.add(iLogoutT, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+
+        iLogoutH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Logout H.png"))); // NOI18N
+        pnLogout.add(iLogoutH, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+
+        pn_kiri.add(pnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 930, 240, 70));
 
         getContentPane().add(pn_kiri, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 1020));
 
@@ -534,7 +574,7 @@ public class menuDashboard extends javax.swing.JFrame{
         tProduct.setForeground(new Color(245,245,245));
         iProductG.setVisible(false);
         iProductT.setVisible(true);
-        
+        Kproduct.setBackground(new Color(221,136,207));
         
         pn_utama.removeAll();
         pn_utama.add(new menu.menuBahan());
@@ -550,6 +590,7 @@ public class menuDashboard extends javax.swing.JFrame{
         tDashboard.setForeground(new Color(245,245,245));
         iDashboardG.setVisible(false);
         iDashboardT.setVisible(true);
+        Kdashboard.setBackground(new Color(221,136,207));
         
         pn_utama.removeAll();
         pn_utama.add(new menu.menuVarian());
@@ -561,10 +602,11 @@ public class menuDashboard extends javax.swing.JFrame{
 
     private void pnProductMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnProductMouseEntered
         if (activeButton != tProduct) { 
-        pnProduct.setBackground(new Color(75,23,107));
-        tProduct.setForeground(new Color(245,245,245));
+        Kproduct.setBackground(new Color(75,23,107));
+        pnProduct.setBackground(new Color(245,245,245));
+        iProductT.setVisible(false);
         iProductG.setVisible(false);
-        iProductT.setVisible(true);
+        iProductH.setVisible(true);
         }
     }//GEN-LAST:event_pnProductMouseEntered
 
@@ -574,15 +616,17 @@ public class menuDashboard extends javax.swing.JFrame{
         tProduct.setForeground(new Color(75,22,76));
         iProductT.setVisible(false);
         iProductG.setVisible(true);
+        Kproduct.setBackground(new Color(221,136,207));
         }
     }//GEN-LAST:event_pnProductMouseExited
 
     private void pnDashboardMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnDashboardMouseEntered
         if (activeButton != tDashboard) { 
-        pnDashboard.setBackground(new Color(75,23,107));
-        tDashboard.setForeground(new Color(245,245,245));
+        Kdashboard.setBackground(new Color(75,23,107));
+        pnDashboard.setBackground(new Color(245,245,245));
+        iDashboardT.setVisible(false);
         iDashboardG.setVisible(false);
-        iDashboardT.setVisible(true);
+        iDashboardH.setVisible(true);
         }
     }//GEN-LAST:event_pnDashboardMouseEntered
 
@@ -592,6 +636,7 @@ public class menuDashboard extends javax.swing.JFrame{
         tDashboard.setForeground(new Color(75,22,76));
         iDashboardT.setVisible(false);
         iDashboardG.setVisible(true);
+        Kdashboard.setBackground(new Color(221,136,207));
         }
     }//GEN-LAST:event_pnDashboardMouseExited
 
@@ -601,6 +646,7 @@ public class menuDashboard extends javax.swing.JFrame{
         tMember.setForeground(new Color(245,245,245));
         iMemberG.setVisible(false);
         iMemberT.setVisible(true);
+        Kmember.setBackground(new Color(221,136,207));
         
         pn_utama.removeAll();
         pn_utama.add(new menu.menuBahan());
@@ -612,10 +658,11 @@ public class menuDashboard extends javax.swing.JFrame{
 
     private void pnMemberMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnMemberMouseEntered
         if (activeButton != tMember) { 
-        pnMember.setBackground(new Color(75,23,107));
-        tMember.setForeground(new Color(245,245,245));
+        Kmember.setBackground(new Color(75,23,107));
+        pnMember.setBackground(new Color(245,245,245));
+        iMemberT.setVisible(false);
         iMemberG.setVisible(false);
-        iMemberT.setVisible(true);
+        iMemberH.setVisible(true);
         }
     }//GEN-LAST:event_pnMemberMouseEntered
 
@@ -623,6 +670,7 @@ public class menuDashboard extends javax.swing.JFrame{
         if (activeButton != tMember) { 
         pnMember.setBackground(new Color(221,136,207));
         tMember.setForeground(new Color(75,22,76));
+        Kmember.setBackground(new Color(221,136,207));
         iMemberT.setVisible(false);
         iMemberG.setVisible(true);
         }
@@ -634,6 +682,7 @@ public class menuDashboard extends javax.swing.JFrame{
         tKaryawan.setForeground(new Color(245,245,245));
         iKaryawanG.setVisible(false);
         iKaryawanT.setVisible(true);
+        Kkaryawan.setBackground(new Color(221,136,207));
         
         pn_utama.removeAll();
         pn_utama.add(new menu.menuBahan());
@@ -645,10 +694,11 @@ public class menuDashboard extends javax.swing.JFrame{
 
     private void pnKaryawanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnKaryawanMouseEntered
         if (activeButton != tKaryawan) { 
-        pnKaryawan.setBackground(new Color(75,23,107));
-        tKaryawan.setForeground(new Color(245,245,245));
+        Kkaryawan.setBackground(new Color(75,23,107));
+        pnKaryawan.setBackground(new Color(245,245,245));
+        iKaryawanT.setVisible(false);
         iKaryawanG.setVisible(false);
-        iKaryawanT.setVisible(true);
+        iKaryawanH.setVisible(true);
         }
     }//GEN-LAST:event_pnKaryawanMouseEntered
 
@@ -656,6 +706,7 @@ public class menuDashboard extends javax.swing.JFrame{
         if (activeButton != tKaryawan) { 
         pnKaryawan.setBackground(new Color(221,136,207));
         tKaryawan.setForeground(new Color(75,22,76));
+        Kkaryawan.setBackground(new Color(221,136,207));
         iKaryawanT.setVisible(false);
         iKaryawanG.setVisible(true);
         }
@@ -667,6 +718,7 @@ public class menuDashboard extends javax.swing.JFrame{
         tPenjualan.setForeground(new Color(245,245,245));
         iPenjualanG.setVisible(false);
         iPenjualanT.setVisible(true);
+        Kpenjualan.setBackground(new Color(221,136,207));
         
         pn_utama.removeAll();
         pn_utama.add(new menu.menuBahan());
@@ -678,10 +730,11 @@ public class menuDashboard extends javax.swing.JFrame{
 
     private void pnPenjualanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnPenjualanMouseEntered
         if (activeButton != tPenjualan) { 
-        pnPenjualan.setBackground(new Color(75,23,107));
-        tPenjualan.setForeground(new Color(245,245,245));
+        Kpenjualan.setBackground(new Color(75,23,107));
+        pnPenjualan.setBackground(new Color(245,245,245));
+        iPenjualanT.setVisible(false);
         iPenjualanG.setVisible(false);
-        iPenjualanT.setVisible(true);
+        iPenjualanH.setVisible(true);
         }
     }//GEN-LAST:event_pnPenjualanMouseEntered
 
@@ -689,6 +742,7 @@ public class menuDashboard extends javax.swing.JFrame{
         if (activeButton != tPenjualan) { 
         pnPenjualan.setBackground(new Color(221,136,207));
         tPenjualan.setForeground(new Color(75,22,76));
+        Kpenjualan.setBackground(new Color(221,136,207));
         iPenjualanT.setVisible(false);
         iPenjualanG.setVisible(true);
         }
@@ -700,6 +754,7 @@ public class menuDashboard extends javax.swing.JFrame{
         tPembelian.setForeground(new Color(245,245,245));
         iPembelianG.setVisible(false);
         iPembelianT.setVisible(true);
+        Kpembelian.setBackground(new Color(221,136,207));
         
         pn_utama.removeAll();
         pn_utama.add(new menu.menuBahan());
@@ -711,10 +766,11 @@ public class menuDashboard extends javax.swing.JFrame{
 
     private void pnPembelianMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnPembelianMouseEntered
         if (activeButton != tPembelian) { 
-        pnPembelian.setBackground(new Color(75,23,107));
-        tPembelian.setForeground(new Color(245,245,245));
+        Kpembelian.setBackground(new Color(75,23,107));
+        pnPembelian.setBackground(new Color(245,245,245));
+        iPembelianT.setVisible(false);
         iPembelianG.setVisible(false);
-        iPembelianT.setVisible(true);
+        iPembelianH.setVisible(true);
         }
     }//GEN-LAST:event_pnPembelianMouseEntered
 
@@ -722,6 +778,7 @@ public class menuDashboard extends javax.swing.JFrame{
         if (activeButton != tPembelian) { 
         pnPembelian.setBackground(new Color(221,136,207));
         tPembelian.setForeground(new Color(75,22,76));
+        Kpembelian.setBackground(new Color(221,136,207));
         iPembelianT.setVisible(false);
         iPembelianG.setVisible(true);
         }
@@ -733,6 +790,7 @@ public class menuDashboard extends javax.swing.JFrame{
         tLaporan.setForeground(new Color(245,245,245));
         iLaporanG.setVisible(false);
         iLaporanT.setVisible(true);
+        Klaporan.setBackground(new Color(221,136,207));
 
         pn_utama.removeAll();
         pn_utama.add(new menu.menuBahan());
@@ -744,10 +802,11 @@ public class menuDashboard extends javax.swing.JFrame{
 
     private void pnLaporanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnLaporanMouseEntered
         if (activeButton != tLaporan) { 
-        pnLaporan.setBackground(new Color(75,23,107));
-        tLaporan.setForeground(new Color(245,245,245));
+        Klaporan.setBackground(new Color(75,23,107));
+        pnLaporan.setBackground(new Color(245,245,245));
+        iLaporanT.setVisible(false);
         iLaporanG.setVisible(false);
-        iLaporanT.setVisible(true);
+        iLaporanH.setVisible(true);
         }
     }//GEN-LAST:event_pnLaporanMouseEntered
 
@@ -755,22 +814,47 @@ public class menuDashboard extends javax.swing.JFrame{
         if (activeButton != tLaporan) { 
         pnLaporan.setBackground(new Color(221,136,207));
         tLaporan.setForeground(new Color(75,22,76));
+        Klaporan.setBackground(new Color(221,136,207));
         iLaporanT.setVisible(false);
         iLaporanG.setVisible(true);
         }
     }//GEN-LAST:event_pnLaporanMouseExited
 
-    private void pnLaporan1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnLaporan1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pnLaporan1MouseClicked
+    private void pnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnLogoutMouseClicked
+        resetButtonStyles();
+        pnLogout.setBackground(new Color(75,22,76));
+        tLogout.setForeground(new Color(245,245,245));
+        iLogoutG.setVisible(false);
+        iLogoutT.setVisible(true);
+        Klogout.setBackground(new Color(221,136,207));
 
-    private void pnLaporan1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnLaporan1MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pnLaporan1MouseEntered
+        pn_utama.removeAll();
+        pn_utama.add(new menu.menuBahan());
+        pn_utama.repaint();
+        pn_utama.revalidate();
+        
+        activeButton = tLogout;
+    }//GEN-LAST:event_pnLogoutMouseClicked
 
-    private void pnLaporan1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnLaporan1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pnLaporan1MouseExited
+    private void pnLogoutMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnLogoutMouseEntered
+        if (activeButton != tLogout) { 
+        Klogout.setBackground(new Color(75,23,107));
+        pnLogout.setBackground(new Color(245,245,245));
+        iLogoutT.setVisible(false);
+        iLogoutG.setVisible(false);
+        iLogoutH.setVisible(true);
+        }
+    }//GEN-LAST:event_pnLogoutMouseEntered
+
+    private void pnLogoutMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnLogoutMouseExited
+        if (activeButton != tLogout) { 
+        pnLogout.setBackground(new Color(221,136,207));
+        tLogout.setForeground(new Color(75,22,76));
+        Klogout.setBackground(new Color(221,136,207));
+        iLogoutT.setVisible(false);
+        iLogoutG.setVisible(true);
+        }
+    }//GEN-LAST:event_pnLogoutMouseExited
 
     /**
      * @param args the command line arguments
@@ -789,55 +873,67 @@ public class menuDashboard extends javax.swing.JFrame{
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(menuDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(menuDashboardAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(menuDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(menuDashboardAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(menuDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(menuDashboardAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(menuDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(menuDashboardAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new menuDashboard().setVisible(true);
+                new menuDashboardAdmin().setVisible(true);
                 
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private custom.PanelCustom Kdashboard;
+    private custom.PanelCustom Kkaryawan;
+    private custom.PanelCustom Klaporan;
+    private custom.PanelCustom Klogout;
+    private custom.PanelCustom Kmember;
+    private custom.PanelCustom Kpembelian;
+    private custom.PanelCustom Kpenjualan;
+    private custom.PanelCustom Kproduct;
     private javax.swing.JLabel iDashboardG;
+    private javax.swing.JLabel iDashboardH;
     private javax.swing.JLabel iDashboardT;
     private javax.swing.JLabel iKaryawanG;
+    private javax.swing.JLabel iKaryawanH;
     private javax.swing.JLabel iKaryawanT;
     private javax.swing.JLabel iLaporanG;
+    private javax.swing.JLabel iLaporanH;
     private javax.swing.JLabel iLaporanT;
+    private javax.swing.JLabel iLogoutG;
+    private javax.swing.JLabel iLogoutH;
+    private javax.swing.JLabel iLogoutT;
     private javax.swing.JLabel iMemberG;
+    private javax.swing.JLabel iMemberH;
     private javax.swing.JLabel iMemberT;
     private javax.swing.JLabel iPembelianG;
+    private javax.swing.JLabel iPembelianH;
     private javax.swing.JLabel iPembelianT;
     private javax.swing.JLabel iPenjualanG;
+    private javax.swing.JLabel iPenjualanH;
     private javax.swing.JLabel iPenjualanT;
     private javax.swing.JLabel iProductG;
+    private javax.swing.JLabel iProductH;
     private javax.swing.JLabel iProductT;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private custom.PanelCustom panelCustom11;
-    private custom.PanelCustom panelCustom13;
-    private custom.PanelCustom panelCustom15;
-    private custom.PanelCustom panelCustom16;
-    private custom.PanelCustom panelCustom2;
-    private custom.PanelCustom panelCustom5;
-    private custom.PanelCustom panelCustom7;
-    private custom.PanelCustom panelCustom9;
     private custom.PanelCustom pnDashboard;
     private custom.PanelCustom pnKaryawan;
     private custom.PanelCustom pnLaporan;
-    private custom.PanelCustom pnLaporan1;
+    private custom.PanelCustom pnLogout;
     private custom.PanelCustom pnMember;
     private custom.PanelCustom pnPembelian;
     private custom.PanelCustom pnPenjualan;
@@ -847,7 +943,7 @@ public class menuDashboard extends javax.swing.JFrame{
     private javax.swing.JLabel tDashboard;
     private javax.swing.JLabel tKaryawan;
     private javax.swing.JLabel tLaporan;
-    private javax.swing.JLabel tLaporan1;
+    private javax.swing.JLabel tLogout;
     private javax.swing.JLabel tMember;
     private javax.swing.JLabel tPembelian;
     private javax.swing.JLabel tPenjualan;
@@ -890,5 +986,10 @@ public class menuDashboard extends javax.swing.JFrame{
     tLaporan.setForeground(new Color(75,22,76));
     iLaporanT.setVisible(false);
     iLaporanG.setVisible(true);
+    
+    pnLogout.setBackground(new Color(221,136,207));
+    tLogout.setForeground(new Color(75,22,76));
+    iLogoutT.setVisible(false);
+    iLogoutG.setVisible(true);
     }
 }
