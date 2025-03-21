@@ -5,31 +5,33 @@
 package bareSkinDashboard;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 import menu.menuBahan;
 /**
  *
  * @author user
  */
-public class menuDashboardAdmin extends javax.swing.JFrame{
+public class menuDashboardAdmin1 extends javax.swing.JFrame{
 
     /**
      * Creates new form template
      */
     
     private JLabel activeButton = null;
-    private JPanel currentPanel;
     
-    public menuDashboardAdmin() {
+    public menuDashboardAdmin1() {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        switchPanel(new menu.menuVarian());
+        
         activeButton = tDashboard;
+        
+        pn_utama.removeAll();
+        pn_utama.add(new menu.menuVarian());
+        pn_utama.repaint();
+        pn_utama.revalidate();
+        iDashboardT.setVisible(true);
     }
 
     /**
@@ -567,138 +569,290 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
     }// </editor-fold>//GEN-END:initComponents
 
     private void pnProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnProductMouseClicked
-        setActiveButton(pnProduct, tProduct, iProductG, iProductT, Kproduct);
-        switchPanel(new menu.menuBahan());
+        resetButtonStyles();
+        pnProduct.setBackground(new Color(75,22,76));
+        tProduct.setForeground(new Color(245,245,245));
+        iProductG.setVisible(false);
+        iProductT.setVisible(true);
+        Kproduct.setBackground(new Color(221,136,207));
+        
+        pn_utama.removeAll();
+        pn_utama.add(new menu.menuBahan());
+        pn_utama.repaint();
+        pn_utama.revalidate();
+        
+        activeButton = tProduct;
     }//GEN-LAST:event_pnProductMouseClicked
 
     private void pnDashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnDashboardMouseClicked
-        setActiveButton(pnDashboard, tDashboard, iDashboardG, iDashboardT, Kdashboard);
-        switchPanel(new menu.menuVarian());
+        resetButtonStyles();
+        pnDashboard.setBackground(new Color(75,22,76));
+        tDashboard.setForeground(new Color(245,245,245));
+        iDashboardG.setVisible(false);
+        iDashboardT.setVisible(true);
+        Kdashboard.setBackground(new Color(221,136,207));
+        
+        pn_utama.removeAll();
+        pn_utama.add(new menu.menuVarian());
+        pn_utama.repaint();
+        pn_utama.revalidate();
+        
+        activeButton = tDashboard;
     }//GEN-LAST:event_pnDashboardMouseClicked
 
     private void pnProductMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnProductMouseEntered
-        if (activeButton != tProduct) {
-            setHoverStyle(pnProduct, tProduct, iProductG, iProductT, iProductH, Kproduct);
+        if (activeButton != tProduct) { 
+        Kproduct.setBackground(new Color(75,23,107));
+        pnProduct.setBackground(new Color(245,245,245));
+        iProductT.setVisible(false);
+        iProductG.setVisible(false);
+        iProductH.setVisible(true);
         }
     }//GEN-LAST:event_pnProductMouseEntered
 
     private void pnProductMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnProductMouseExited
-        if (activeButton != tProduct) {
-            resetStyle(pnProduct, tProduct, iProductG, iProductH, Kproduct);
+        if (activeButton != tProduct) { 
+        pnProduct.setBackground(new Color(221,136,207));
+        tProduct.setForeground(new Color(75,22,76));
+        iProductT.setVisible(false);
+        iProductG.setVisible(true);
+        Kproduct.setBackground(new Color(221,136,207));
         }
     }//GEN-LAST:event_pnProductMouseExited
 
     private void pnDashboardMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnDashboardMouseEntered
-        if (activeButton != tDashboard) {
-            setHoverStyle(pnDashboard, tDashboard, iDashboardG, iDashboardT, iDashboardH, Kdashboard);
+        if (activeButton != tDashboard) { 
+        Kdashboard.setBackground(new Color(75,23,107));
+        pnDashboard.setBackground(new Color(245,245,245));
+        iDashboardT.setVisible(false);
+        iDashboardG.setVisible(false);
+        iDashboardH.setVisible(true);
         }
     }//GEN-LAST:event_pnDashboardMouseEntered
 
     private void pnDashboardMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnDashboardMouseExited
-        if (activeButton != tDashboard) {
-            resetStyle(pnDashboard, tDashboard, iDashboardG, iDashboardH, Kdashboard);
+        if (activeButton != tDashboard) { 
+        pnDashboard.setBackground(new Color(221,136,207));
+        tDashboard.setForeground(new Color(75,22,76));
+        iDashboardT.setVisible(false);
+        iDashboardG.setVisible(true);
+        Kdashboard.setBackground(new Color(221,136,207));
         }
     }//GEN-LAST:event_pnDashboardMouseExited
 
     private void pnMemberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnMemberMouseClicked
-        setActiveButton(pnMember, tMember, iMemberG, iMemberT, Kmember);
-        switchPanel(new menu.menuVarian());
+        resetButtonStyles();
+        pnMember.setBackground(new Color(75,22,76));
+        tMember.setForeground(new Color(245,245,245));
+        iMemberG.setVisible(false);
+        iMemberT.setVisible(true);
+        Kmember.setBackground(new Color(221,136,207));
+        
+        pn_utama.removeAll();
+        pn_utama.add(new menu.menuBahan());
+        pn_utama.repaint();
+        pn_utama.revalidate();
+        
+        activeButton = tMember;
     }//GEN-LAST:event_pnMemberMouseClicked
 
     private void pnMemberMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnMemberMouseEntered
-        if (activeButton != tMember) {
-            setHoverStyle(pnMember, tMember, iMemberG, iMemberT, iMemberH, Kmember);
+        if (activeButton != tMember) { 
+        Kmember.setBackground(new Color(75,23,107));
+        pnMember.setBackground(new Color(245,245,245));
+        iMemberT.setVisible(false);
+        iMemberG.setVisible(false);
+        iMemberH.setVisible(true);
         }
     }//GEN-LAST:event_pnMemberMouseEntered
 
     private void pnMemberMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnMemberMouseExited
-        if (activeButton != tMember) {
-            resetStyle(pnMember, tMember, iMemberG, iMemberH, Kmember);
+        if (activeButton != tMember) { 
+        pnMember.setBackground(new Color(221,136,207));
+        tMember.setForeground(new Color(75,22,76));
+        Kmember.setBackground(new Color(221,136,207));
+        iMemberT.setVisible(false);
+        iMemberG.setVisible(true);
         }
     }//GEN-LAST:event_pnMemberMouseExited
 
     private void pnKaryawanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnKaryawanMouseClicked
-        setActiveButton(pnKaryawan, tKaryawan, iKaryawanG, iKaryawanT, Kkaryawan);
-        switchPanel(new menu.menuVarian());
+        resetButtonStyles();
+        pnKaryawan.setBackground(new Color(75,22,76));
+        tKaryawan.setForeground(new Color(245,245,245));
+        iKaryawanG.setVisible(false);
+        iKaryawanT.setVisible(true);
+        Kkaryawan.setBackground(new Color(221,136,207));
+        
+        pn_utama.removeAll();
+        pn_utama.add(new menu.menuBahan());
+        pn_utama.repaint();
+        pn_utama.revalidate();
+        
+        activeButton = tKaryawan;
     }//GEN-LAST:event_pnKaryawanMouseClicked
 
     private void pnKaryawanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnKaryawanMouseEntered
-        if (activeButton != tKaryawan) {
-            setHoverStyle(pnKaryawan, tKaryawan, iKaryawanG, iKaryawanT, iKaryawanH, Kkaryawan);
+        if (activeButton != tKaryawan) { 
+        Kkaryawan.setBackground(new Color(75,23,107));
+        pnKaryawan.setBackground(new Color(245,245,245));
+        iKaryawanT.setVisible(false);
+        iKaryawanG.setVisible(false);
+        iKaryawanH.setVisible(true);
         }
     }//GEN-LAST:event_pnKaryawanMouseEntered
 
     private void pnKaryawanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnKaryawanMouseExited
-        if (activeButton != tKaryawan) {
-            resetStyle(pnKaryawan, tKaryawan, iKaryawanG, iKaryawanH, Kkaryawan);
+        if (activeButton != tKaryawan) { 
+        pnKaryawan.setBackground(new Color(221,136,207));
+        tKaryawan.setForeground(new Color(75,22,76));
+        Kkaryawan.setBackground(new Color(221,136,207));
+        iKaryawanT.setVisible(false);
+        iKaryawanG.setVisible(true);
         }
     }//GEN-LAST:event_pnKaryawanMouseExited
 
     private void pnPenjualanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnPenjualanMouseClicked
-        setActiveButton(pnPenjualan, tPenjualan, iPenjualanG, iPenjualanT, Kpenjualan);
-        switchPanel(new menu.menuBahan());
+        resetButtonStyles();
+        pnPenjualan.setBackground(new Color(75,22,76));
+        tPenjualan.setForeground(new Color(245,245,245));
+        iPenjualanG.setVisible(false);
+        iPenjualanT.setVisible(true);
+        Kpenjualan.setBackground(new Color(221,136,207));
+        
+        pn_utama.removeAll();
+        pn_utama.add(new menu.menuBahan());
+        pn_utama.repaint();
+        pn_utama.revalidate();
+        
+        activeButton = tPenjualan;
     }//GEN-LAST:event_pnPenjualanMouseClicked
 
     private void pnPenjualanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnPenjualanMouseEntered
-        if (activeButton != tPenjualan) {
-            setHoverStyle(pnPenjualan, tPenjualan, iPenjualanG, iPenjualanT, iPenjualanH, Kpenjualan);
+        if (activeButton != tPenjualan) { 
+        Kpenjualan.setBackground(new Color(75,23,107));
+        pnPenjualan.setBackground(new Color(245,245,245));
+        iPenjualanT.setVisible(false);
+        iPenjualanG.setVisible(false);
+        iPenjualanH.setVisible(true);
         }
     }//GEN-LAST:event_pnPenjualanMouseEntered
 
     private void pnPenjualanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnPenjualanMouseExited
-        if (activeButton != tPenjualan) {
-            resetStyle(pnPenjualan, tPenjualan, iPenjualanG, iPenjualanH, Kpenjualan);
+        if (activeButton != tPenjualan) { 
+        pnPenjualan.setBackground(new Color(221,136,207));
+        tPenjualan.setForeground(new Color(75,22,76));
+        Kpenjualan.setBackground(new Color(221,136,207));
+        iPenjualanT.setVisible(false);
+        iPenjualanG.setVisible(true);
         }
     }//GEN-LAST:event_pnPenjualanMouseExited
 
     private void pnPembelianMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnPembelianMouseClicked
-        setActiveButton(pnPembelian, tPembelian, iPembelianG, iPembelianT, Kpembelian);
-        switchPanel(new menu.menuBahan());
+        resetButtonStyles();
+        pnPembelian.setBackground(new Color(75,22,76));
+        tPembelian.setForeground(new Color(245,245,245));
+        iPembelianG.setVisible(false);
+        iPembelianT.setVisible(true);
+        Kpembelian.setBackground(new Color(221,136,207));
+        
+        pn_utama.removeAll();
+        pn_utama.add(new menu.menuBahan());
+        pn_utama.repaint();
+        pn_utama.revalidate();
+        
+        activeButton = tPembelian;
     }//GEN-LAST:event_pnPembelianMouseClicked
 
     private void pnPembelianMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnPembelianMouseEntered
-        if (activeButton != tPembelian) {
-            setHoverStyle(pnPembelian, tPembelian, iPembelianG, iPembelianT, iPembelianH, Kpembelian);
+        if (activeButton != tPembelian) { 
+        Kpembelian.setBackground(new Color(75,23,107));
+        pnPembelian.setBackground(new Color(245,245,245));
+        iPembelianT.setVisible(false);
+        iPembelianG.setVisible(false);
+        iPembelianH.setVisible(true);
         }
     }//GEN-LAST:event_pnPembelianMouseEntered
 
     private void pnPembelianMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnPembelianMouseExited
-        if (activeButton != tPembelian) {
-            resetStyle(pnPembelian, tPembelian, iPembelianG, iPembelianH, Kpembelian);
+        if (activeButton != tPembelian) { 
+        pnPembelian.setBackground(new Color(221,136,207));
+        tPembelian.setForeground(new Color(75,22,76));
+        Kpembelian.setBackground(new Color(221,136,207));
+        iPembelianT.setVisible(false);
+        iPembelianG.setVisible(true);
         }
     }//GEN-LAST:event_pnPembelianMouseExited
 
     private void pnLaporanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnLaporanMouseClicked
-        setActiveButton(pnLaporan, tLaporan, iLaporanG, iLaporanT, Klaporan);
-        switchPanel(new menu.menuVarian());
+        resetButtonStyles();
+        pnLaporan.setBackground(new Color(75,22,76));
+        tLaporan.setForeground(new Color(245,245,245));
+        iLaporanG.setVisible(false);
+        iLaporanT.setVisible(true);
+        Klaporan.setBackground(new Color(221,136,207));
+
+        pn_utama.removeAll();
+        pn_utama.add(new menu.menuBahan());
+        pn_utama.repaint();
+        pn_utama.revalidate();
+        
+        activeButton = tLaporan;
     }//GEN-LAST:event_pnLaporanMouseClicked
 
     private void pnLaporanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnLaporanMouseEntered
-        if (activeButton != tLaporan) {
-            setHoverStyle(pnLaporan, tLaporan, iLaporanG, iLaporanT, iLaporanH, Klaporan);
+        if (activeButton != tLaporan) { 
+        Klaporan.setBackground(new Color(75,23,107));
+        pnLaporan.setBackground(new Color(245,245,245));
+        iLaporanT.setVisible(false);
+        iLaporanG.setVisible(false);
+        iLaporanH.setVisible(true);
         }
     }//GEN-LAST:event_pnLaporanMouseEntered
 
     private void pnLaporanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnLaporanMouseExited
-        if (activeButton != tLaporan) {
-            resetStyle(pnLaporan, tLaporan, iLaporanG, iLaporanH, Klaporan);
+        if (activeButton != tLaporan) { 
+        pnLaporan.setBackground(new Color(221,136,207));
+        tLaporan.setForeground(new Color(75,22,76));
+        Klaporan.setBackground(new Color(221,136,207));
+        iLaporanT.setVisible(false);
+        iLaporanG.setVisible(true);
         }
     }//GEN-LAST:event_pnLaporanMouseExited
 
     private void pnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnLogoutMouseClicked
-        setActiveButton(pnLogout, tLogout, iLogoutG, iLogoutT, Klogout);
-        switchPanel(new menu.menuBahan());
+        resetButtonStyles();
+        pnLogout.setBackground(new Color(75,22,76));
+        tLogout.setForeground(new Color(245,245,245));
+        iLogoutG.setVisible(false);
+        iLogoutT.setVisible(true);
+        Klogout.setBackground(new Color(221,136,207));
+
+        pn_utama.removeAll();
+        pn_utama.add(new menu.menuBahan());
+        pn_utama.repaint();
+        pn_utama.revalidate();
+        
+        activeButton = tLogout;
     }//GEN-LAST:event_pnLogoutMouseClicked
 
     private void pnLogoutMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnLogoutMouseEntered
-        if (activeButton != tLogout) {
-            setHoverStyle(pnLogout, tLogout, iLogoutG, iLogoutT, iLogoutH, Klogout);
+        if (activeButton != tLogout) { 
+        Klogout.setBackground(new Color(75,23,107));
+        pnLogout.setBackground(new Color(245,245,245));
+        iLogoutT.setVisible(false);
+        iLogoutG.setVisible(false);
+        iLogoutH.setVisible(true);
         }
     }//GEN-LAST:event_pnLogoutMouseEntered
 
     private void pnLogoutMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnLogoutMouseExited
-        if (activeButton != tLogout) {
-            resetStyle(pnLogout, tLogout, iLogoutG, iLogoutH, Klogout);
+        if (activeButton != tLogout) { 
+        pnLogout.setBackground(new Color(221,136,207));
+        tLogout.setForeground(new Color(75,22,76));
+        Klogout.setBackground(new Color(221,136,207));
+        iLogoutT.setVisible(false);
+        iLogoutG.setVisible(true);
         }
     }//GEN-LAST:event_pnLogoutMouseExited
 
@@ -719,14 +873,18 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(menuDashboardAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(menuDashboardAdmin1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(menuDashboardAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(menuDashboardAdmin1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(menuDashboardAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(menuDashboardAdmin1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(menuDashboardAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(menuDashboardAdmin1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -735,7 +893,7 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new menuDashboardAdmin().setVisible(true);
+                new menuDashboardAdmin1().setVisible(true);
                 
             }
         });
@@ -795,61 +953,48 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
     private javax.swing.JLabel tPenjualan;
     private javax.swing.JLabel tProduct;
     // End of variables declaration//GEN-END:variables
-     
-    private void setHoverStyle(JPanel panel, JLabel label, JLabel iconDefault1,JLabel iconDefault2, JLabel iconHover, JPanel navbar) {
-        panel.setBackground(new Color(245,245,245));
-        label.setForeground(new Color(75, 22, 76));
-        iconDefault1.setVisible(false);
-        iconDefault2.setVisible(false);
-        iconHover.setVisible(true);
-        navbar.setBackground(new Color(75, 22, 76));
-    }
-
-    private void resetStyle(JPanel panel, JLabel label, JLabel iconDefault, JLabel iconHover, JPanel navbar) {
-        panel.setBackground(new Color(221,136,207));
-        label.setForeground(new Color(75, 22, 76)); 
-        iconDefault.setVisible(true);
-        iconHover.setVisible(false);
-        navbar.setBackground(new Color(221,136,207)); // Mengembalikan warna border default
-    }
     
-    private void switchPanel(JPanel newPanel) {
-        if (currentPanel != null) {
-            pn_utama.remove(currentPanel);
-        }
-        currentPanel = newPanel;
-        pn_utama.add(currentPanel);
-        pn_utama.revalidate();
-        pn_utama.repaint();
-    }
-
     private void resetButtonStyles() {
-        // Reset semua tombol ke gaya default
-        resetButton(pnDashboard, tDashboard, iDashboardG, iDashboardT);
-        resetButton(pnProduct, tProduct, iProductG, iProductT);
-        resetButton(pnMember, tMember, iMemberG, iMemberT);
-        resetButton(pnKaryawan, tKaryawan, iKaryawanG, iKaryawanT);
-        resetButton(pnPenjualan, tPenjualan, iPenjualanG, iPenjualanT);
-        resetButton(pnPembelian, tPembelian, iPembelianG, iPembelianT);
-        resetButton(pnLaporan, tLaporan, iLaporanG, iLaporanT);
-        resetButton(pnLogout, tLogout, iLogoutG, iLogoutT);
-    }
+    // Reset warna tombol lain di sini
+    pnDashboard.setBackground(new Color(221,136,207));
+    tDashboard.setForeground(new Color(75,22,76));
+    iDashboardT.setVisible(false);
+    iDashboardG.setVisible(true);
 
-    private void resetButton(JPanel panel, JLabel label, JLabel iconDefault, JLabel iconActive) {
-        panel.setBackground(new Color(221, 136, 207));
-        label.setForeground(new Color(75, 22, 76));
-        iconActive.setVisible(false);
-        iconDefault.setVisible(true);
-    }
-
-    private void setActiveButton(JPanel panel, JLabel label, JLabel iconDefault, JLabel iconActive, JPanel Navbar) {
-        resetButtonStyles();
-        panel.setBackground(new Color(75, 22, 76));
-        label.setForeground(new Color(245, 245, 245));
-        iconActive.setVisible(true);
-        iconDefault.setVisible(false);
-        Navbar.setBackground(new Color(221, 136, 207)); 
-        activeButton = label;
+    pnProduct.setBackground(new Color(221,136,207));
+    tProduct.setForeground(new Color(75,22,76));
+    iProductT.setVisible(false);
+    iProductG.setVisible(true);
+    
+    pnMember.setBackground(new Color(221,136,207));
+    tMember.setForeground(new Color(75,22,76));
+    iMemberT.setVisible(false);
+    iMemberG.setVisible(true);
+    
+    pnKaryawan.setBackground(new Color(221,136,207));
+    tKaryawan.setForeground(new Color(75,22,76));
+    iKaryawanT.setVisible(false);
+    iKaryawanG.setVisible(true);
+    
+    pnPenjualan.setBackground(new Color(221,136,207));
+    tPenjualan.setForeground(new Color(75,22,76));
+    iPenjualanT.setVisible(false);
+    iPenjualanG.setVisible(true);
+    
+    pnPembelian.setBackground(new Color(221,136,207));
+    tPembelian.setForeground(new Color(75,22,76));
+    iPembelianT.setVisible(false);
+    iPembelianG.setVisible(true);
+    
+    pnLaporan.setBackground(new Color(221,136,207));
+    tLaporan.setForeground(new Color(75,22,76));
+    iLaporanT.setVisible(false);
+    iLaporanG.setVisible(true);
+    
+    pnLogout.setBackground(new Color(221,136,207));
+    tLogout.setForeground(new Color(75,22,76));
+    iLogoutT.setVisible(false);
+    iLogoutG.setVisible(true);
     }
     
 }
