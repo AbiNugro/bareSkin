@@ -53,7 +53,7 @@ public class JTextFieldRounded extends JTextField{
             border.setRound(round);
             textfield.setBorder (border);
             textfield.setOpaque(false);
-            textfield.setSelectionColor(new Color(255,51,255));
+            textfield.setSelectionColor(new Color(75,22,76));
             textfield.setSelectedTextColor(Color.WHITE);
             textfield.addFocusListener(new FocusAdapter () {
                 @Override
@@ -64,7 +64,7 @@ public class JTextFieldRounded extends JTextField{
 
                 @Override
                 public void focusLost(FocusEvent e) {
-                   border.setColor(new Color(102,255,51));
+                   border.setColor(new Color(0,0,0));
                    textfield.repaint();
                 }
                 
@@ -75,19 +75,17 @@ public class JTextFieldRounded extends JTextField{
 
         @Override
         protected void paintBackground(Graphics g) {
-           if(textfield.isOpaque()) {
-               Graphics2D g2 = (Graphics2D) g.create();
-               g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
-               g2.setColor(textfield.getBackground());
-               g2.drawRoundRect(0,0,textfield.getWidth(), textfield.getHeight(),round,round);
-               g2.dispose();
-           }
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setColor(textfield.getBackground());
+            g2.fillRoundRect(0, 0, textfield.getWidth(), textfield.getHeight(), round, round); // pakai FILL
+            g2.dispose();
         }
         
         
         
         private class Border extends EmptyBorder{
-            private Color focusColor = Color.BLUE;
+            private Color focusColor = new Color(75,22,76);
             private Color color = Color.BLACK;
             private int round;
             
@@ -119,7 +117,7 @@ public class JTextFieldRounded extends JTextField{
                 super (border , border , border , border);
             }
             public Border (){
-                this(5);
+                this(8);
             }
 
         @Override

@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package bareSkin;
+package bareSkinLogin;
 
+import bareSkinDashboard.menuDashboardAdmin;
 import config.koneksi;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,6 +21,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.Timer;
 import kasiramanah.FormLogin;
 import kasiramanah.MenuUtama;
 import notification.Notification;
@@ -37,6 +39,7 @@ public class loginBareSkin extends javax.swing.JFrame {
     
     public loginBareSkin() {
         conn = koneksi.getConnection();
+         setUndecorated(true);
          initComponents();
          setExtendedState(JFrame.MAXIMIZED_BOTH);
          loginEnter();
@@ -355,10 +358,21 @@ public class loginBareSkin extends javax.swing.JFrame {
             String nama         = loginResult.get("nama");
             String level        = loginResult.get("level");
             
-            MenuUtama mn = new MenuUtama(id_user, nama, level);
+            Timer timer = new Timer(10, null);
+            menuDashboardAdmin mn = new menuDashboardAdmin(id_user, nama, level);
+            mn.setOpacity(0f);
             mn.setVisible(true);
-            mn.revalidate();
-            dispose();
+
+            timer.addActionListener(e -> {
+                float opacity = mn.getOpacity();
+                opacity += 0.05f;
+                if(opacity >= 1f){
+                    mn.setOpacity(1f);
+                    timer.stop();
+                }
+                mn.setOpacity(opacity);
+});
+timer.start();
         } else {
             Notification panel = new Notification(this, Notification.Type.WARNING, Notification.Location.TOP_CENTER, "USERNAME/PASSWORD ANDA SALAH");
             panel.showNotification();

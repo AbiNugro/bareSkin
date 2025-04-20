@@ -333,14 +333,12 @@ public class menuPembelianBahan extends javax.swing.JPanel {
                     .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
                 .addGap(10, 10, 10)
-                .addGroup(panelViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelViewLayout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addComponent(pnDetail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(23, 23, 23))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnDetail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
         );
 
         panelMain.add(panelView, "card2");
@@ -522,6 +520,11 @@ public class menuPembelianBahan extends javax.swing.JPanel {
 
         cbxSatuan.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         cbxSatuan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Satuan Bahan", "Item", "Gram", "KiloGram", "Renteng", "Slop Kecil", "Slop Besar", "Pak", "Roll", "Kotak Susu" }));
+        cbxSatuan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxSatuanActionPerformed(evt);
+            }
+        });
         panelAdd.add(cbxSatuan, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 260, 180, 40));
 
         stokbahan5.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
@@ -722,6 +725,10 @@ public class menuPembelianBahan extends javax.swing.JPanel {
     private void btnCloseDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseDetailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCloseDetailActionPerformed
+
+    private void cbxSatuanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxSatuanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxSatuanActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

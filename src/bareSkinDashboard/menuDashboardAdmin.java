@@ -4,6 +4,7 @@
  */
 package bareSkinDashboard;
 
+import bareSkinLogin.loginBareSkin;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,7 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-import menu.menuBahan;
 /**
  *
  * @author user
@@ -24,14 +24,31 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
     
     private JLabel activeButton = null;
     private JPanel currentPanel;
+    private String id_user;
+    private String nama;
+    private String level;
     
-    public menuDashboardAdmin() {
-        initComponents();
+    public menuDashboardAdmin(String id_user, String nama, String level) {
+        setUndecorated(true);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        switchPanel(new menu.menuVarian());
+        initComponents();
+        
+        this.id_user = id_user;
+        this.nama = nama;
+        this.level = level;
+        switchPanel(new bareSkinMenu.dashboardAdmin());
         activeButton = tDashboard;
+        
     }
-
+    
+    public String getid_user(){
+        return id_user;
+    }
+    
+    public String getlevel() {
+        return level;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -79,6 +96,12 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
         iPembelianG = new javax.swing.JLabel();
         iPembelianT = new javax.swing.JLabel();
         iPembelianH = new javax.swing.JLabel();
+        pnRetur = new custom.PanelCustom();
+        tRetur = new javax.swing.JLabel();
+        Kretur = new custom.PanelCustom();
+        iReturG = new javax.swing.JLabel();
+        iReturT = new javax.swing.JLabel();
+        iReturH = new javax.swing.JLabel();
         pnLaporan = new custom.PanelCustom();
         tLaporan = new javax.swing.JLabel();
         Klaporan = new custom.PanelCustom();
@@ -98,7 +121,7 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pn_kiri.setBackground(new java.awt.Color(221, 136, 207));
-        pn_kiri.setRoundBottomRight(100);
+        pn_kiri.setRoundBottomRight(60);
         pn_kiri.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/BS logo 100px (1).png"))); // NOI18N
@@ -429,6 +452,60 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
 
         pn_kiri.add(pnPembelian, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 600, 240, 70));
 
+        pnRetur.setBackground(new java.awt.Color(221, 136, 207));
+        pnRetur.setRoundBottomLeft(10);
+        pnRetur.setRoundBottomRight(40);
+        pnRetur.setRoundTopLeft(10);
+        pnRetur.setRoundTopRight(10);
+        pnRetur.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnReturMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnReturMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnReturMouseExited(evt);
+            }
+        });
+        pnRetur.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tRetur.setBackground(new java.awt.Color(245, 245, 245));
+        tRetur.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        tRetur.setForeground(new java.awt.Color(75, 22, 76));
+        tRetur.setText("Retur ");
+        pnRetur.add(tRetur, new org.netbeans.lib.awtextra.AbsoluteConstraints(89, 17, -1, -1));
+
+        Kretur.setBackground(new java.awt.Color(221, 136, 207));
+        Kretur.setRoundBottomLeft(10);
+        Kretur.setRoundBottomRight(10);
+        Kretur.setRoundTopLeft(10);
+        Kretur.setRoundTopRight(10);
+
+        javax.swing.GroupLayout KreturLayout = new javax.swing.GroupLayout(Kretur);
+        Kretur.setLayout(KreturLayout);
+        KreturLayout.setHorizontalGroup(
+            KreturLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 13, Short.MAX_VALUE)
+        );
+        KreturLayout.setVerticalGroup(
+            KreturLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+
+        pnRetur.add(Kretur, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 6, -1, -1));
+
+        iReturG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/retur G.png"))); // NOI18N
+        pnRetur.add(iReturG, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+
+        iReturT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/retur T.png"))); // NOI18N
+        pnRetur.add(iReturT, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+
+        iReturH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/retur H.png"))); // NOI18N
+        pnRetur.add(iReturH, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+
+        pn_kiri.add(pnRetur, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 690, 240, 70));
+
         pnLaporan.setBackground(new java.awt.Color(221, 136, 207));
         pnLaporan.setRoundBottomLeft(10);
         pnLaporan.setRoundBottomRight(40);
@@ -481,7 +558,7 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
         iLaporanH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Laporan H.png"))); // NOI18N
         pnLaporan.add(iLaporanH, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
-        pn_kiri.add(pnLaporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 690, 240, 70));
+        pn_kiri.add(pnLaporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 780, 240, 70));
 
         pnLogout.setBackground(new java.awt.Color(221, 136, 207));
         pnLogout.setRoundBottomLeft(10);
@@ -535,9 +612,9 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
         iLogoutH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Logout H.png"))); // NOI18N
         pnLogout.add(iLogoutH, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
-        pn_kiri.add(pnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 930, 240, 70));
+        pn_kiri.add(pnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 1000, 240, 70));
 
-        getContentPane().add(pn_kiri, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 1020));
+        getContentPane().add(pn_kiri, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 1080));
 
         jPanel1.setBackground(new java.awt.Color(248, 231, 246));
 
@@ -548,32 +625,32 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(73, 73, 73)
-                .addComponent(pn_utama, javax.swing.GroupLayout.PREFERRED_SIZE, 1571, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(86, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(73, Short.MAX_VALUE)
+                .addComponent(pn_utama, javax.swing.GroupLayout.PREFERRED_SIZE, 1632, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(pn_utama, javax.swing.GroupLayout.PREFERRED_SIZE, 971, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addComponent(pn_utama, javax.swing.GroupLayout.PREFERRED_SIZE, 1051, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 1730, 1020));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 1720, 1080));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void pnProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnProductMouseClicked
         setActiveButton(pnProduct, tProduct, iProductG, iProductT, Kproduct);
-        switchPanel(new menu.menuBahan());
+        switchPanel(new bareSkinMenu.menuProductt());
     }//GEN-LAST:event_pnProductMouseClicked
 
     private void pnDashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnDashboardMouseClicked
         setActiveButton(pnDashboard, tDashboard, iDashboardG, iDashboardT, Kdashboard);
-        switchPanel(new menu.menuVarian());
+        switchPanel(new bareSkinMenu.dashboardAdmin());
     }//GEN-LAST:event_pnDashboardMouseClicked
 
     private void pnProductMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnProductMouseEntered
@@ -602,7 +679,7 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
 
     private void pnMemberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnMemberMouseClicked
         setActiveButton(pnMember, tMember, iMemberG, iMemberT, Kmember);
-        switchPanel(new menu.menuVarian());
+        switchPanel(new bareSkinMenu.menuMember());
     }//GEN-LAST:event_pnMemberMouseClicked
 
     private void pnMemberMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnMemberMouseEntered
@@ -619,7 +696,7 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
 
     private void pnKaryawanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnKaryawanMouseClicked
         setActiveButton(pnKaryawan, tKaryawan, iKaryawanG, iKaryawanT, Kkaryawan);
-        switchPanel(new menu.menuVarian());
+        switchPanel(new bareSkinMenu.menuKaryawan());
     }//GEN-LAST:event_pnKaryawanMouseClicked
 
     private void pnKaryawanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnKaryawanMouseEntered
@@ -636,7 +713,7 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
 
     private void pnPenjualanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnPenjualanMouseClicked
         setActiveButton(pnPenjualan, tPenjualan, iPenjualanG, iPenjualanT, Kpenjualan);
-        switchPanel(new menu.menuBahan());
+        switchPanel(new bareSkinMenu.transaksiPenjualan());
     }//GEN-LAST:event_pnPenjualanMouseClicked
 
     private void pnPenjualanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnPenjualanMouseEntered
@@ -653,7 +730,7 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
 
     private void pnPembelianMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnPembelianMouseClicked
         setActiveButton(pnPembelian, tPembelian, iPembelianG, iPembelianT, Kpembelian);
-        switchPanel(new menu.menuBahan());
+        switchPanel(new bareSkinMenu.transaksiPembelian());
     }//GEN-LAST:event_pnPembelianMouseClicked
 
     private void pnPembelianMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnPembelianMouseEntered
@@ -670,7 +747,7 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
 
     private void pnLaporanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnLaporanMouseClicked
         setActiveButton(pnLaporan, tLaporan, iLaporanG, iLaporanT, Klaporan);
-        switchPanel(new menu.menuVarian());
+        switchPanel(new bareSkinMenu.menuLaporan());
     }//GEN-LAST:event_pnLaporanMouseClicked
 
     private void pnLaporanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnLaporanMouseEntered
@@ -686,8 +763,23 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
     }//GEN-LAST:event_pnLaporanMouseExited
 
     private void pnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnLogoutMouseClicked
-        setActiveButton(pnLogout, tLogout, iLogoutG, iLogoutT, Klogout);
-        switchPanel(new menu.menuBahan());
+       loginBareSkin bs = new loginBareSkin();
+        bs.setOpacity(0f); // Mulai dari transparan
+        bs.setVisible(true); // Tampilkan dulu
+
+        Timer timer = new Timer(10, null);
+        timer.addActionListener(e -> {
+            float opacity = bs.getOpacity();
+            opacity += 0.05f;
+            if (opacity >= 1f) {
+                bs.setOpacity(1f);
+                timer.stop();
+            } else {
+                bs.setOpacity(opacity);
+            }
+        });
+        timer.start();
+
     }//GEN-LAST:event_pnLogoutMouseClicked
 
     private void pnLogoutMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnLogoutMouseEntered
@@ -701,6 +793,23 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
             resetStyle(pnLogout, tLogout, iLogoutG, iLogoutH, Klogout);
         }
     }//GEN-LAST:event_pnLogoutMouseExited
+
+    private void pnReturMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnReturMouseClicked
+        setActiveButton(pnRetur, tRetur, iReturG, iReturT, Kretur);
+        switchPanel(new bareSkinMenu.menuRetur());
+    }//GEN-LAST:event_pnReturMouseClicked
+
+    private void pnReturMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnReturMouseEntered
+        if (activeButton != tRetur) {
+            setHoverStyle(pnRetur, tRetur, iReturG, iReturT, iReturH, Kretur);
+        }
+    }//GEN-LAST:event_pnReturMouseEntered
+
+    private void pnReturMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnReturMouseExited
+        if (activeButton != tRetur) {
+            resetStyle(pnRetur, tRetur, iReturG, iReturH, Kretur);
+        }
+    }//GEN-LAST:event_pnReturMouseExited
 
     /**
      * @param args the command line arguments
@@ -735,7 +844,10 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new menuDashboardAdmin().setVisible(true);
+                String id_user  = "id_user";
+                String level    = "level";
+                String nama     = "nama";
+                new menuDashboardAdmin(id_user, nama, level).setVisible(true);
                 
             }
         });
@@ -750,6 +862,7 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
     private custom.PanelCustom Kpembelian;
     private custom.PanelCustom Kpenjualan;
     private custom.PanelCustom Kproduct;
+    private custom.PanelCustom Kretur;
     private javax.swing.JLabel iDashboardG;
     private javax.swing.JLabel iDashboardH;
     private javax.swing.JLabel iDashboardT;
@@ -774,6 +887,9 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
     private javax.swing.JLabel iProductG;
     private javax.swing.JLabel iProductH;
     private javax.swing.JLabel iProductT;
+    private javax.swing.JLabel iReturG;
+    private javax.swing.JLabel iReturH;
+    private javax.swing.JLabel iReturT;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private custom.PanelCustom pnDashboard;
@@ -784,6 +900,7 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
     private custom.PanelCustom pnPembelian;
     private custom.PanelCustom pnPenjualan;
     private custom.PanelCustom pnProduct;
+    private custom.PanelCustom pnRetur;
     private custom.PanelCustom pn_kiri;
     private javax.swing.JPanel pn_utama;
     private javax.swing.JLabel tDashboard;
@@ -794,6 +911,7 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
     private javax.swing.JLabel tPembelian;
     private javax.swing.JLabel tPenjualan;
     private javax.swing.JLabel tProduct;
+    private javax.swing.JLabel tRetur;
     // End of variables declaration//GEN-END:variables
      
     private void setHoverStyle(JPanel panel, JLabel label, JLabel iconDefault1,JLabel iconDefault2, JLabel iconHover, JPanel navbar) {
@@ -833,6 +951,7 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
         resetButton(pnPembelian, tPembelian, iPembelianG, iPembelianT);
         resetButton(pnLaporan, tLaporan, iLaporanG, iLaporanT);
         resetButton(pnLogout, tLogout, iLogoutG, iLogoutT);
+        resetButton(pnRetur, tRetur, iReturG, iReturT);
     }
 
     private void resetButton(JPanel panel, JLabel label, JLabel iconDefault, JLabel iconActive) {

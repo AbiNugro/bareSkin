@@ -47,10 +47,6 @@ public class menuTransaksi extends javax.swing.JPanel {
     private int dataPerHalaman = 14;
     private int totalPages;
     private String id_user;
-    
-            
-    
-
 
     private final Connection conn;
     public menuTransaksi(String id_user) {
@@ -65,10 +61,11 @@ public class menuTransaksi extends javax.swing.JPanel {
         countHargaPembelian();
         paginationVarian();
         enabledFalse();
+        
+        
         btnCancel1.setVisible(false);
         txtDiscount.setEnabled(false);
-        setTabelModelSementara();
-        loadDataSementara();
+        
         txtUntung.setEnabled(false);
         txtTanggalPenjualan.setEnabled(false);
         txtJumlahBayar.setVisible(false);

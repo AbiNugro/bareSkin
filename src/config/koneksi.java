@@ -11,7 +11,7 @@ public class koneksi {
     public static Connection getConnection(){
         if (conn==null) {
             try {
-                String url = "jdbc:mysql://localhost/kasir_esteh";
+                String url = "jdbc:mysql://localhost/bareskin";
                 String user = "root";
                 String pass = "";
                 DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
