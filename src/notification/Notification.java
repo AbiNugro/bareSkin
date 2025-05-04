@@ -5,6 +5,7 @@ import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.Window;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import javax.swing.ImageIcon;
@@ -299,6 +300,10 @@ public class Notification extends javax.swing.JComponent {
     private void cmdCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCloseActionPerformed
         closeNotification();
     }//GEN-LAST:event_cmdCloseActionPerformed
+
+    public void setLocationRelativeTo(Window window) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
     public static enum Type {
         SUCCESS, INFO, WARNING

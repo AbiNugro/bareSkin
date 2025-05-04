@@ -1,0 +1,556 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+package bareSkinDashboard;
+
+import bareSkinLogin.loginBareSkin;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.Timer;
+/**
+ *
+ * @author user
+ */
+public class menuDashboardKasir extends javax.swing.JFrame{
+
+    /**
+     * Creates new form template
+     */
+    
+    private JLabel activeButton = null;
+    private JPanel currentPanel;
+    private String id_user;
+    private String nama;
+    private String level;
+    
+    public menuDashboardKasir(String id_user, String nama, String level) {
+        setUndecorated(true);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        initComponents();
+        
+        this.id_user = id_user;
+        this.nama = nama;
+        this.level = level;
+        switchPanel(new bareSkinMenu.dashboardKaryawan());
+        activeButton = tDashboard;
+        
+    }
+    
+    public String getid_user(){
+        return id_user;
+    }
+    
+    public String getNama() {
+        return nama;
+    }
+    public String getlevel() {
+        return level;
+    }
+    
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        pn_kiri = new custom.PanelCustom();
+        jLabel2 = new javax.swing.JLabel();
+        pnDashboard = new custom.PanelCustom();
+        tDashboard = new javax.swing.JLabel();
+        Kdashboard = new custom.PanelCustom();
+        iDashboardT = new javax.swing.JLabel();
+        iDashboardG = new javax.swing.JLabel();
+        iDashboardH = new javax.swing.JLabel();
+        pnMember = new custom.PanelCustom();
+        tMember = new javax.swing.JLabel();
+        Kmember = new custom.PanelCustom();
+        iMemberG = new javax.swing.JLabel();
+        iMemberT = new javax.swing.JLabel();
+        iMemberH = new javax.swing.JLabel();
+        pnPenjualan = new custom.PanelCustom();
+        tPenjualan = new javax.swing.JLabel();
+        Kpenjualan = new custom.PanelCustom();
+        iPenjualanG = new javax.swing.JLabel();
+        iPenjualanT = new javax.swing.JLabel();
+        iPenjualanH = new javax.swing.JLabel();
+        pnLogout = new custom.PanelCustom();
+        tLogout = new javax.swing.JLabel();
+        Klogout = new custom.PanelCustom();
+        iLogoutG = new javax.swing.JLabel();
+        iLogoutT = new javax.swing.JLabel();
+        iLogoutH = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        pn_utama = new javax.swing.JPanel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        pn_kiri.setBackground(new java.awt.Color(221, 136, 207));
+        pn_kiri.setRoundBottomRight(60);
+        pn_kiri.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/BS logo 100px (1).png"))); // NOI18N
+        pn_kiri.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, -1, -1));
+
+        pnDashboard.setBackground(new java.awt.Color(75, 22, 76));
+        pnDashboard.setForeground(new java.awt.Color(255, 255, 255));
+        pnDashboard.setRoundBottomLeft(10);
+        pnDashboard.setRoundBottomRight(40);
+        pnDashboard.setRoundTopLeft(10);
+        pnDashboard.setRoundTopRight(10);
+        pnDashboard.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnDashboardMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnDashboardMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnDashboardMouseExited(evt);
+            }
+        });
+        pnDashboard.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tDashboard.setBackground(new java.awt.Color(245, 245, 245));
+        tDashboard.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        tDashboard.setForeground(new java.awt.Color(245, 245, 245));
+        tDashboard.setText("Dashboard");
+        pnDashboard.add(tDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, -1, -1));
+
+        Kdashboard.setBackground(new java.awt.Color(221, 136, 207));
+        Kdashboard.setRoundBottomLeft(10);
+        Kdashboard.setRoundBottomRight(10);
+        Kdashboard.setRoundTopLeft(10);
+        Kdashboard.setRoundTopRight(10);
+
+        javax.swing.GroupLayout KdashboardLayout = new javax.swing.GroupLayout(Kdashboard);
+        Kdashboard.setLayout(KdashboardLayout);
+        KdashboardLayout.setHorizontalGroup(
+            KdashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 13, Short.MAX_VALUE)
+        );
+        KdashboardLayout.setVerticalGroup(
+            KdashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+
+        pnDashboard.add(Kdashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 6, -1, -1));
+
+        iDashboardT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Dashboard T (1).png"))); // NOI18N
+        pnDashboard.add(iDashboardT, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 18, -1, -1));
+
+        iDashboardG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Dashboard G (1).png"))); // NOI18N
+        pnDashboard.add(iDashboardG, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 18, -1, -1));
+
+        iDashboardH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Dashboard H.png"))); // NOI18N
+        pnDashboard.add(iDashboardH, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 18, -1, -1));
+
+        pn_kiri.add(pnDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 240, 70));
+
+        pnMember.setBackground(new java.awt.Color(221, 136, 207));
+        pnMember.setRoundBottomLeft(10);
+        pnMember.setRoundBottomRight(40);
+        pnMember.setRoundTopLeft(10);
+        pnMember.setRoundTopRight(10);
+        pnMember.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnMemberMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnMemberMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnMemberMouseExited(evt);
+            }
+        });
+        pnMember.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tMember.setBackground(new java.awt.Color(245, 245, 245));
+        tMember.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        tMember.setForeground(new java.awt.Color(75, 22, 76));
+        tMember.setText("Member");
+        pnMember.add(tMember, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 17, -1, -1));
+
+        Kmember.setBackground(new java.awt.Color(221, 136, 207));
+        Kmember.setRoundBottomLeft(10);
+        Kmember.setRoundBottomRight(10);
+        Kmember.setRoundTopLeft(10);
+        Kmember.setRoundTopRight(10);
+
+        javax.swing.GroupLayout KmemberLayout = new javax.swing.GroupLayout(Kmember);
+        Kmember.setLayout(KmemberLayout);
+        KmemberLayout.setHorizontalGroup(
+            KmemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 13, Short.MAX_VALUE)
+        );
+        KmemberLayout.setVerticalGroup(
+            KmemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+
+        pnMember.add(Kmember, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 6, -1, -1));
+
+        iMemberG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Member G (1).png"))); // NOI18N
+        pnMember.add(iMemberG, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+
+        iMemberT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Member T.png"))); // NOI18N
+        pnMember.add(iMemberT, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+
+        iMemberH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Member H (1).png"))); // NOI18N
+        pnMember.add(iMemberH, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+
+        pn_kiri.add(pnMember, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 240, 70));
+
+        pnPenjualan.setBackground(new java.awt.Color(221, 136, 207));
+        pnPenjualan.setRoundBottomLeft(10);
+        pnPenjualan.setRoundBottomRight(40);
+        pnPenjualan.setRoundTopLeft(10);
+        pnPenjualan.setRoundTopRight(10);
+        pnPenjualan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnPenjualanMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnPenjualanMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnPenjualanMouseExited(evt);
+            }
+        });
+        pnPenjualan.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tPenjualan.setBackground(new java.awt.Color(245, 245, 245));
+        tPenjualan.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        tPenjualan.setForeground(new java.awt.Color(75, 22, 76));
+        tPenjualan.setText("Penjualan");
+        pnPenjualan.add(tPenjualan, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 18, -1, -1));
+
+        Kpenjualan.setBackground(new java.awt.Color(221, 136, 207));
+        Kpenjualan.setRoundBottomLeft(10);
+        Kpenjualan.setRoundBottomRight(10);
+        Kpenjualan.setRoundTopLeft(10);
+        Kpenjualan.setRoundTopRight(10);
+
+        javax.swing.GroupLayout KpenjualanLayout = new javax.swing.GroupLayout(Kpenjualan);
+        Kpenjualan.setLayout(KpenjualanLayout);
+        KpenjualanLayout.setHorizontalGroup(
+            KpenjualanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 13, Short.MAX_VALUE)
+        );
+        KpenjualanLayout.setVerticalGroup(
+            KpenjualanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+
+        pnPenjualan.add(Kpenjualan, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 6, -1, -1));
+
+        iPenjualanG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Penjualan G (1).png"))); // NOI18N
+        pnPenjualan.add(iPenjualanG, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+
+        iPenjualanT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Penjualan T.png"))); // NOI18N
+        pnPenjualan.add(iPenjualanT, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+
+        iPenjualanH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Penjualan H.png"))); // NOI18N
+        pnPenjualan.add(iPenjualanH, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+
+        pn_kiri.add(pnPenjualan, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 240, 70));
+
+        pnLogout.setBackground(new java.awt.Color(221, 136, 207));
+        pnLogout.setRoundBottomLeft(10);
+        pnLogout.setRoundBottomRight(40);
+        pnLogout.setRoundTopLeft(10);
+        pnLogout.setRoundTopRight(10);
+        pnLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnLogoutMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnLogoutMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnLogoutMouseExited(evt);
+            }
+        });
+        pnLogout.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tLogout.setBackground(new java.awt.Color(245, 245, 245));
+        tLogout.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        tLogout.setForeground(new java.awt.Color(75, 22, 76));
+        tLogout.setText("Log Out");
+        pnLogout.add(tLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(89, 17, -1, -1));
+
+        Klogout.setBackground(new java.awt.Color(221, 136, 207));
+        Klogout.setRoundBottomLeft(10);
+        Klogout.setRoundBottomRight(10);
+        Klogout.setRoundTopLeft(10);
+        Klogout.setRoundTopRight(10);
+
+        javax.swing.GroupLayout KlogoutLayout = new javax.swing.GroupLayout(Klogout);
+        Klogout.setLayout(KlogoutLayout);
+        KlogoutLayout.setHorizontalGroup(
+            KlogoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 13, Short.MAX_VALUE)
+        );
+        KlogoutLayout.setVerticalGroup(
+            KlogoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+
+        pnLogout.add(Klogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 6, -1, -1));
+
+        iLogoutG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Logout G (2).png"))); // NOI18N
+        pnLogout.add(iLogoutG, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+
+        iLogoutT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Logout T (1).png"))); // NOI18N
+        pnLogout.add(iLogoutT, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+
+        iLogoutH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Logout H.png"))); // NOI18N
+        pnLogout.add(iLogoutH, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+
+        pn_kiri.add(pnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 1000, 240, 70));
+
+        getContentPane().add(pn_kiri, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 1080));
+
+        jPanel1.setBackground(new java.awt.Color(248, 231, 246));
+
+        pn_utama.setBackground(new java.awt.Color(248, 231, 246));
+        pn_utama.setLayout(new java.awt.BorderLayout());
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(73, Short.MAX_VALUE)
+                .addComponent(pn_utama, javax.swing.GroupLayout.PREFERRED_SIZE, 1632, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addComponent(pn_utama, javax.swing.GroupLayout.PREFERRED_SIZE, 1051, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 1720, 1080));
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void pnDashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnDashboardMouseClicked
+        setActiveButton(pnDashboard, tDashboard, iDashboardG, iDashboardT, Kdashboard);
+        switchPanel(new bareSkinMenu.dashboardKaryawan());
+    }//GEN-LAST:event_pnDashboardMouseClicked
+
+    private void pnDashboardMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnDashboardMouseEntered
+        if (activeButton != tDashboard) {
+            setHoverStyle(pnDashboard, tDashboard, iDashboardG, iDashboardT, iDashboardH, Kdashboard);
+        }
+    }//GEN-LAST:event_pnDashboardMouseEntered
+
+    private void pnDashboardMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnDashboardMouseExited
+        if (activeButton != tDashboard) {
+            resetStyle(pnDashboard, tDashboard, iDashboardG, iDashboardH, Kdashboard);
+        }
+    }//GEN-LAST:event_pnDashboardMouseExited
+
+    private void pnMemberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnMemberMouseClicked
+        setActiveButton(pnMember, tMember, iMemberG, iMemberT, Kmember);
+        switchPanel(new bareSkinMenu.menuMember());
+    }//GEN-LAST:event_pnMemberMouseClicked
+
+    private void pnMemberMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnMemberMouseEntered
+        if (activeButton != tMember) {
+            setHoverStyle(pnMember, tMember, iMemberG, iMemberT, iMemberH, Kmember);
+        }
+    }//GEN-LAST:event_pnMemberMouseEntered
+
+    private void pnMemberMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnMemberMouseExited
+        if (activeButton != tMember) {
+            resetStyle(pnMember, tMember, iMemberG, iMemberH, Kmember);
+        }
+    }//GEN-LAST:event_pnMemberMouseExited
+
+    private void pnPenjualanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnPenjualanMouseClicked
+        setActiveButton(pnPenjualan, tPenjualan, iPenjualanG, iPenjualanT, Kpenjualan);
+        switchPanel(new bareSkinMenu.transaksiPenjualan());
+    }//GEN-LAST:event_pnPenjualanMouseClicked
+
+    private void pnPenjualanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnPenjualanMouseEntered
+        if (activeButton != tPenjualan) {
+            setHoverStyle(pnPenjualan, tPenjualan, iPenjualanG, iPenjualanT, iPenjualanH, Kpenjualan);
+        }
+    }//GEN-LAST:event_pnPenjualanMouseEntered
+
+    private void pnPenjualanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnPenjualanMouseExited
+        if (activeButton != tPenjualan) {
+            resetStyle(pnPenjualan, tPenjualan, iPenjualanG, iPenjualanH, Kpenjualan);
+        }
+    }//GEN-LAST:event_pnPenjualanMouseExited
+
+    private void pnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnLogoutMouseClicked
+       loginBareSkin bs = new loginBareSkin();
+        bs.setOpacity(0f); // Mulai dari transparan
+        bs.setVisible(true); // Tampilkan dulu
+
+        Timer timer = new Timer(10, null);
+        timer.addActionListener(e -> {
+            float opacity = bs.getOpacity();
+            opacity += 0.05f;
+            if (opacity >= 1f) {
+                bs.setOpacity(1f);
+                timer.stop();
+            } else {
+                bs.setOpacity(opacity);
+            }
+        });
+        timer.start();
+
+    }//GEN-LAST:event_pnLogoutMouseClicked
+
+    private void pnLogoutMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnLogoutMouseEntered
+        if (activeButton != tLogout) {
+            setHoverStyle(pnLogout, tLogout, iLogoutG, iLogoutT, iLogoutH, Klogout);
+        }
+    }//GEN-LAST:event_pnLogoutMouseEntered
+
+    private void pnLogoutMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnLogoutMouseExited
+        if (activeButton != tLogout) {
+            resetStyle(pnLogout, tLogout, iLogoutG, iLogoutH, Klogout);
+        }
+    }//GEN-LAST:event_pnLogoutMouseExited
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(menuDashboardKasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(menuDashboardKasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(menuDashboardKasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(menuDashboardKasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                String id_user  = "id_user";
+                String level    = "level";
+                String nama     = "nama";
+                new menuDashboardKasir(id_user, nama, level).setVisible(true);
+                
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private custom.PanelCustom Kdashboard;
+    private custom.PanelCustom Klogout;
+    private custom.PanelCustom Kmember;
+    private custom.PanelCustom Kpenjualan;
+    private javax.swing.JLabel iDashboardG;
+    private javax.swing.JLabel iDashboardH;
+    private javax.swing.JLabel iDashboardT;
+    private javax.swing.JLabel iLogoutG;
+    private javax.swing.JLabel iLogoutH;
+    private javax.swing.JLabel iLogoutT;
+    private javax.swing.JLabel iMemberG;
+    private javax.swing.JLabel iMemberH;
+    private javax.swing.JLabel iMemberT;
+    private javax.swing.JLabel iPenjualanG;
+    private javax.swing.JLabel iPenjualanH;
+    private javax.swing.JLabel iPenjualanT;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private custom.PanelCustom pnDashboard;
+    private custom.PanelCustom pnLogout;
+    private custom.PanelCustom pnMember;
+    private custom.PanelCustom pnPenjualan;
+    private custom.PanelCustom pn_kiri;
+    private javax.swing.JPanel pn_utama;
+    private javax.swing.JLabel tDashboard;
+    private javax.swing.JLabel tLogout;
+    private javax.swing.JLabel tMember;
+    private javax.swing.JLabel tPenjualan;
+    // End of variables declaration//GEN-END:variables
+     
+    private void setHoverStyle(JPanel panel, JLabel label, JLabel iconDefault1,JLabel iconDefault2, JLabel iconHover, JPanel navbar) {
+        panel.setBackground(new Color(245,245,245));
+        label.setForeground(new Color(75, 22, 76));
+        iconDefault1.setVisible(false);
+        iconDefault2.setVisible(false);
+        iconHover.setVisible(true);
+        navbar.setBackground(new Color(75, 22, 76));
+    }
+
+    private void resetStyle(JPanel panel, JLabel label, JLabel iconDefault, JLabel iconHover, JPanel navbar) {
+        panel.setBackground(new Color(221,136,207));
+        label.setForeground(new Color(75, 22, 76)); 
+        iconDefault.setVisible(true);
+        iconHover.setVisible(false);
+        navbar.setBackground(new Color(221,136,207)); // Mengembalikan warna border default
+    }
+    
+    private void switchPanel(JPanel newPanel) {
+        if (currentPanel != null) {
+            pn_utama.remove(currentPanel);
+        }
+        currentPanel = newPanel;
+        pn_utama.add(currentPanel);
+        pn_utama.revalidate();
+        pn_utama.repaint();
+    }
+
+    private void resetButtonStyles() {
+        // Reset semua tombol ke gaya default
+        resetButton(pnDashboard, tDashboard, iDashboardG, iDashboardT);
+        resetButton(pnMember, tMember, iMemberG, iMemberT);
+        resetButton(pnPenjualan, tPenjualan, iPenjualanG, iPenjualanT);
+        resetButton(pnLogout, tLogout, iLogoutG, iLogoutT);
+    }
+
+    private void resetButton(JPanel panel, JLabel label, JLabel iconDefault, JLabel iconActive) {
+        panel.setBackground(new Color(221, 136, 207));
+        label.setForeground(new Color(75, 22, 76));
+        iconActive.setVisible(false);
+        iconDefault.setVisible(true);
+    }
+
+    private void setActiveButton(JPanel panel, JLabel label, JLabel iconDefault, JLabel iconActive, JPanel Navbar) {
+        resetButtonStyles();
+        panel.setBackground(new Color(75, 22, 76));
+        label.setForeground(new Color(245, 245, 245));
+        iconActive.setVisible(true);
+        iconDefault.setVisible(false);
+        Navbar.setBackground(new Color(221, 136, 207)); 
+        activeButton = label;
+    }
+    
+}

@@ -78,7 +78,6 @@
         </Component>
         <Component class="custom.JTextFieldRounded" name="txtIdProduct">
           <Properties>
-            <Property name="text" type="java.lang.String" value="9999999999999"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="SansSerif" size="22" style="0"/>
             </Property>
@@ -107,7 +106,6 @@
         </Component>
         <Component class="custom.JTextFieldRounded" name="txtNamaProduct">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Scarlett Whitening Brightly "/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="SansSerif" size="22" style="0"/>
             </Property>
@@ -133,7 +131,7 @@
         </Component>
         <Component class="custom.JTextFieldRounded" name="txtStok">
           <Properties>
-            <Property name="text" type="java.lang.String" value="100"/>
+            <Property name="text" type="java.lang.String" value="0"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="SansSerif" size="22" style="0"/>
             </Property>
@@ -163,17 +161,10 @@
               <Font name="SansSerif" size="22" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="10">
+              <StringArray count="3">
                 <StringItem index="0" value="Pilih Satuan Product"/>
-                <StringItem index="1" value="Item"/>
-                <StringItem index="2" value="Gram"/>
-                <StringItem index="3" value="KiloGram"/>
-                <StringItem index="4" value="Renteng"/>
-                <StringItem index="5" value="Slop Kecil"/>
-                <StringItem index="6" value="Slop Besar"/>
-                <StringItem index="7" value="Pak"/>
-                <StringItem index="8" value="Roll"/>
-                <StringItem index="9" value="Kotak Susu"/>
+                <StringItem index="1" value="item"/>
+                <StringItem index="2" value="paket"/>
               </StringArray>
             </Property>
           </Properties>
@@ -204,7 +195,6 @@
         </Component>
         <Component class="custom.JTextFieldRounded" name="txtTanggalExpired">
           <Properties>
-            <Property name="text" type="java.lang.String" value="1"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="SansSerif" size="22" style="0"/>
             </Property>
@@ -234,17 +224,12 @@
               <Font name="SansSerif" size="22" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="10">
+              <StringArray count="5">
                 <StringItem index="0" value="Pilih Kategori Product"/>
-                <StringItem index="1" value="Item"/>
-                <StringItem index="2" value="Gram"/>
-                <StringItem index="3" value="KiloGram"/>
-                <StringItem index="4" value="Renteng"/>
-                <StringItem index="5" value="Slop Kecil"/>
-                <StringItem index="6" value="Slop Besar"/>
-                <StringItem index="7" value="Pak"/>
-                <StringItem index="8" value="Roll"/>
-                <StringItem index="9" value="Kotak Susu"/>
+                <StringItem index="1" value="skincare"/>
+                <StringItem index="2" value="lipcare"/>
+                <StringItem index="3" value="haircare"/>
+                <StringItem index="4" value="bodycare"/>
               </StringArray>
             </Property>
           </Properties>
@@ -275,7 +260,7 @@
         </Component>
         <Component class="custom.JTextFieldRounded" name="txtHargaBeli">
           <Properties>
-            <Property name="text" type="java.lang.String" value="10.000.000"/>
+            <Property name="text" type="java.lang.String" value="0"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="SansSerif" size="22" style="0"/>
             </Property>
@@ -301,11 +286,14 @@
         </Component>
         <Component class="custom.JTextFieldRounded" name="txtHargaJual">
           <Properties>
-            <Property name="text" type="java.lang.String" value="10.000.000"/>
+            <Property name="text" type="java.lang.String" value="0"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="SansSerif" size="22" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtHargaJualActionPerformed"/>
+          </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="730" y="340" width="140" height="-1"/>

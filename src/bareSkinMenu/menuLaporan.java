@@ -1207,7 +1207,7 @@ public class menuLaporan extends javax.swing.JPanel {
     }//GEN-LAST:event_btnTambahActionPerformed
 
     private void btnTambah1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambah1ActionPerformed
-        tambahProduct();
+
     }//GEN-LAST:event_btnTambah1ActionPerformed
 
     private void txtIdMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdMemberActionPerformed
@@ -1492,22 +1492,6 @@ public class menuLaporan extends javax.swing.JPanel {
         field.setOpaque(true);
         field.setEditable(false);
         field.setBackground(new Color(219, 219, 219));
-    }
-
-    private void tambahProduct(){
-        boolean closable = true;
-        tambahProduct product = new tambahProduct(null, closable);
-        product.setVisible(true);
-        
-    }
-    
-   
-    
-    private void showPanel(){
-        panelMain.removeAll();
-        panelMain.add(new menuLaporan());
-        panelMain.repaint();
-        panelMain.revalidate();
     }
     
     private void calculateTotalPages(){

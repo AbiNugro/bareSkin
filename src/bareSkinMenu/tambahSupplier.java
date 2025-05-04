@@ -12,25 +12,24 @@ import javax.swing.JTextField;
  *
  * @author user
  */
-public class tambahMember extends javax.swing.JDialog {
+public class tambahSupplier extends javax.swing.JDialog {
     
     private int halamanSaatIni = 1;
     private int dataPerHalaman = 14;
     private int totalPages;
     private Connection conn;
     
-    private String id_member;
-    private String nama_member;
+    private String id_supplier;
+    private String nama_supplier;
     private String alamat;
     private String no_telepon;
-    private String poin;
     
-    public String getId_member() {
-        return id_member;
+    public String getId_supplier() {
+        return id_supplier;
     }
 
-    public String getNama_member() {
-        return nama_member;
+    public String getNama_supplier() {
+        return nama_supplier;
     }
 
     public String getAlamat() {
@@ -40,37 +39,31 @@ public class tambahMember extends javax.swing.JDialog {
     public String getNo_telepon() {
         return no_telepon;
     }
-    
-    public String getPoin() {
-        return poin;
-    }
 
-    public tambahMember(java.awt.Frame parent, boolean modal, String id, String nama, String alamat, String nomor, String poin) {
+
+    public tambahSupplier(java.awt.Frame parent, boolean modal, String id, String nama, String nomor, String alamat) {
     super(parent, modal);
     initComponents();
     setLocationRelativeTo(null);
 
     conn = koneksi.getConnection();
-    finishing();
 
     // Set data ke field dan komponen input
-    this.id_member = id;
-    this.nama_member = nama;
-    this.alamat = alamat;
+    this.id_supplier = id;
+    this.nama_supplier = nama;
     this.no_telepon = nomor;
-    this.poin = poin;
+    this.alamat = alamat;
 
-    txtIdMember.setText(id);
-    txtNamaMember.setText(nama);
-    txtAlamat.setText(alamat);
+    txtIdSupplier.setText(id);
+    txtNamaSupplier.setText(nama);
     txtNomorTelepon.setText(nomor);
-    txtPoin.setText(poin);
+    txtAlamat.setText(alamat);
     btnSimpan.setText("SIMPAN");
     
-    if (!txtIdMember.getText().trim().isEmpty()) {
+    if (!txtIdSupplier.getText().trim().isEmpty()) {
         btnSimpan.setText("UBAH");
-        txtIdMember.setEnabled(false);
-        fieldColor(txtIdMember);
+        txtIdSupplier.setEnabled(false);
+        fieldColor(txtIdSupplier);
     } 
     
 }
@@ -87,15 +80,13 @@ public class tambahMember extends javax.swing.JDialog {
         panelView = new javax.swing.JPanel();
         databahan = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        txtIdMember = new custom.JTextFieldRounded();
+        txtIdSupplier = new custom.JTextFieldRounded();
         jLabel23 = new javax.swing.JLabel();
         txtAlamat = new custom.JTextFieldRounded();
-        txtNamaMember = new custom.JTextFieldRounded();
-        jLabel28 = new javax.swing.JLabel();
+        txtNamaSupplier = new custom.JTextFieldRounded();
         jLabel31 = new javax.swing.JLabel();
         txtNomorTelepon = new custom.JTextFieldRounded();
         jLabel32 = new javax.swing.JLabel();
-        txtPoin = new custom.JTextFieldRounded();
         btnSimpan = new rojerusan.RSMaterialButtonRectangle();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -106,54 +97,41 @@ public class tambahMember extends javax.swing.JDialog {
         databahan.setBackground(new java.awt.Color(75, 22, 76));
         databahan.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
         databahan.setForeground(new java.awt.Color(75, 22, 76));
-        databahan.setText("TAMBAH MEMBER");
-        panelView.add(databahan, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 10, -1, -1));
+        databahan.setText("TAMBAH SUPPLIER");
+        panelView.add(databahan, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, -1, -1));
 
         jLabel22.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
-        jLabel22.setText("ID Member");
+        jLabel22.setText("ID Supplier");
         panelView.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, -1));
 
-        txtIdMember.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
-        txtIdMember.addActionListener(new java.awt.event.ActionListener() {
+        txtIdSupplier.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
+        txtIdSupplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdMemberActionPerformed(evt);
+                txtIdSupplierActionPerformed(evt);
             }
         });
-        panelView.add(txtIdMember, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, 190, 50));
+        panelView.add(txtIdSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, 190, 50));
 
         jLabel23.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
-        jLabel23.setText("Nama Member");
+        jLabel23.setText("Nama Supplier");
         panelView.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
 
         txtAlamat.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
-        panelView.add(txtAlamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 140, 430, 50));
+        panelView.add(txtAlamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 240, 430, 50));
 
-        txtNamaMember.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
-        panelView.add(txtNamaMember, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, 430, 50));
-
-        jLabel28.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
-        jLabel28.setText("Poin");
-        panelView.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 200, -1, -1));
+        txtNamaSupplier.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
+        panelView.add(txtNamaSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, 430, 50));
 
         jLabel31.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
         jLabel31.setText("Nomor Telepon");
-        panelView.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 200, -1, -1));
+        panelView.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 100, -1, -1));
 
         txtNomorTelepon.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
-        panelView.add(txtNomorTelepon, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 240, 180, -1));
+        panelView.add(txtNomorTelepon, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 140, 180, -1));
 
         jLabel32.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
         jLabel32.setText("Alamat");
-        panelView.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 100, -1, -1));
-
-        txtPoin.setText("0");
-        txtPoin.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
-        txtPoin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPoinActionPerformed(evt);
-            }
-        });
-        panelView.add(txtPoin, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 240, 80, -1));
+        panelView.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 200, -1, -1));
 
         btnSimpan.setBackground(new java.awt.Color(75, 22, 76));
         btnSimpan.setText("SIMPAN");
@@ -191,13 +169,9 @@ public class tambahMember extends javax.swing.JDialog {
             }
     }//GEN-LAST:event_btnSimpanActionPerformed
 
-    private void txtIdMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdMemberActionPerformed
+    private void txtIdSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdSupplierActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdMemberActionPerformed
-
-    private void txtPoinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPoinActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPoinActionPerformed
+    }//GEN-LAST:event_txtIdSupplierActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -205,15 +179,13 @@ public class tambahMember extends javax.swing.JDialog {
     private javax.swing.JLabel databahan;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JPanel panelView;
     private custom.JTextFieldRounded txtAlamat;
-    private custom.JTextFieldRounded txtIdMember;
-    private custom.JTextFieldRounded txtNamaMember;
+    private custom.JTextFieldRounded txtIdSupplier;
+    private custom.JTextFieldRounded txtNamaSupplier;
     private custom.JTextFieldRounded txtNomorTelepon;
-    private custom.JTextFieldRounded txtPoin;
     // End of variables declaration//GEN-END:variables
 
     private void fieldColor(JTextField field) {
@@ -222,39 +194,33 @@ public class tambahMember extends javax.swing.JDialog {
         field.setBackground(new Color(219, 219, 219));
     }
 
-    private void finishing() {
-        fieldColor(txtPoin);
-    }
     
     private void resetForm() {
-        txtIdMember.setText("");
-        txtNamaMember.setText("");
+        txtIdSupplier.setText("");
+        txtNamaSupplier.setText("");
         txtAlamat.setText("");
         txtNomorTelepon.setText("");
-        txtPoin.setText("0");
     }
     
     private void insertData() {
-        String id_member = txtIdMember.getText().trim();
-        String nama_member = txtNamaMember.getText().trim();
-        String alamat = txtAlamat.getText().trim();
+        String id_member = txtIdSupplier.getText().trim();
+        String nama_member = txtNamaSupplier.getText().trim();
         String no_telepon = txtNomorTelepon.getText().trim();
-        String poin = txtPoin.getText().trim();
+        String alamat = txtAlamat.getText().trim();
 
-        if (id_member.isEmpty() || nama_member.isEmpty() || alamat.isEmpty() || no_telepon.isEmpty() || poin.isEmpty()) {
+        if (id_member.isEmpty() || nama_member.isEmpty() || alamat.isEmpty() || no_telepon.isEmpty()) {
             // Menggunakan JOptionPane untuk menampilkan pesan peringatan
             JOptionPane.showMessageDialog(this, "Semua Kolom Harus Di-isi", "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         try {
-            String sql = "INSERT INTO member (id_member, nama_member, alamat, no_telepon, poin) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO supplier (id_supplier, nama_supplier, no_telepon, alamat) VALUES (?, ?, ?, ?)";
             try (PreparedStatement st = conn.prepareStatement(sql)) {
                 st.setString(1, id_member);
                 st.setString(2, nama_member);
-                st.setString(3, alamat);
-                st.setString(4, no_telepon);
-                st.setInt(5, Integer.parseInt(poin));
+                st.setString(3, no_telepon);
+                st.setString(4, alamat);
 
                 int rowInserted = st.executeUpdate();
                 if (rowInserted > 0) {
@@ -266,32 +232,30 @@ public class tambahMember extends javax.swing.JDialog {
                 }
             }
         } catch (Exception e) {
-            Logger.getLogger(tambahMember.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(tambahSupplier.class.getName()).log(Level.SEVERE, null, e);
         }
     }
     
     private void updateData() {
-        String id_member = txtIdMember.getText();
-        String nama_member = txtNamaMember.getText();
-        String alamat = txtAlamat.getText();
+        String id_supplier = txtIdSupplier.getText();
+        String nama_supplier = txtNamaSupplier.getText();
         String no_telepon = txtNomorTelepon.getText();
-        String poin = txtPoin.getText();
+        String alamat = txtAlamat.getText();
         
         
-        if (id_member.isEmpty() || nama_member.isEmpty() || alamat.isEmpty() || no_telepon.isEmpty() || poin.isEmpty()) {
+        if (id_supplier.isEmpty() || nama_supplier.isEmpty() || alamat.isEmpty() || no_telepon.isEmpty()) {
             // Menggunakan JOptionPane untuk menampilkan pesan peringatan
             JOptionPane.showMessageDialog(this, "Semua Kolom Harus Di-isi", "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
         try {
-            String sql = "UPDATE member SET nama_member=?, alamat=?, no_telepon=?,poin=? WHERE id_member=?";
+            String sql = "UPDATE supplier SET nama_supplier=?, no_telepon=?, alamat=? WHERE id_supplier=?";
             try(PreparedStatement st = conn.prepareStatement(sql)){
-                st.setString(1, nama_member);
-                st.setString(2, alamat);
-                st.setString(3, no_telepon);
-                st.setInt(4, Integer.parseInt(poin));
-                st.setString(5, id_member);
+                st.setString(1, nama_supplier);
+                st.setString(2, no_telepon);
+                st.setString(3, alamat);
+                st.setString(4, id_supplier);
 
                 
                 int rowInserted = st.executeUpdate();
@@ -304,7 +268,7 @@ public class tambahMember extends javax.swing.JDialog {
                 }
             }
         } catch (Exception e) {
-            Logger.getLogger(tambahMember.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(tambahSupplier.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 

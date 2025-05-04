@@ -5,6 +5,7 @@
 package bareSkinLogin;
 
 import bareSkinDashboard.menuDashboardAdmin;
+import bareSkinDashboard.menuDashboardKasir;
 import config.koneksi;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -344,41 +345,49 @@ public class loginBareSkin extends javax.swing.JFrame {
     return null;
 }
 
-    
     private void prosesLogin() {
     if (validasiInput()) {
         String username = t_username.getText();
         String password = new String(t_password.getPassword()); // Ambil password dengan aman
         String hashedPassword = getMd5java(password); // Hash password
-        
+
         Map<String, String> loginResult = checkLogin(username, hashedPassword);
-        
-        if(loginResult != null){
-            String id_user      = loginResult.get("id_user");
-            String nama         = loginResult.get("nama");
-            String level        = loginResult.get("level");
-            
+
+        if (loginResult != null) {
+            String id_user = loginResult.get("id_user");
+            String nama = loginResult.get("nama");
+            String level = loginResult.get("level");
+
             Timer timer = new Timer(10, null);
-            menuDashboardAdmin mn = new menuDashboardAdmin(id_user, nama, level);
-            mn.setOpacity(0f);
-            mn.setVisible(true);
+
+            JFrame menu;
+            if (level.equalsIgnoreCase("Admin")) {
+                menu = new menuDashboardAdmin(id_user, nama, level);
+            } else {
+                menu = new menuDashboardKasir(id_user, nama, level); // Ganti dengan class kasir kamu
+            }
+
+            menu.setOpacity(0f);
+            menu.setVisible(true);
 
             timer.addActionListener(e -> {
-                float opacity = mn.getOpacity();
+                float opacity = menu.getOpacity();
                 opacity += 0.05f;
-                if(opacity >= 1f){
-                    mn.setOpacity(1f);
+                if (opacity >= 1f) {
+                    opacity = 1f;
                     timer.stop();
                 }
-                mn.setOpacity(opacity);
-});
-timer.start();
+                menu.setOpacity(opacity);
+            });
+
+            timer.start();
         } else {
             Notification panel = new Notification(this, Notification.Type.WARNING, Notification.Location.TOP_CENTER, "USERNAME/PASSWORD ANDA SALAH");
             panel.showNotification();
         }
     }
 }
+
 }
 
 

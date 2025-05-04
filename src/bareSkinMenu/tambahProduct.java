@@ -32,7 +32,10 @@ public class tambahProduct extends javax.swing.JDialog {
     private String nama_product;
     private String stok_product;
     private String satuan;
-    private String harga;
+    private String harga_beli;
+    private String harga_jual;
+    private String tgl_expired;
+    private String kategori;
     
     public String getId_product() {
         return id_product;
@@ -50,16 +53,59 @@ public class tambahProduct extends javax.swing.JDialog {
         return satuan;
     }
     
-    public String getHarga() {
-        return harga;
+    public String getHarga_beli() {
+        return harga_beli;
+    }
+    
+    public String getHarga_jual() {
+        return harga_jual;
+    }
+    
+    public String getTgl_expired() {
+        return tgl_expired;
+    }
+    
+    public String getKategori() {
+        return kategori;
     }
 
-    public tambahProduct(java.awt.Frame parent, boolean modal) {
+    public tambahProduct(java.awt.Frame parent, boolean modal, String id, String nama, String stok, String satuan, 
+            String hargaBeli, String hargaJual, String tanggal, String kategori) {
+        
         super(parent, modal);
         initComponents();
-        
+        setLocationRelativeTo(null);
+
         conn = koneksi.getConnection();
         finishing();
+        
+        // Set data ke field dan komponen input
+        this.id_product = id;
+        this.nama_product = nama;
+        this.stok_product = stok;
+        this.satuan = satuan;
+        this.harga_beli = hargaBeli;
+        this.harga_jual = hargaJual;
+        this.tgl_expired = tanggal;
+        this.kategori = kategori;
+
+        txtIdProduct.setText(id);
+        txtNamaProduct.setText(nama);
+        txtStok.setText(stok);
+        cbxSatuan.setSelectedItem(satuan);
+        txtHargaBeli.setText(hargaBeli);
+        txtHargaJual.setText(hargaJual);
+        txtTanggalExpired.setText(tanggal);
+        cbxKategori.setSelectedItem(kategori);
+        btnSimpan.setText("SIMPAN");
+
+        if (!txtIdProduct.getText().trim().isEmpty()) {
+            btnSimpan.setText("UBAH");
+            fieldColor(txtIdProduct);
+            fieldColor(txtStok);
+            fieldColor(txtHargaBeli);
+        } 
+
     }
 
     /**
@@ -106,7 +152,6 @@ public class tambahProduct extends javax.swing.JDialog {
         jLabel22.setText("ID Product");
         panelView.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, -1));
 
-        txtIdProduct.setText("9999999999999");
         txtIdProduct.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
         txtIdProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,7 +164,6 @@ public class tambahProduct extends javax.swing.JDialog {
         jLabel23.setText("Nama Product");
         panelView.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
 
-        txtNamaProduct.setText("Scarlett Whitening Brightly ");
         txtNamaProduct.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
         panelView.add(txtNamaProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, 430, 50));
 
@@ -127,7 +171,7 @@ public class tambahProduct extends javax.swing.JDialog {
         jLabel25.setText("Stok");
         panelView.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 100, -1, -1));
 
-        txtStok.setText("100");
+        txtStok.setText("0");
         txtStok.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
         panelView.add(txtStok, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 140, 60, 50));
 
@@ -136,7 +180,7 @@ public class tambahProduct extends javax.swing.JDialog {
         panelView.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 200, -1, -1));
 
         cbxSatuan.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
-        cbxSatuan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Satuan Product", "Item", "Gram", "KiloGram", "Renteng", "Slop Kecil", "Slop Besar", "Pak", "Roll", "Kotak Susu" }));
+        cbxSatuan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Satuan Product", "item", "paket" }));
         cbxSatuan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxSatuanActionPerformed(evt);
@@ -148,7 +192,6 @@ public class tambahProduct extends javax.swing.JDialog {
         jLabel31.setText("Tanggal Expired");
         panelView.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 100, -1, -1));
 
-        txtTanggalExpired.setText("1");
         txtTanggalExpired.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
         panelView.add(txtTanggalExpired, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 140, 170, -1));
 
@@ -157,7 +200,7 @@ public class tambahProduct extends javax.swing.JDialog {
         panelView.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, -1, -1));
 
         cbxKategori.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
-        cbxKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Kategori Product", "Item", "Gram", "KiloGram", "Renteng", "Slop Kecil", "Slop Besar", "Pak", "Roll", "Kotak Susu" }));
+        cbxKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Kategori Product", "skincare", "lipcare", "haircare", "bodycare" }));
         cbxKategori.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxKategoriActionPerformed(evt);
@@ -169,7 +212,7 @@ public class tambahProduct extends javax.swing.JDialog {
         jLabel24.setText("Harga Beli");
         panelView.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 300, -1, -1));
 
-        txtHargaBeli.setText("10.000.000");
+        txtHargaBeli.setText("0");
         txtHargaBeli.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
         panelView.add(txtHargaBeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 340, 140, -1));
 
@@ -177,8 +220,13 @@ public class tambahProduct extends javax.swing.JDialog {
         jLabel26.setText("Harga Jual");
         panelView.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 300, -1, -1));
 
-        txtHargaJual.setText("10.000.000");
+        txtHargaJual.setText("0");
         txtHargaJual.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
+        txtHargaJual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtHargaJualActionPerformed(evt);
+            }
+        });
         panelView.add(txtHargaJual, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 340, 140, -1));
 
         btnSimpan.setBackground(new java.awt.Color(75, 22, 76));
@@ -207,7 +255,14 @@ public class tambahProduct extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-        // TODO add your handling code here:
+        if(btnSimpan.getText().equals("SIMPAN"))
+            {
+                insertData();
+            }
+        else if(btnSimpan.getText().equals("UBAH"))
+            {
+                updateData();
+            }
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void cbxKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxKategoriActionPerformed
@@ -222,54 +277,10 @@ public class tambahProduct extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdProductActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(tambahProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(tambahProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(tambahProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(tambahProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+    private void txtHargaJualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHargaJualActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtHargaJualActionPerformed
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                tambahProduct dialog = new tambahProduct(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rojerusan.RSMaterialButtonRectangle btnSimpan;
@@ -298,69 +309,111 @@ public class tambahProduct extends javax.swing.JDialog {
         field.setEditable(false);
         field.setBackground(new Color(219, 219, 219));
     }
-
+    
     private void finishing() {
         fieldColor(txtStok);
         fieldColor(txtHargaBeli);
         fieldColor(txtHargaJual);
     }
     
-    
-    private void calculateTotalPages(){
-        int totalData = getTotalData();
-        totalPages = (int) Math.ceil((double) totalData / dataPerHalaman );
+    private void resetForm() {
+        txtIdProduct.setText("");
+        txtNamaProduct.setText("");
+        cbxKategori.setSelectedItem("Pilih Kategori Product");
+        txtTanggalExpired.setText("");
+        txtStok.setText("0");
+        cbxSatuan.setSelectedItem("Pilih Satuan Product");
+        txtHargaBeli.setText("0");
+        txtHargaJual.setText("0");
     }
     
-    private int getTotalData(){
-        int totalData = 0;
-        
+    private void insertData() {
+        String id_product = txtIdProduct.getText().trim();
+        String nama_product = txtNamaProduct.getText().trim();
+        String stok_product = txtStok.getText().trim();
+        String satuan = cbxSatuan.getSelectedItem().toString();
+        String harga_beli = txtHargaBeli.getText().trim();
+        String harga_jual = txtHargaJual.getText().trim();
+        String tgl_expired = txtTanggalExpired.getText().trim();
+        String kategori = cbxKategori.getSelectedItem().toString();
+
+        if (id_product.isEmpty() || nama_product.isEmpty() || stok_product.isEmpty() 
+                || harga_beli.isEmpty() || harga_jual.isEmpty() || tgl_expired.isEmpty() || cbxSatuan.getSelectedItem().toString().equals("Pilih Satuan Product") 
+                || cbxKategori.getSelectedItem().toString().equals("Pilih Kategori Product")) {
+            // Menggunakan JOptionPane untuk menampilkan pesan peringatan
+            JOptionPane.showMessageDialog(this, "Semua Kolom Harus Di-isi", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
         try {
-            String sql = "SELECT COUNT(*) AS total FROM product";
-            try (PreparedStatement st = conn.prepareStatement(sql)){
-                ResultSet rs = st.executeQuery();
-                if(rs.next()){
-                    totalData = rs.getInt("total");
+            String sql = "INSERT INTO product (id_product, nama_product, stok_product, satuan, harga_beli, harga_jual, tgl_expired, kategori) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            try (PreparedStatement st = conn.prepareStatement(sql)) {
+                st.setString(1, id_product);
+                st.setString(2, nama_product);
+                st.setString(3, stok_product);
+                st.setString(4, satuan);
+                st.setString(5, harga_beli);
+                st.setString(6, harga_jual);
+                st.setString(7, tgl_expired);
+                st.setString(8, kategori);
+
+                int rowInserted = st.executeUpdate();
+                if (rowInserted > 0) {
+                    // Notifikasi sukses
+                    JOptionPane.showMessageDialog(this, "Data Berhasil Ditambahkan", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+
+                    resetForm();
+                    dispose();
                 }
-            } 
-        }catch (Exception e) {     
-            Logger.getLogger(tambahProduct.class.getName()).log(Level.SEVERE,null, e);
+            }
+        } catch (Exception e) {
+            Logger.getLogger(tambahSupplier.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+    
+    private void updateData() {
+        String id_product = txtIdProduct.getText();
+        String nama_product = txtNamaProduct.getText();
+        String stok_product = txtStok.getText();
+        String satuan = cbxSatuan.getSelectedItem().toString();
+        String hargaBeli = txtHargaBeli.getText();
+        String hargaJual = txtHargaJual.getText();
+        String tgl_expired = txtTanggalExpired.getText();
+        String kategori = cbxKategori.getSelectedItem().toString();
+        
+        
+        if (id_product.isEmpty() || nama_product.isEmpty() || stok_product.isEmpty() 
+                || harga_beli.isEmpty() || harga_jual.isEmpty() || tgl_expired.isEmpty() || cbxSatuan.getSelectedItem().toString().equals("Pilih Satuan Product") 
+                || cbxKategori.getSelectedItem().toString().equals("Pilih Kategori Product")) {
+            // Menggunakan JOptionPane untuk menampilkan pesan peringatan
+            JOptionPane.showMessageDialog(this, "Semua Kolom Harus Di-isi", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return;
         }
         
-        return totalData;
-    }
-    
-    
-    public void getData(int startIndex, int entriesPage, DefaultTableModel model) {
-        model.setRowCount(0);
-        
         try {
-           String sql = "SELECT * FROM product LIMIT ?,?";
-           try (PreparedStatement st = conn.prepareStatement(sql)) {
-               st.setInt(1, startIndex);
-               st.setInt(2, entriesPage);
-               ResultSet rs = st.executeQuery();
-               
-               while (rs.next()) {
-                    String idProduct = rs.getString("id_product");
-                    String namaProduct = rs.getString("nama_product");
-                    int stokProduct = rs.getInt("stok_product");
-                    String satuan = rs.getString("satuan");
-                    int hargaBeli = rs.getInt("harga_beli");
-                    int hargaJual = rs.getInt("harga_jual");
-                    String numberProduct = rs.getString("number_product");
-                    String tglExpired = rs.getString("tgl_expired");
+            String sql = "UPDATE product SET nama_product=?, stok_product=?, satuan=?, harga_beli=?, harga_jual=?, tgl_expired=?, kategori=? WHERE id_product=?";
+            try(PreparedStatement st = conn.prepareStatement(sql)){
+                st.setString(1, nama_product);
+                st.setString(2, stok_product);
+                st.setString(3, satuan);
+                st.setString(4, hargaBeli);
+                st.setString(5, hargaJual);
+                st.setString(6, tgl_expired);
+                st.setString(7, kategori);
+                st.setString(8, id_product);
+                
+                int rowInserted = st.executeUpdate();
+                if (rowInserted > 0) {
+                    // Notifikasi sukses
+                    JOptionPane.showMessageDialog(this, "Data Berhasil Diubah", "Sukses", JOptionPane.INFORMATION_MESSAGE);
 
-                    Object[] rowData = {idProduct, namaProduct, stokProduct, satuan, hargaBeli, hargaJual, numberProduct, tglExpired};
-                    model.addRow(rowData);
+                    resetForm();
+                    dispose();
                 }
-           }
-        }catch (Exception e) {
-            Logger.getLogger(tambahProduct.class.getName()).log(Level.SEVERE,null, e);
+            }
+        } catch (Exception e) {
+            Logger.getLogger(tambahSupplier.class.getName()).log(Level.SEVERE, null, e);
         }
     }
-    
-    
-    
-
     
 }

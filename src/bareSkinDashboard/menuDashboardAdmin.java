@@ -45,6 +45,9 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
         return id_user;
     }
     
+    public String getNama() {
+        return nama;
+    }
     public String getlevel() {
         return level;
     }
@@ -78,6 +81,12 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
         iMemberG = new javax.swing.JLabel();
         iMemberT = new javax.swing.JLabel();
         iMemberH = new javax.swing.JLabel();
+        pnSupplier = new custom.PanelCustom();
+        tSupplier = new javax.swing.JLabel();
+        Ksupplier = new custom.PanelCustom();
+        iSupplierG = new javax.swing.JLabel();
+        iSupplierT = new javax.swing.JLabel();
+        iSupplierH = new javax.swing.JLabel();
         pnKaryawan = new custom.PanelCustom();
         tKaryawan = new javax.swing.JLabel();
         Kkaryawan = new custom.PanelCustom();
@@ -290,6 +299,60 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
 
         pn_kiri.add(pnMember, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 240, 70));
 
+        pnSupplier.setBackground(new java.awt.Color(221, 136, 207));
+        pnSupplier.setRoundBottomLeft(10);
+        pnSupplier.setRoundBottomRight(40);
+        pnSupplier.setRoundTopLeft(10);
+        pnSupplier.setRoundTopRight(10);
+        pnSupplier.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnSupplierMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnSupplierMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnSupplierMouseExited(evt);
+            }
+        });
+        pnSupplier.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tSupplier.setBackground(new java.awt.Color(245, 245, 245));
+        tSupplier.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        tSupplier.setForeground(new java.awt.Color(75, 22, 76));
+        tSupplier.setText("Supplier");
+        pnSupplier.add(tSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(89, 16, -1, -1));
+
+        Ksupplier.setBackground(new java.awt.Color(221, 136, 207));
+        Ksupplier.setRoundBottomLeft(10);
+        Ksupplier.setRoundBottomRight(10);
+        Ksupplier.setRoundTopLeft(10);
+        Ksupplier.setRoundTopRight(10);
+
+        javax.swing.GroupLayout KsupplierLayout = new javax.swing.GroupLayout(Ksupplier);
+        Ksupplier.setLayout(KsupplierLayout);
+        KsupplierLayout.setHorizontalGroup(
+            KsupplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 13, Short.MAX_VALUE)
+        );
+        KsupplierLayout.setVerticalGroup(
+            KsupplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+
+        pnSupplier.add(Ksupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 6, -1, -1));
+
+        iSupplierG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Karyawan G.png"))); // NOI18N
+        pnSupplier.add(iSupplierG, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+
+        iSupplierT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Karyawan T.png"))); // NOI18N
+        pnSupplier.add(iSupplierT, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+
+        iSupplierH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Member H.png"))); // NOI18N
+        pnSupplier.add(iSupplierH, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+
+        pn_kiri.add(pnSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, 240, 70));
+
         pnKaryawan.setBackground(new java.awt.Color(221, 136, 207));
         pnKaryawan.setRoundBottomLeft(10);
         pnKaryawan.setRoundBottomRight(40);
@@ -396,7 +459,7 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
         iPenjualanH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Penjualan H.png"))); // NOI18N
         pnPenjualan.add(iPenjualanH, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
-        pn_kiri.add(pnPenjualan, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, 240, 70));
+        pn_kiri.add(pnPenjualan, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 600, 240, 70));
 
         pnPembelian.setBackground(new java.awt.Color(221, 136, 207));
         pnPembelian.setRoundBottomLeft(10);
@@ -450,7 +513,7 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
         iPembelianH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Pembelian H.png"))); // NOI18N
         pnPembelian.add(iPembelianH, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
-        pn_kiri.add(pnPembelian, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 600, 240, 70));
+        pn_kiri.add(pnPembelian, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 690, 240, 70));
 
         pnRetur.setBackground(new java.awt.Color(221, 136, 207));
         pnRetur.setRoundBottomLeft(10);
@@ -504,7 +567,7 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
         iReturH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/retur H.png"))); // NOI18N
         pnRetur.add(iReturH, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
-        pn_kiri.add(pnRetur, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 690, 240, 70));
+        pn_kiri.add(pnRetur, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 780, 240, 70));
 
         pnLaporan.setBackground(new java.awt.Color(221, 136, 207));
         pnLaporan.setRoundBottomLeft(10);
@@ -558,7 +621,7 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
         iLaporanH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Laporan H.png"))); // NOI18N
         pnLaporan.add(iLaporanH, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
-        pn_kiri.add(pnLaporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 780, 240, 70));
+        pn_kiri.add(pnLaporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 870, 240, 70));
 
         pnLogout.setBackground(new java.awt.Color(221, 136, 207));
         pnLogout.setRoundBottomLeft(10);
@@ -811,6 +874,24 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
         }
     }//GEN-LAST:event_pnReturMouseExited
 
+    private void pnSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnSupplierMouseClicked
+        setActiveButton(pnSupplier, tSupplier, iSupplierG, iSupplierT, Ksupplier);
+        switchPanel(new bareSkinMenu.menuSupplier());
+    }//GEN-LAST:event_pnSupplierMouseClicked
+
+    private void pnSupplierMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnSupplierMouseEntered
+        if (activeButton != tSupplier) {
+            setHoverStyle(pnSupplier, tSupplier, iSupplierG, iSupplierT, iSupplierH, Ksupplier);
+        }
+    }//GEN-LAST:event_pnSupplierMouseEntered
+
+    private void pnSupplierMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnSupplierMouseExited
+        if (activeButton != tSupplier) {
+            resetStyle(pnSupplier, tSupplier, iSupplierG, iSupplierH, Ksupplier);
+        }
+    }//GEN-LAST:event_pnSupplierMouseExited
+
+    
     /**
      * @param args the command line arguments
      */
@@ -863,6 +944,7 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
     private custom.PanelCustom Kpenjualan;
     private custom.PanelCustom Kproduct;
     private custom.PanelCustom Kretur;
+    private custom.PanelCustom Ksupplier;
     private javax.swing.JLabel iDashboardG;
     private javax.swing.JLabel iDashboardH;
     private javax.swing.JLabel iDashboardT;
@@ -890,6 +972,9 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
     private javax.swing.JLabel iReturG;
     private javax.swing.JLabel iReturH;
     private javax.swing.JLabel iReturT;
+    private javax.swing.JLabel iSupplierG;
+    private javax.swing.JLabel iSupplierH;
+    private javax.swing.JLabel iSupplierT;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private custom.PanelCustom pnDashboard;
@@ -901,6 +986,7 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
     private custom.PanelCustom pnPenjualan;
     private custom.PanelCustom pnProduct;
     private custom.PanelCustom pnRetur;
+    private custom.PanelCustom pnSupplier;
     private custom.PanelCustom pn_kiri;
     private javax.swing.JPanel pn_utama;
     private javax.swing.JLabel tDashboard;
@@ -912,6 +998,7 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
     private javax.swing.JLabel tPenjualan;
     private javax.swing.JLabel tProduct;
     private javax.swing.JLabel tRetur;
+    private javax.swing.JLabel tSupplier;
     // End of variables declaration//GEN-END:variables
      
     private void setHoverStyle(JPanel panel, JLabel label, JLabel iconDefault1,JLabel iconDefault2, JLabel iconHover, JPanel navbar) {
@@ -947,6 +1034,7 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
         resetButton(pnProduct, tProduct, iProductG, iProductT);
         resetButton(pnMember, tMember, iMemberG, iMemberT);
         resetButton(pnKaryawan, tKaryawan, iKaryawanG, iKaryawanT);
+        resetButton(pnSupplier, tSupplier, iSupplierG, iSupplierT);
         resetButton(pnPenjualan, tPenjualan, iPenjualanG, iPenjualanT);
         resetButton(pnPembelian, tPembelian, iPembelianG, iPembelianT);
         resetButton(pnLaporan, tLaporan, iLaporanG, iLaporanT);

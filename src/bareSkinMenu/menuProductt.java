@@ -15,22 +15,36 @@ import java.util.logging.Logger;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import config.koneksi;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import javax.swing.JOptionPane;
 
 public class menuProductt extends javax.swing.JPanel {
     
     private int halamanSaatIni = 1;
     private int dataPerHalaman = 14;
     private int totalPages;
-    // private String id_user;
     private final Connection conn;
-    
-    
+ 
+
     public menuProductt() {
+
         conn = koneksi.getConnection();
-        initComponents();
+        initComponents(); 
         loadData();
         setTabelModel();
         pagination();
+        
+        btnBatal.setVisible(false);
+        btnHapus.setVisible(false);
+        
+        // Tampilkan tanggal hari ini
+        Date tanggalHariIni = new Date();
+        SimpleDateFormat formatTanggal = new SimpleDateFormat("dd MMMM yyyy", new Locale("id", "ID"));
+        String tanggalFormatIndonesia = formatTanggal.format(tanggalHariIni);
+        tanggalIndonesia.setText(tanggalFormatIndonesia);
+
     }
 
     /**
@@ -57,11 +71,11 @@ public class menuProductt extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         panelCustom16 = new custom.PanelCustom();
-        jLabel8 = new javax.swing.JLabel();
+        tanggalIndonesia = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         panelCustom17 = new custom.PanelCustom();
-        jLabel10 = new javax.swing.JLabel();
+        seluruhData = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         iSearch = new javax.swing.JLabel();
@@ -73,8 +87,9 @@ public class menuProductt extends javax.swing.JPanel {
         btn_before = new javax.swing.JButton();
         btn_first = new javax.swing.JButton();
         lb_halaman = new javax.swing.JLabel();
+        btnBatal = new rojerusan.RSMaterialButtonRectangle();
+        btnHapus = new rojerusan.RSMaterialButtonRectangle();
         btnTambah = new rojerusan.RSMaterialButtonRectangle();
-        btnTambah1 = new rojerusan.RSMaterialButtonRectangle();
         pnHeader = new custom.PanelCustom();
         tPenjualan = new javax.swing.JLabel();
 
@@ -105,7 +120,7 @@ public class menuProductt extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID Product", "Nama Product", "Kategori", "Tgl Expired", "Stok", "Satuan", "Harga Beli", "Harga Jual"
+                "ID Product", "Nama Product", "Stok", "Satuan", "Harga Beli", "Harga Jual", "Tgl Expired", "Kategori"
             }
         ));
         tblData.setGridColor(new java.awt.Color(255, 255, 255));
@@ -198,9 +213,9 @@ public class menuProductt extends javax.swing.JPanel {
         panelCustom16.setRoundTopLeft(20);
         panelCustom16.setRoundTopRight(20);
 
-        jLabel8.setBackground(new java.awt.Color(75, 22, 76));
-        jLabel8.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
-        jLabel8.setText("30 Agustus 2025");
+        tanggalIndonesia.setBackground(new java.awt.Color(75, 22, 76));
+        tanggalIndonesia.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
+        tanggalIndonesia.setText("30 Agustus 2025");
 
         jLabel9.setBackground(new java.awt.Color(106, 106, 106));
         jLabel9.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
@@ -216,7 +231,7 @@ public class menuProductt extends javax.swing.JPanel {
                 .addGap(36, 36, 36)
                 .addGroup(panelCustom16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
-                    .addComponent(jLabel8))
+                    .addComponent(tanggalIndonesia))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(jLabel19)
                 .addGap(28, 28, 28))
@@ -230,7 +245,7 @@ public class menuProductt extends javax.swing.JPanel {
                     .addGroup(panelCustom16Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8)))
+                        .addComponent(tanggalIndonesia)))
                 .addGap(27, 27, 27))
         );
 
@@ -242,9 +257,9 @@ public class menuProductt extends javax.swing.JPanel {
         panelCustom17.setRoundTopLeft(20);
         panelCustom17.setRoundTopRight(20);
 
-        jLabel10.setBackground(new java.awt.Color(75, 22, 76));
-        jLabel10.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
-        jLabel10.setText("100");
+        seluruhData.setBackground(new java.awt.Color(75, 22, 76));
+        seluruhData.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
+        seluruhData.setText("100");
 
         jLabel11.setBackground(new java.awt.Color(106, 106, 106));
         jLabel11.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
@@ -260,7 +275,7 @@ public class menuProductt extends javax.swing.JPanel {
                 .addGap(36, 36, 36)
                 .addGroup(panelCustom17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel11)
-                    .addComponent(jLabel10))
+                    .addComponent(seluruhData))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
                 .addComponent(jLabel21)
                 .addGap(27, 27, 27))
@@ -274,7 +289,7 @@ public class menuProductt extends javax.swing.JPanel {
                     .addGroup(panelCustom17Layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel10)))
+                        .addComponent(seluruhData)))
                 .addGap(27, 27, 27))
         );
 
@@ -286,6 +301,11 @@ public class menuProductt extends javax.swing.JPanel {
         pnMain.add(iSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 50, 30, 30));
 
         txtSearch.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSearchKeyTyped(evt);
+            }
+        });
         pnMain.add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 40, 350, 50));
 
         panelCustom1.setBackground(new java.awt.Color(255, 255, 255));
@@ -358,25 +378,35 @@ public class menuProductt extends javax.swing.JPanel {
 
         pnMain.add(panelCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 620, 1210, 70));
 
+        btnBatal.setBackground(new java.awt.Color(75, 22, 76));
+        btnBatal.setText("BATAL");
+        btnBatal.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
+        btnBatal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBatalActionPerformed(evt);
+            }
+        });
+        pnMain.add(btnBatal, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 30, 140, 60));
+
+        btnHapus.setBackground(new java.awt.Color(75, 22, 76));
+        btnHapus.setText("HAPUS");
+        btnHapus.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
+        btnHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHapusActionPerformed(evt);
+            }
+        });
+        pnMain.add(btnHapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, 140, 60));
+
         btnTambah.setBackground(new java.awt.Color(75, 22, 76));
-        btnTambah.setText("HAPUS");
+        btnTambah.setText("TAMBAH");
         btnTambah.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
         btnTambah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTambahActionPerformed(evt);
             }
         });
-        pnMain.add(btnTambah, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, 140, 60));
-
-        btnTambah1.setBackground(new java.awt.Color(75, 22, 76));
-        btnTambah1.setText("TAMBAH");
-        btnTambah1.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
-        btnTambah1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTambah1ActionPerformed(evt);
-            }
-        });
-        pnMain.add(btnTambah1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 140, 60));
+        pnMain.add(btnTambah, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 140, 60));
 
         panelView.add(pnMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 1600, 940));
 
@@ -401,32 +431,56 @@ public class menuProductt extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDataMouseClicked
-
+        if(btnTambah.getText().equals("TAMBAH")){
+            btnTambah.setText("UBAH");
+            btnHapus.setVisible(true);
+            btnBatal.setVisible(true);
+        }
     }//GEN-LAST:event_tblDataMouseClicked
 
     private void btn_lastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lastActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_lastActionPerformed
 
+    private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalActionPerformed
+        tblData.clearSelection();
+        btnHapus.setVisible(false);
+        btnTambah.setText("TAMBAH");
+        btnBatal.setVisible(false);
+    }//GEN-LAST:event_btnBatalActionPerformed
+
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
-        
+        if(btnTambah.getText().equals("TAMBAH"))
+            {
+                tambahProduct();
+                loadData();
+            }
+        else if(btnTambah.getText().equals("UBAH"))
+            {
+                ubahData();
+                loadData();
+            }
     }//GEN-LAST:event_btnTambahActionPerformed
 
-    private void btnTambah1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambah1ActionPerformed
-        tambahProduct();
-    }//GEN-LAST:event_btnTambah1ActionPerformed
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+        deleteData();
+    }//GEN-LAST:event_btnHapusActionPerformed
+
+    private void txtSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyTyped
+        searchData();
+    }//GEN-LAST:event_txtSearchKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private rojerusan.RSMaterialButtonRectangle btnBatal;
+    private rojerusan.RSMaterialButtonRectangle btnHapus;
     private rojerusan.RSMaterialButtonRectangle btnTambah;
-    private rojerusan.RSMaterialButtonRectangle btnTambah1;
     private javax.swing.JButton btn_before;
     private javax.swing.JButton btn_first;
     private javax.swing.JButton btn_last;
     private javax.swing.JButton btn_next;
     private javax.swing.JComboBox<String> cbx_data;
     private javax.swing.JLabel iSearch;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
@@ -436,7 +490,6 @@ public class menuProductt extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lb_halaman;
@@ -450,20 +503,16 @@ public class menuProductt extends javax.swing.JPanel {
     private javax.swing.JPanel panelView;
     private custom.PanelCustom pnHeader;
     private custom.PanelCustom pnMain;
+    private javax.swing.JLabel seluruhData;
     private javax.swing.JLabel tPenjualan;
+    private javax.swing.JLabel tanggalIndonesia;
     private javax.swing.JTable tblData;
     private custom.JTextFieldRounded txtSearch;
     // End of variables declaration//GEN-END:variables
     
-    private void fieldColor(JTextField field) {
-        field.setOpaque(true);
-        field.setEditable(false);
-        field.setBackground(new Color(219, 219, 219));
-    }
-
     private void tambahProduct(){
         boolean closable = true;
-        tambahProduct product = new tambahProduct(null, closable);
+        tambahProduct product = new tambahProduct(null, closable,null,null,"0","Pilih Satuan Product","0","0",null,"Pilih Kategori Product");
         product.setVisible(true);
         
     }
@@ -522,14 +571,7 @@ public class menuProductt extends javax.swing.JPanel {
         });
     }
     
-    private void showPanel(){
-        panelMain.removeAll();
-        panelMain.add(new menuProductt());
-        panelMain.repaint();
-        panelMain.revalidate();
-    }
-    
-    private void calculateTotalPages(){
+   private void calculateTotalPages(){
     int totalData = getTotalData(); // Ambil total data dari tabel
     totalPages = (int) Math.ceil((double) totalData / dataPerHalaman);
     }
@@ -538,7 +580,7 @@ public class menuProductt extends javax.swing.JPanel {
         int totalData = 0;
         
         try {
-            String sql = "SELECT COUNT(*) AS total FROM transaksi_penjualan";
+            String sql = "SELECT COUNT(*) AS total FROM product";
             try (PreparedStatement st = conn.prepareStatement(sql)){
                 ResultSet rs = st.executeQuery();
                 if(rs.next()){
@@ -555,26 +597,27 @@ public class menuProductt extends javax.swing.JPanel {
         model.setRowCount(0);
         
         try {
-           String sql = "SELECT t.id_transaksi, cu.nama_member, DATE(t.tgl_penjualan) AS tgl_penjualan, t.total_harga, t.jumlah_bayar, "
-                   + "t.kembalian, us.nama AS nama_user FROM transaksi_penjualan t INNER JOIN member cu ON t.id_member = cu.id_member "
-                   + "INNER JOIN user us ON t.id_user = us.id_user ORDER BY t.id_transaksi ASC LIMIT ?,?";
+           String sql = "SELECT * FROM product limit ?, ?";
            try (PreparedStatement st = conn.prepareStatement(sql)) {
                st.setInt(1, startIndex);
                st.setInt(2, entriesPage);
                ResultSet rs = st.executeQuery();
                
                while (rs.next()) {
-                    String idTransaksi = rs.getString("id_transaksi");
-                    String namaMember = rs.getString("nama_member");
-                    String tglPenjualan = rs.getString("tgl_penjualan");
-                    int totalHarga = rs.getInt("total_harga");
-                    int jumlahBayar = rs.getInt("jumlah_bayar");
-                    int Kembalian = rs.getInt("kembalian");
-                    String namaUser = rs.getString("nama_user");
+                    String idProduct = rs.getString("id_product");
+                    String namaProduct = rs.getString("nama_product");
+                    String stok = rs.getString("stok_product");
+                    String satuan = rs.getString("satuan");
+                    String hargaBeli = rs.getString("harga_beli");
+                    String hargaJual = rs.getString("harga_jual");
+                    String tanggalExpired = rs.getString("tgl_expired");
+                    String kategori = rs.getString("kategori");
+                    
+                    
                     
 
-                    Object[] rowData = {idTransaksi, namaMember, tglPenjualan, 
-                        totalHarga, jumlahBayar, Kembalian, namaUser};
+                    Object[] rowData = {idProduct, namaProduct, stok, 
+                        satuan, hargaBeli, hargaJual, tanggalExpired, kategori};
                     model.addRow(rowData);
                 }
            }
@@ -587,14 +630,147 @@ public class menuProductt extends javax.swing.JPanel {
     private void loadData() {
         calculateTotalPages();
         int totalData = getTotalData();
-        lb_halaman.setText(String.valueOf("Halaman " + halamanSaatIni + " dari Total Data " + totalData));
+        seluruhData.setText(String.valueOf(totalData));
+        lb_halaman.setText("Halaman " + halamanSaatIni + " dari Total Data " + totalData);
 
-        int startIndex = (halamanSaatIni - 1) * dataPerHalaman; // Indeks awal untuk pagination
+        int startIndex = (halamanSaatIni - 1) * dataPerHalaman;
         getData(startIndex, dataPerHalaman, (DefaultTableModel) tblData.getModel());
+        
+        /*
+        try {
+            String sql = "SELECT nama_member, poin FROM member WHERE poin = (SELECT MAX(poin) FROM member) LIMIT 1";
+            PreparedStatement st = conn.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                String namaPoinTertinggi = rs.getString("nama_member");
+                namaPoin.setText(namaPoinTertinggi);
+            } else {
+                namaPoin.setText("NONE");
+            }
+            rs.close();
+            st.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Gagal menampilkan poin tertinggi: " + e.getMessage(), "Kesalahan", JOptionPane.ERROR_MESSAGE);
+        }
+        */
     }
+
     
     private void setTabelModel() {
         DefaultTableModel model = (DefaultTableModel) tblData.getModel();
     }
 
+    private void searchData() {
+        String kataKunci = txtSearch.getText().trim(); // Menghapus spasi di awal/akhir input
+
+
+        DefaultTableModel model = (DefaultTableModel) tblData.getModel();
+        model.setRowCount(0);
+
+        try {
+            String sql = "SELECT * FROM product WHERE id_product LIKE ? OR nama_product LIKE ? OR stok_product LIKE ? "
+                    + "OR satuan LIKE ? OR harga_beli LIKE ? OR harga_jual LIKE ? OR tgl_expired LIKE ? OR kategori LIKE ?";
+            try (PreparedStatement st = conn.prepareStatement(sql)) {
+                // Set parameter query untuk semua kolom
+                st.setString(1, "%" + kataKunci + "%");
+                st.setString(2, "%" + kataKunci + "%");
+                st.setString(3, "%" + kataKunci + "%");
+                st.setString(4, "%" + kataKunci + "%");
+                st.setString(5, "%" + kataKunci + "%");
+                st.setString(6, "%" + kataKunci + "%");
+                st.setString(7, "%" + kataKunci + "%");
+                st.setString(8, "%" + kataKunci + "%");
+
+                ResultSet rs = st.executeQuery();
+
+                while (rs.next()) {
+                    String idProduct = rs.getString("id_product");
+                    String namaProduct = rs.getString("nama_product");
+                    String stok = rs.getString("stok_product");
+                    String satuan = rs.getString("satuan");
+                    String hargaBeli = rs.getString("harga_beli");
+                    String hargaJual = rs.getString("harga_jual");
+                    String tglExpired = rs.getString("tgl_expired");
+                    String kategori = rs.getString("kategori");
+                    
+                    Object[] rowData = {idProduct, namaProduct, stok, 
+                        satuan, hargaBeli, hargaJual, tglExpired, kategori};
+                    model.addRow(rowData);
+                }
+            }
+        } catch (Exception e) {
+            Logger.getLogger(menuProductt.class.getName()).log(Level.SEVERE, null, e);
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat mencari data: " + e.getMessage(), "Peringatan", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+    
+    private void ubahData() {
+        int row = tblData.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih data yang ingin diubah!");
+            return;
+        }
+
+        String id = tblData.getValueAt(row, 0).toString();
+        String nama = tblData.getValueAt(row, 1).toString();
+        String stok = tblData.getValueAt(row, 2).toString();
+        String satuan = tblData.getValueAt(row, 3).toString();
+        String hargaBeli = tblData.getValueAt(row, 4).toString();
+        String hargaJual = tblData.getValueAt(row, 5).toString();
+        String tanggal = tblData.getValueAt(row, 6).toString();
+        String kategori = tblData.getValueAt(row, 7).toString();
+
+        tambahProduct form = new tambahProduct(null, true, id, nama, stok, satuan, hargaBeli, hargaJual, tanggal, kategori);
+        form.setVisible(true);
+        btnHapus.setVisible(false);
+        btnBatal.setVisible(false);
+        btnTambah.setText("TAMBAH");
+        loadData();
+    }
+    
+    
+    
+    private void deleteData() {
+        int selectedRow = tblData.getSelectedRow();
+
+        // Validasi apakah ada baris yang dipilih
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih data yang ingin dihapus", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+
+        // Konfirmasi penghapusan
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Apakah yakin ingin menghapus data ini?",
+                "Konfirmasi Hapus Data",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            // Ambil ID dari kolom pertama (indeks 0)
+            String id = tblData.getValueAt(selectedRow, 0).toString();
+
+            try {
+                String sql = "DELETE FROM product WHERE id_product=?";
+                try (PreparedStatement st = conn.prepareStatement(sql)) {
+                    st.setString(1, id);
+
+                    int rowDeleted = st.executeUpdate();
+                    if (rowDeleted > 0) {
+                        JOptionPane.showMessageDialog(this, "Data berhasil dihapus", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                        loadData(); // Refresh tabel setelah penghapusan
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Data gagal dihapus", "Peringatan", JOptionPane.WARNING_MESSAGE);
+                    }
+                }
+            } catch (Exception e) {
+                Logger.getLogger(menuMember.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        loadData();
+        btnHapus.setVisible(false);
+        btnBatal.setVisible(false);
+        btnTambah.setText("TAMBAH");
+
+    }
 }

@@ -1092,8 +1092,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
                     halamanSaatIni++;
                     loadData();
                 }
-            }
-            
+            }           
         });
         
         btn_last.addActionListener(new ActionListener(){

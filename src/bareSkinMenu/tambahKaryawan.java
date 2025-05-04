@@ -1,24 +1,26 @@
 package bareSkinMenu;
 
+import bareSkinLogin.loginBareSkin;
 import menu.*;
 import config.koneksi;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-/**
- *
- * @author user
- */
+
+
 public class tambahKaryawan extends javax.swing.JDialog {
     
     private int halamanSaatIni = 1;
@@ -26,38 +28,66 @@ public class tambahKaryawan extends javax.swing.JDialog {
     private int totalPages;
     private Connection conn;
     
-    private String id_product;
-    private String nama_product;
-    private String stok_product;
-    private String satuan;
-    private String harga;
+    private String id_user;
+    private String nama;
+    private String alamat;
+    private String username;
+    private String password;
+    private String level;
     
-    public String getId_product() {
-        return id_product;
+    public String getId_user() {
+        return id_user;
     }
 
-    public String getNama_product() {
-        return nama_product;
-    }
-
-    public String getStok_product() {
-        return stok_product;
-    }
-
-    public String getSatuan() {
-        return satuan;
+    public String getNama() {
+        return nama;
     }
     
-    public String getHarga() {
-        return harga;
+    public String getAlamat() {
+        return alamat;
     }
 
-    public tambahKaryawan(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        
-        conn = koneksi.getConnection();
+    public String getUsername() {
+        return username;
     }
+
+    public String getPassword() {
+        return password;
+    }
+    
+    public String getLevel() {
+        return level;
+    }
+
+    public tambahKaryawan(java.awt.Frame parent, boolean modal, String id, String nama, String alamat, String username, String password) {
+    super(parent, modal);
+    initComponents();
+    setLocationRelativeTo(null);
+
+    conn = koneksi.getConnection();
+    // finishing();
+
+    // Set data ke field dan komponen input
+    this.id_user = id;
+    this.nama = nama;
+    this.alamat = alamat;
+    this.username = username;
+    this.password = password;
+
+    txtIdKaryawan.setText(id);
+    txtNamaKaryawan.setText(nama);
+    txtAlamat.setText(alamat);
+    txtUsername.setText(username);
+    txtPassword.setText(password);
+    btnSimpan.setText("SIMPAN");
+    
+    if (!txtIdKaryawan.getText().trim().isEmpty()) {
+        btnSimpan.setText("UBAH");
+        txtIdKaryawan.setEnabled(false);
+        fieldColor(txtIdKaryawan);
+    } 
+    
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -97,7 +127,6 @@ public class tambahKaryawan extends javax.swing.JDialog {
         jLabel22.setText("ID Karyawan");
         panelView.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, -1));
 
-        txtIdKaryawan.setText("9999999999999");
         txtIdKaryawan.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
         txtIdKaryawan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,11 +139,9 @@ public class tambahKaryawan extends javax.swing.JDialog {
         jLabel23.setText("Nama Karyawan");
         panelView.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
 
-        txtAlamat.setText("Jln. Baturaden Gg. 6 Sumbersari Jember");
         txtAlamat.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
         panelView.add(txtAlamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, 430, 50));
 
-        txtNamaKaryawan.setText("Tung Tung Tung Sahurr");
         txtNamaKaryawan.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
         panelView.add(txtNamaKaryawan, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, 270, 50));
 
@@ -164,69 +191,20 @@ public class tambahKaryawan extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-        // TODO add your handling code here:
+        if(btnSimpan.getText().equals("SIMPAN"))
+            {
+                insertData();
+            }
+        else if(btnSimpan.getText().equals("UBAH"))
+            {
+                updateData();
+            }
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void txtIdKaryawanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdKaryawanActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdKaryawanActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(tambahKaryawan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(tambahKaryawan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(tambahKaryawan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(tambahKaryawan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                tambahKaryawan dialog = new tambahKaryawan(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rojerusan.RSMaterialButtonRectangle btnSimpan;
@@ -244,64 +222,110 @@ public class tambahKaryawan extends javax.swing.JDialog {
     private custom.JTextFieldRounded txtUsername;
     // End of variables declaration//GEN-END:variables
 
-    
-    
-    
-    private void calculateTotalPages(){
-        int totalData = getTotalData();
-        totalPages = (int) Math.ceil((double) totalData / dataPerHalaman );
+    private void fieldColor(JTextField field) {
+        field.setOpaque(true);
+        field.setEditable(false);
+        field.setBackground(new Color(219, 219, 219));
     }
     
-    private int getTotalData(){
-        int totalData = 0;
-        
-        try {
-            String sql = "SELECT COUNT(*) AS total FROM product";
-            try (PreparedStatement st = conn.prepareStatement(sql)){
-                ResultSet rs = st.executeQuery();
-                if(rs.next()){
-                    totalData = rs.getInt("total");
-                }
-            } 
-        }catch (Exception e) {     
-            Logger.getLogger(tambahKaryawan.class.getName()).log(Level.SEVERE,null, e);
-        }
-        
-        return totalData;
+    private void resetForm() {
+        txtIdKaryawan.setText("");
+        txtNamaKaryawan.setText("");
+        txtAlamat.setText("");
+        txtUsername.setText("");
+        txtPassword.setText("");
     }
     
-    
-    public void getData(int startIndex, int entriesPage, DefaultTableModel model) {
-        model.setRowCount(0);
-        
+    public String getMd5java(String message){
+        String digest = null;
         try {
-           String sql = "SELECT * FROM product LIMIT ?,?";
-           try (PreparedStatement st = conn.prepareStatement(sql)) {
-               st.setInt(1, startIndex);
-               st.setInt(2, entriesPage);
-               ResultSet rs = st.executeQuery();
-               
-               while (rs.next()) {
-                    String idProduct = rs.getString("id_product");
-                    String namaProduct = rs.getString("nama_product");
-                    int stokProduct = rs.getInt("stok_product");
-                    String satuan = rs.getString("satuan");
-                    int hargaBeli = rs.getInt("harga_beli");
-                    int hargaJual = rs.getInt("harga_jual");
-                    String numberProduct = rs.getString("number_product");
-                    String tglExpired = rs.getString("tgl_expired");
-
-                    Object[] rowData = {idProduct, namaProduct, stokProduct, satuan, hargaBeli, hargaJual, numberProduct, tglExpired};
-                    model.addRow(rowData);
-                }
-           }
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] hash = md.digest(message.getBytes("UTF-8"));
+            
+            StringBuilder sb = new StringBuilder( 2 * hash.length);
+            for(byte b : hash){
+                sb.append(String.format("%02x", b & 0xff));
+            }
+            digest = sb.toString();
+            
         }catch (Exception e) {
             Logger.getLogger(tambahKaryawan.class.getName()).log(Level.SEVERE,null, e);
         }
+        
+        return digest;
     }
     
-    
-    
+    private void insertData() {
+        String id_user = txtIdKaryawan.getText().trim();
+        String nama = txtNamaKaryawan.getText().trim();
+        String alamat = txtAlamat.getText().trim();
+        String username = txtUsername.getText().trim();
+        String password = txtPassword.getText().trim();
 
-    
+        if (id_user.isEmpty() || nama.isEmpty() || alamat.isEmpty() || username.isEmpty() || password.isEmpty()) {
+            // Menggunakan JOptionPane untuk menampilkan pesan peringatan
+            JOptionPane.showMessageDialog(this, "Semua Kolom Harus Di-isi", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            String sql = "INSERT INTO user (id_user, nama, alamat, username, password, level) VALUES (?, ?, ?, ?, ?, ?)";
+            try (PreparedStatement st = conn.prepareStatement(sql)) {
+                st.setString(1, id_user);
+                st.setString(2, nama);
+                st.setString(3, alamat);
+                st.setString(4, username);
+                st.setString(5, getMd5java(password));
+                st.setString(6, "Kasir");
+
+                int rowInserted = st.executeUpdate();
+                if (rowInserted > 0) {
+                    // Notifikasi sukses
+                    JOptionPane.showMessageDialog(this, "Data Berhasil Ditambahkan", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+
+                    resetForm();
+                    dispose();
+                }
+            }
+        } catch (Exception e) {
+            Logger.getLogger(tambahKaryawan.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+
+    private void updateData() {
+        String id_user = txtIdKaryawan.getText();
+        String nama = txtNamaKaryawan.getText();
+        String alamat = txtAlamat.getText();
+        String username = txtUsername.getText();
+        String password = txtPassword.getText();
+
+        if (id_user.isEmpty() || nama.isEmpty() || alamat.isEmpty() || username.isEmpty() || password.isEmpty()) {
+            // Menggunakan JOptionPane untuk menampilkan pesan peringatan
+            JOptionPane.showMessageDialog(this, "Semua Kolom Harus Di-isi", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        try {
+            String sql = "UPDATE user SET nama=?, alamat=?, username=?, password=? WHERE id_user=?";
+            try(PreparedStatement st = conn.prepareStatement(sql)){
+                st.setString(1, nama);
+                st.setString(2, alamat);
+                st.setString(3, username);
+                st.setString(4, getMd5java(password));
+                st.setString(5, id_user);
+
+                
+                int rowInserted = st.executeUpdate();
+                if (rowInserted > 0) {
+                    // Notifikasi sukses
+                    JOptionPane.showMessageDialog(this, "Data Berhasil Diubah", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+
+                    resetForm();
+                    dispose();
+                }
+            }
+        } catch (Exception e) {
+            Logger.getLogger(tambahKaryawan.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
 }
