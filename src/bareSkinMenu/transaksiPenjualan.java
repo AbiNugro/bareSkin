@@ -1039,18 +1039,21 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         
         txtIdProduct.setText(product.getId_product());
         txtNamaProduct.setText(product.getNama_product());
-        txtHargaPcs.setText(product.getStok_product());
+        txtHargaPcs.setText(product.getHarga_jual());
     }
     
     private void setMember(){
+            
+    
         boolean closable = true;
-        dataMember member = new dataMember(null, closable);
+        dataMemberr member = new dataMemberr(null, closable);
         member.setVisible(true);
         
         txtIdMember.setText(member.getId_member());
         txtNamaMember.setText(member.getNama_member());
         txtAlamat.setText(member.getAlamat());
-        // txtPoin.setText(member.getPoin());
+        txtPoin.setText(member.getPoin());
+        
     }
     
     private void pagination() {

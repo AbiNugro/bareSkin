@@ -842,7 +842,6 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
             }
         });
         timer.start();
-
     }//GEN-LAST:event_pnLogoutMouseClicked
 
     private void pnLogoutMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnLogoutMouseEntered

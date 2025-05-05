@@ -30,7 +30,7 @@ public class dataProduct extends javax.swing.JDialog {
     private String nama_product;
     private String stok_product;
     private String satuan;
-    private String harga;
+    private String harga_jual;
     
     public String getId_product() {
         return id_product;
@@ -48,8 +48,8 @@ public class dataProduct extends javax.swing.JDialog {
         return satuan;
     }
     
-    public String getHarga() {
-        return harga;
+    public String getHarga_jual() {
+        return harga_jual;
     }
 
     public dataProduct(java.awt.Frame parent, boolean modal) {
@@ -100,7 +100,7 @@ public class dataProduct extends javax.swing.JDialog {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID Product", "Nama Product", "Stok Product", "Satuan", "Harga Beli", "Harga Jual", "Number Product", "Tgl Expired"
+                "ID Product", "Nama Product", "Stok Product", "Satuan", "Harga Beli", "Harga Jual", "Tgl Expired", "Kategori"
             }
         ));
         tblData.setRowMargin(3);
@@ -341,8 +341,7 @@ public class dataProduct extends javax.swing.JDialog {
             }
             
         });
-        
-        
+   
     }
     
     private void actionButton(){
@@ -415,10 +414,10 @@ public class dataProduct extends javax.swing.JDialog {
                     String satuan = rs.getString("satuan");
                     int hargaBeli = rs.getInt("harga_beli");
                     int hargaJual = rs.getInt("harga_jual");
-                    String numberProduct = rs.getString("number_product");
                     String tglExpired = rs.getString("tgl_expired");
+                    String kategori = rs.getString("kategori");
 
-                    Object[] rowData = {idProduct, namaProduct, stokProduct, satuan, hargaBeli, hargaJual, numberProduct, tglExpired};
+                    Object[] rowData = {idProduct, namaProduct, stokProduct, satuan, hargaBeli, hargaJual, tglExpired, kategori};
                     model.addRow(rowData);
                 }
            }
@@ -429,14 +428,13 @@ public class dataProduct extends javax.swing.JDialog {
     
     private void searchData() {
     String kataKunci = txtSearch.getText().trim(); // Menghapus spasi di awal/akhir input
-    
-    
+        
     DefaultTableModel model = (DefaultTableModel) tblData.getModel();
     model.setRowCount(0);
 
     try {
         String sql = "SELECT * FROM product WHERE id_product LIKE ? OR nama_product LIKE ? OR CAST(stok_product AS CHAR) LIKE ? OR "
-                + "satuan LIKE ? OR CAST(harga_beli AS CHAR) LIKE ? OR CAST(harga_jual AS CHAR) LIKE ? OR number_product LIKE ? OR tgl_expired LIKE ?";
+                + "satuan LIKE ? OR CAST(harga_beli AS CHAR) LIKE ? OR CAST(harga_jual AS CHAR) LIKE ? OR tgl_expired LIKE ? OR kategori LIKE ?";
         try (PreparedStatement st = conn.prepareStatement(sql)) {
             // Set parameter query untuk semua kolom
             st.setString(1, "%" + kataKunci + "%");
@@ -457,9 +455,9 @@ public class dataProduct extends javax.swing.JDialog {
                 String satuan = rs.getString("satuan");
                 int hargaBeli = rs.getInt("harga_beli");
                 int hargaJual = rs.getInt("harga_jual");
-                String numberProduct = rs.getString("number_product");
                 String tglExpired = rs.getString("tgl_expired");
-                Object[] rowData = {idProduct, namaProduct, stokProduct, satuan, hargaBeli, hargaJual, numberProduct, tglExpired};
+                String kategori = rs.getString("kategori");
+                Object[] rowData = {idProduct, namaProduct, stokProduct, satuan, hargaBeli, hargaJual, tglExpired, kategori};
                 model.addRow(rowData);
             }
         }
@@ -477,7 +475,7 @@ public class dataProduct extends javax.swing.JDialog {
         nama_product      = tblData.getValueAt(row, 1).toString();
         stok_product      = tblData.getValueAt(row, 2).toString();
         satuan          = tblData.getValueAt(row, 3).toString();
-        harga = tblData.getValueAt(row, 4).toString();
+        harga_jual   = tblData.getValueAt(row, 5).toString();
         dispose();
     }
 

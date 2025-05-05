@@ -4,6 +4,8 @@
  */
 package bareSkinLogin;
 
+import bareSkinDashboard.menuDashboardAdmin;
+import bareSkinDashboard.menuDashboardKasir;
 import config.koneksi;
 import java.awt.Toolkit;
 import java.awt.datatransfer.DataFlavor;
@@ -39,14 +41,17 @@ public class loginBareSkinRFID extends javax.swing.JFrame {
     private Timer timer;
 
     public loginBareSkinRFID() {
+        
         conn = koneksi.getConnection();
-        initComponents();
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
+         setUndecorated(true);
+         initComponents();
+         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDate();
         lbDate.setVisible(false);
         noText();
         getClipboardData();
         // t_rfid.setVisible(false);
+        t_rfid.requestFocusInWindow();
     }
 
     /**
@@ -266,20 +271,20 @@ public class loginBareSkinRFID extends javax.swing.JFrame {
         return valid;
     }
     
-    private Map<String, String> checkLogin(String rfid) {
+    private Map<String, String> checkLogin(String id_user) {
     Map<String, String> result = new HashMap<>();
 
     if (conn != null) {
         try {
-            // Pastikan query menggunakan BINARY untuk membandingkan case-sensitive pada kolom username
-            String sql = "SELECT * FROM user WHERE BINARY rfid=?";
+            // Query berdasarkan id_user yang berisi RFID
+            String sql = "SELECT * FROM user WHERE BINARY id_user=?";
             PreparedStatement st = conn.prepareStatement(sql);
-            st.setString(1, rfid);
+            st.setString(1, id_user);
 
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 result.put("id_user", rs.getString("id_user"));
-                result.put("rfid", rs.getString("rfid"));
+                result.put("nama", rs.getString("nama")); // pastikan kolom 'nama' ada
                 result.put("level", rs.getString("level"));
                 return result;
             }
@@ -288,31 +293,50 @@ public class loginBareSkinRFID extends javax.swing.JFrame {
         }
     }
     return null;
-    }
+}
+
     
     private boolean prosesLogin() {
     if (validasiInput()) {
-        String rfid = t_rfid.getText();
-        
-        // Hapus hashing password dan panggilan checkLogin
-        Map<String, String> loginResult = checkLogin(rfid);
-        
-        if(loginResult != null){
-            String id_user = loginResult.get("id_user");
+        String id_user = t_rfid.getText(); // karena id_user == rfid
+
+        Map<String, String> loginResult = checkLogin(id_user);
+
+        if (loginResult != null) {
             String nama = loginResult.get("nama");
             String level = loginResult.get("level");
             
-            MenuUtama mn = new MenuUtama(id_user, nama, level);
-            mn.setVisible(true);
-            mn.revalidate();
-            dispose();
-            return true;
+            Timer timer = new Timer(10, null);
+
+            JFrame menu;
+            if (level.equalsIgnoreCase("Admin")) {
+                menu = new menuDashboardAdmin(id_user, nama, level);
+            } else {
+                menu = new menuDashboardKasir(id_user, nama, level); // Ganti dengan class kasir kamu
+            }
+
+            menu.setOpacity(0f);
+            menu.setVisible(true);
+
+            timer.addActionListener(e -> {
+                float opacity = menu.getOpacity();
+                opacity += 0.05f;
+                if (opacity >= 1f) {
+                    opacity = 1f;
+                    timer.stop();
+                }
+                menu.setOpacity(opacity);
+            });
+
+            timer.start();
         } else {
             Notification panel = new Notification(this, Notification.Type.WARNING, Notification.Location.TOP_CENTER, "RFID Tidak terdaftar");
             panel.showNotification();
         }
-    } return false;
+    }
+    return false;
 }
+
 
     
 }

@@ -171,10 +171,22 @@ public class loginBareSkin extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_loginActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-            loginBareSkinRFID rf = new loginBareSkinRFID(); 
-            rf.setVisible(true);
-            this.dispose(); 
-            dispose();
+           loginBareSkinRFID rf = new loginBareSkinRFID();
+            rf.setOpacity(0f); // Start from transparent
+            rf.setVisible(true); // Show the window first
+
+            Timer timer = new Timer(5, null); // Decrease delay to 5 milliseconds
+            timer.addActionListener(e -> {
+                float opacity = rf.getOpacity();
+                opacity += 0.1f; // Increase opacity by 0.1
+                if (opacity >= 1f) {
+                    rf.setOpacity(1f); // Set to fully opaque
+                    timer.stop(); // Stop the timer
+                } else {
+                    rf.setOpacity(opacity); // Update the opacity
+                }
+            });
+            timer.start();
     }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
