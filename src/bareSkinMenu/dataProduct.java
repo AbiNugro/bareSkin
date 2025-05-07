@@ -30,6 +30,7 @@ public class dataProduct extends javax.swing.JDialog {
     private String nama_product;
     private String stok_product;
     private String satuan;
+    private String harga_beli;
     private String harga_jual;
     
     public String getId_product() {
@@ -46,6 +47,10 @@ public class dataProduct extends javax.swing.JDialog {
 
     public String getSatuan() {
         return satuan;
+    }
+    
+    public String getHarga_beli() {
+        return harga_beli;
     }
     
     public String getHarga_jual() {
@@ -475,6 +480,7 @@ public class dataProduct extends javax.swing.JDialog {
         nama_product      = tblData.getValueAt(row, 1).toString();
         stok_product      = tblData.getValueAt(row, 2).toString();
         satuan          = tblData.getValueAt(row, 3).toString();
+        harga_beli      =  tblData.getValueAt(row, 4).toString();
         harga_jual   = tblData.getValueAt(row, 5).toString();
         dispose();
     }

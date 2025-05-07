@@ -776,7 +776,7 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
 
     private void pnPenjualanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnPenjualanMouseClicked
         setActiveButton(pnPenjualan, tPenjualan, iPenjualanG, iPenjualanT, Kpenjualan);
-        switchPanel(new bareSkinMenu.transaksiPenjualan());
+        switchPanel(new bareSkinMenu.transaksiPenjualan(getid_user()));
     }//GEN-LAST:event_pnPenjualanMouseClicked
 
     private void pnPenjualanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnPenjualanMouseEntered

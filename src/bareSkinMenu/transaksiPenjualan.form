@@ -481,6 +481,9 @@
                       <Font name="SansSerif" size="18" style="1"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSearchKeyTyped"/>
+                  </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                       <AbsoluteConstraints x="880" y="40" width="350" height="50"/>
@@ -843,19 +846,20 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTable" name="tblData1">
+                    <Component class="javax.swing.JTable" name="tblDataSementara">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="SansSerif" size="18" style="1"/>
                         </Property>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="6" rowCount="5">
+                          <Table columnCount="7" rowCount="5">
                             <Column editable="true" title="ID Transaksi" type="java.lang.Object"/>
                             <Column editable="true" title="ID Product" type="java.lang.Object"/>
                             <Column editable="true" title="Nama Product" type="java.lang.Object"/>
-                            <Column editable="true" title="Harga/pcs" type="java.lang.Object"/>
+                            <Column editable="true" title="Harga Beli" type="java.lang.Object"/>
+                            <Column editable="true" title="Harga Jual" type="java.lang.Object"/>
                             <Column editable="true" title="Jumlah Beli" type="java.lang.Object"/>
-                            <Column editable="true" title="Harga" type="java.lang.Object"/>
+                            <Column editable="true" title="Untung" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="gridColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -866,7 +870,7 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblData1MouseClicked"/>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblDataSementaraMouseClicked"/>
                       </Events>
                     </Component>
                   </SubComponents>
@@ -892,7 +896,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="211" max="-2" attributes="0"/>
-                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                              <Component id="idTransaksi" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="227" max="-2" attributes="0"/>
                               <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -900,7 +904,7 @@
                               <EmptySpace pref="263" max="32767" attributes="0"/>
                               <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                              <Component id="hargaTotal" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="205" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
@@ -919,12 +923,12 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                       <Component id="jLabel17" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
-                                      <Component id="jLabel18" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
+                                      <Component id="hargaTotal" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel13" alignment="3" max="32767" attributes="0"/>
                                       <Component id="jLabel14" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
-                                      <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="idTransaksi" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -940,7 +944,7 @@
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JLabel" name="jLabel4">
+                    <Component class="javax.swing.JLabel" name="idTransaksi">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="SansSerif" size="24" style="1"/>
@@ -995,7 +999,7 @@
                         <Property name="text" type="java.lang.String" value="Total Harga :"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel18">
+                    <Component class="javax.swing.JLabel" name="hargaTotal">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="SansSerif" size="24" style="1"/>
@@ -1024,7 +1028,6 @@
                 <Component class="custom.JTextFieldRounded" name="txtNamaMember">
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="2"/>
-                    <Property name="text" type="java.lang.String" value="Abi Nugroho"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="SansSerif" size="22" style="0"/>
                     </Property>
@@ -1053,7 +1056,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="SansSerif" size="22" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Harga/pcs"/>
+                    <Property name="text" type="java.lang.String" value="Harga"/>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -1076,7 +1079,6 @@
                 </Component>
                 <Component class="custom.JTextFieldRounded" name="txtPoin">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="100"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="SansSerif" size="22" style="0"/>
                     </Property>
@@ -1102,11 +1104,13 @@
                 </Component>
                 <Component class="custom.JTextFieldRounded" name="txtDiskon">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="100"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="SansSerif" size="22" style="0"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDiskonActionPerformed"/>
+                  </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                       <AbsoluteConstraints x="160" y="480" width="60" height="50"/>
@@ -1128,7 +1132,6 @@
                 </Component>
                 <Component class="custom.JTextFieldRounded" name="txtAlamat">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Jln. Baturaden Gg.4 Jember Jawa Timur"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="SansSerif" size="22" style="0"/>
                     </Property>
@@ -1139,9 +1142,8 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="custom.JTextFieldRounded" name="txtHargaPcs">
+                <Component class="custom.JTextFieldRounded" name="txtHargaJual">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="10.000.000"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="SansSerif" size="22" style="0"/>
                     </Property>
@@ -1180,11 +1182,13 @@
                 </Component>
                 <Component class="custom.JTextFieldRounded" name="txtNamaProduct">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Scarlett Whitening Brightly "/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="SansSerif" size="22" style="0"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNamaProductActionPerformed"/>
+                  </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                       <AbsoluteConstraints x="580" y="260" width="430" height="50"/>
@@ -1219,7 +1223,6 @@
                 </Component>
                 <Component class="custom.JTextFieldRounded" name="txtJumlahBeli">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="1"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="SansSerif" size="22" style="0"/>
                     </Property>
@@ -1258,7 +1261,6 @@
                 </Component>
                 <Component class="custom.JTextFieldRounded" name="txtHarga">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="10.000.000"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="SansSerif" size="22" style="0"/>
                     </Property>
@@ -1307,7 +1309,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel33">
+                <Component class="javax.swing.JLabel" name="jumlahBayar">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="SansSerif" size="22" style="1"/>
@@ -1322,7 +1324,6 @@
                 </Component>
                 <Component class="custom.JTextFieldRounded" name="txtJumlahBayar">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="10.000.000"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="SansSerif" size="22" style="0"/>
                     </Property>
@@ -1333,7 +1334,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel34">
+                <Component class="javax.swing.JLabel" name="Kembalian">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="SansSerif" size="22" style="1"/>
@@ -1348,7 +1349,6 @@
                 </Component>
                 <Component class="custom.JTextFieldRounded" name="txtKembalian">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="10.000.000"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="SansSerif" size="22" style="0"/>
                     </Property>
@@ -1393,7 +1393,6 @@
                 </Component>
                 <Component class="custom.JTextFieldRounded" name="txtIdProduct">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="9999999999999"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="SansSerif" size="22" style="0"/>
                     </Property>
@@ -1409,7 +1408,6 @@
                 </Component>
                 <Component class="custom.JTextFieldRounded" name="txtIdMember">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="9999999999999"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="SansSerif" size="22" style="0"/>
                     </Property>
@@ -1420,6 +1418,60 @@
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                       <AbsoluteConstraints x="30" y="150" width="190" height="50"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jhargaBeli">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="SansSerif" size="22" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Harga Beli"/>
+                  </Properties>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="740" y="330" width="-1" height="-1"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="custom.JTextFieldRounded" name="txtHargaBeli">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="10000"/>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="SansSerif" size="22" style="0"/>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtHargaBeliActionPerformed"/>
+                  </Events>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="750" y="370" width="140" height="-1"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel36">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="SansSerif" size="22" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Untung"/>
+                  </Properties>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="740" y="440" width="-1" height="-1"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="custom.JTextFieldRounded" name="txtUntung">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="SansSerif" size="22" style="0"/>
+                    </Property>
+                  </Properties>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="750" y="480" width="140" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>
