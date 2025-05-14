@@ -17,6 +17,8 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import menu.dataMember;
 import config.koneksi;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -106,7 +108,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
+        totalHarga = new javax.swing.JLabel();
         hargaTotal = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         txtNamaMember = new custom.JTextFieldRounded();
@@ -132,7 +134,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         btnHapus = new rojerusan.RSMaterialButtonRectangle();
         jumlahBayar = new javax.swing.JLabel();
         txtJumlahBayar = new custom.JTextFieldRounded();
-        Kembalian = new javax.swing.JLabel();
+        kembalian = new javax.swing.JLabel();
         txtKembalian = new custom.JTextFieldRounded();
         btnSimpan = new rojerusan.RSMaterialButtonRectangle();
         btnSetMember = new javax.swing.JButton();
@@ -140,7 +142,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         txtIdMember = new custom.JTextFieldRounded();
         jhargaBeli = new javax.swing.JLabel();
         txtHargaBeli = new custom.JTextFieldRounded();
-        jLabel36 = new javax.swing.JLabel();
+        untung = new javax.swing.JLabel();
         txtUntung = new custom.JTextFieldRounded();
         panelCustom14 = new custom.PanelCustom();
         tPenjualan2 = new javax.swing.JLabel();
@@ -575,17 +577,17 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         panelCustom8.setRoundTopRight(20);
         panelCustom8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tblDataSementara.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        tblDataSementara.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         tblDataSementara.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID Transaksi", "ID Product", "Nama Product", "Harga Beli", "Harga Jual", "Jumlah Beli", "Untung"
+                "ID Transaksi", "ID Product", "Nama Product", "Harga Beli", "Harga Jual", "Harga", "Jumlah Beli", "Untung"
             }
         ));
         tblDataSementara.setGridColor(new java.awt.Color(255, 255, 255));
@@ -621,9 +623,9 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("15/01/2025");
 
-        jLabel17.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setText("Total Harga :");
+        totalHarga.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        totalHarga.setForeground(new java.awt.Color(255, 255, 255));
+        totalHarga.setText("Total Harga :");
 
         hargaTotal.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         hargaTotal.setForeground(new java.awt.Color(255, 255, 255));
@@ -641,7 +643,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 263, Short.MAX_VALUE)
-                .addComponent(jLabel17)
+                .addComponent(totalHarga)
                 .addGap(18, 18, 18)
                 .addComponent(hargaTotal)
                 .addGap(205, 205, 205))
@@ -657,7 +659,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(panelCustom4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelCustom4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(totalHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(hargaTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelCustom4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -686,7 +688,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         panelCustom8.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
 
         jLabel24.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
-        jLabel24.setText("Harga");
+        jLabel24.setText("Harga/pcs");
         panelCustom8.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 330, -1, -1));
 
         jLabel25.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
@@ -787,10 +789,11 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         txtJumlahBayar.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
         panelCustom8.add(txtJumlahBayar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 260, 430, -1));
 
-        Kembalian.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
-        Kembalian.setText("Kembalian");
-        panelCustom8.add(Kembalian, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 330, -1, -1));
+        kembalian.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
+        kembalian.setText("Kembalian");
+        panelCustom8.add(kembalian, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 330, -1, -1));
 
+        txtKembalian.setText("  ");
         txtKembalian.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
         panelCustom8.add(txtKembalian, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 370, 430, -1));
 
@@ -841,9 +844,9 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         });
         panelCustom8.add(txtHargaBeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 370, 140, -1));
 
-        jLabel36.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
-        jLabel36.setText("Untung");
-        panelCustom8.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 440, -1, -1));
+        untung.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
+        untung.setText("Untung");
+        panelCustom8.add(untung, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 440, -1, -1));
 
         txtUntung.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
         panelCustom8.add(txtUntung, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 480, 140, -1));
@@ -953,6 +956,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         idTransaksi.setText(generateId());
         btnHapus.setVisible(false);
         btnBatal.setVisible(false);
+        loadDataSementara();
     }//GEN-LAST:event_btnTambahActionPerformed
 
     private void txtIdProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdProductActionPerformed
@@ -981,7 +985,6 @@ public class transaksiPenjualan extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Kembalian;
     private rojerusan.RSMaterialButtonRectangle btnBack;
     private rojerusan.RSMaterialButtonRectangle btnBatal;
     private rojerusan.RSMaterialButtonRectangle btnCetak;
@@ -1005,7 +1008,6 @@ public class transaksiPenjualan extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
@@ -1022,7 +1024,6 @@ public class transaksiPenjualan extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1033,6 +1034,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel jhargaBeli;
     private javax.swing.JLabel jumlahBayar;
+    private javax.swing.JLabel kembalian;
     private javax.swing.JLabel lb_halaman;
     private javax.swing.JPanel panelAdd;
     private custom.PanelCustom panelCustom1;
@@ -1054,6 +1056,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
     private javax.swing.JTable tblData;
     private javax.swing.JTable tblDataDetail;
     private javax.swing.JTable tblDataSementara;
+    private javax.swing.JLabel totalHarga;
     private custom.JTextFieldRounded txtAlamat;
     private custom.JTextFieldRounded txtDiskon;
     private custom.JTextFieldRounded txtHarga;
@@ -1069,33 +1072,43 @@ public class transaksiPenjualan extends javax.swing.JPanel {
     private custom.JTextFieldRounded txtPoin;
     private custom.JTextFieldRounded txtSearch;
     private custom.JTextFieldRounded txtUntung;
+    private javax.swing.JLabel untung;
     // End of variables declaration//GEN-END:variables
     
     private void countHarga() {
-        txtJumlahBeli.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String jumlahBeliText = txtJumlahBeli.getText();
-            String hargaJualText = txtHargaJual.getText();
-            String hargaBeliText = txtHargaBeli.getText();
-            
-            if (jumlahBeliText.isEmpty()) {  
-                JOptionPane.showMessageDialog(transaksiPenjualan.this, "Jumlah pembelian belum diisi", "Peringatan", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
+        txtJumlahBeli.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                String jumlahBeliText = txtJumlahBeli.getText();
+                String hargaJualText = txtHargaJual.getText();
+                String hargaBeliText = txtHargaBeli.getText();
 
-            int jumlahBeli = Integer.parseInt(jumlahBeliText);
-            int hargaJual = Integer.parseInt(hargaJualText);
-            int hargaBeli = Integer.parseInt(hargaBeliText);
-            
-            int totalHarga = jumlahBeli * hargaJual; 
-            int untung = totalHarga - (jumlahBeli * hargaBeli);
-            
-            hargaTotal.setText(String.valueOf(totalHarga)); 
-            txtUntung.setText(String.valueOf(untung));
-        }
-    });
+                // Validasi awal: pastikan semua field sudah terisi dan berupa angka
+                if (jumlahBeliText.isEmpty() || hargaJualText.isEmpty() || hargaBeliText.isEmpty()) {
+                    txtHarga.setText("0");
+                    txtUntung.setText("0");
+                    return;
+                }
+
+                try {
+                    int jumlahBeli = Integer.parseInt(jumlahBeliText);
+                    int hargaJual = Integer.parseInt(hargaJualText);
+                    int hargaBeli = Integer.parseInt(hargaBeliText);
+
+                    int totalHarga = jumlahBeli * hargaJual;
+                    int untung = totalHarga - (jumlahBeli * hargaBeli);
+
+                    txtHarga.setText(String.valueOf(totalHarga));
+                    txtUntung.setText(String.valueOf(untung));
+                } catch (NumberFormatException ex) {
+                    // Jika input bukan angka
+                    txtHarga.setText("0");
+                    txtUntung.setText("0");
+                }
+            }
+        });
     }
+
     
     private String generateId() {
         SimpleDateFormat sdf = new SimpleDateFormat("mmHHddMM");
@@ -1119,8 +1132,18 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         fieldColor(txtNamaProduct);
         fieldColor(txtHargaJual);
         fieldColor(txtHarga);
+        fieldColor(txtKembalian);
         btnCetak.setVisible(false);
         jhargaBeli.setVisible(false);
+        hargaTotal.setVisible(false);
+        totalHarga.setVisible(false);
+        txtHargaBeli.setVisible(false);
+        untung.setVisible(false);
+        txtUntung.setVisible(false);
+        jumlahBayar.setVisible(false);
+        txtJumlahBayar.setVisible(false);
+        kembalian.setVisible(false);
+        txtKembalian.setVisible(false);
     }
     
     private void setProduct(){
@@ -1316,6 +1339,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         txtJumlahBeli.setText("");
         hargaTotal.setText("");
         txtUntung.setText("");
+        txtHarga.setText("");
     }
     
     private void clickNoSementara() {
@@ -1371,6 +1395,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
     String namaProduct = txtNamaProduct.getText();
     String hargaBeli = txtHargaBeli.getText();
     String hargaJual = txtHargaJual.getText();
+    String harga    = txtHarga.getText();
     String jumlahBeli = txtJumlahBeli.getText();
     String Untung = txtUntung.getText();
 
@@ -1381,16 +1406,17 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         }
 
     try {
-        String sql = "INSERT INTO sementara_penjualan (id_transaksi, id_product ,nama_product, harga_beli ,harga_jual, "
-                + "jumlah_beli, untung) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO sementara_penjualan (id_transaksi, id_product ,nama_product, harga_beli ,harga_jual, harga,"
+                + "jumlah_beli, untung) VALUES (?,?,?,?,?,?,?,?)";
         try (PreparedStatement st = conn.prepareStatement(sql)) {
             st.setString(1, idTransaksiPenjualan);
             st.setString(2, idProduct);
             st.setString(3, namaProduct);
             st.setString(4, hargaBeli);
             st.setString(5, hargaJual);
-            st.setString(6, jumlahBeli);
-            st.setString(7, Untung);
+            st.setString(6, harga);
+            st.setString(7, jumlahBeli);
+            st.setString(8, Untung);
             st.executeUpdate();
 
             if (JOptionPane.showConfirmDialog(this, "Mau Beli Product Lain?", "Konfirmasi", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
@@ -1399,13 +1425,15 @@ public class transaksiPenjualan extends javax.swing.JPanel {
                 resetForm();
                 btnSimpan.requestFocus();
                 clickNoSementara();
-                txtJumlahBayar.setVisible(true);
-                txtJumlahBayar.setEnabled(true);
-                txtKembalian.setVisible(true);
-                txtKembalian.setEnabled(true);
-                jumlahBayar.setVisible(true);
-                Kembalian.setVisible(true);
+                
+                
                 txtKembalian.setEnabled(false);
+                jumlahBayar.setVisible(true);
+                txtJumlahBayar.setVisible(true);
+                kembalian.setVisible(true);
+                txtKembalian.setVisible(true);
+                totalHarga.setVisible(true);
+                hargaTotal.setVisible(true);
             }
             int totalHarga = getTotalHarga(idTransaksiPenjualan);
             int totalUntung = getTotalUntung(idTransaksiPenjualan);
@@ -1451,11 +1479,12 @@ public class transaksiPenjualan extends javax.swing.JPanel {
                     String namaProduct = rs.getString("nama_product");
                     String hargaBeli = rs.getString("harga_beli");
                     String hargaJual = rs.getString("harga_jual");
+                    String harga = rs.getString("harga");
                     String jumlahBeli = rs.getString("jumlah_beli");
                     String untung = rs.getString("untung");
 
 
-                    Object[] rowData = {idTransaksi, idProduct, namaProduct ,hargaBeli, hargaJual, jumlahBeli, untung};
+                    Object[] rowData = {idTransaksi, idProduct, namaProduct ,hargaBeli, hargaJual, harga, jumlahBeli, untung};
                     model.addRow(rowData);
                 }
            }
@@ -1701,7 +1730,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
                 txtJumlahBayar.setVisible(true);
                 jumlahBayar.setVisible(true);
                 txtKembalian.setVisible(true);
-                Kembalian.setVisible(true);
+                kembalian.setVisible(true);
 
                 txtJumlahBayar.setText("");
                 txtKembalian.setText("Enter after input jumlah bayar");
@@ -1753,7 +1782,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
                         txtKembalian.setVisible(true);
                         txtKembalian.setEnabled(false);
                         jumlahBayar.setVisible(true);
-                        Kembalian.setVisible(true);
+                        kembalian.setVisible(true);
                     } else {
                         JOptionPane.showMessageDialog(this, "Data gagal dihapus", "Peringatan", JOptionPane.WARNING_MESSAGE);
                         return;
