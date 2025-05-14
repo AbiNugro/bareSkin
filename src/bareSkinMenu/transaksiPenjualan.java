@@ -587,7 +587,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID Transaksi", "ID Product", "Nama Product", "Harga Beli", "Harga Jual", "Harga", "Jumlah Beli", "Untung"
+                "ID Transaksi", "ID Product", "Nama Product", "Harga Beli", "Harga Jual", "Jumlah Beli", "Harga", "Untung"
             }
         ));
         tblDataSementara.setGridColor(new java.awt.Color(255, 255, 255));
@@ -835,7 +835,6 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         jhargaBeli.setText("Harga Beli");
         panelCustom8.add(jhargaBeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 330, -1, -1));
 
-        txtHargaBeli.setText("10000");
         txtHargaBeli.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
         txtHargaBeli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -897,7 +896,13 @@ public class transaksiPenjualan extends javax.swing.JPanel {
     }//GEN-LAST:event_tblDataMouseClicked
 
     private void tblDataSementaraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDataSementaraMouseClicked
-        // TODO add your handling code here:
+        dataTabelSementara();
+        jumlahBayar.setVisible(false);
+        txtJumlahBayar.setVisible(false);
+        kembalian.setVisible(false);
+        txtKembalian.setVisible(false);
+        totalHarga.setVisible(false);
+        btnSimpan.setText("UBAH");
     }//GEN-LAST:event_tblDataSementaraMouseClicked
 
     private void btnSetProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetProductActionPerformed
@@ -920,10 +925,13 @@ public class transaksiPenjualan extends javax.swing.JPanel {
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
         if (btnSimpan.getText().equals("TAMBAH")) {
-        insertDataSementara();
+            insertDataSementara();
         } else if(btnSimpan.getText().equals("UBAH")){
-         updateData();
+            updateData();
+        } else if (btnSimpan.getText().equals("SIMPAN")) {
+            
         }
+            
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnSetMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetMemberActionPerformed
@@ -1346,7 +1354,6 @@ public class transaksiPenjualan extends javax.swing.JPanel {
                 btnSetMember.setVisible(false);
                 btnSetProduct.setVisible(false);
                 txtHargaBeli.setEnabled(false);
-                txtJumlahBeli.setEnabled(false);
                 txtUntung.setEnabled(false);
                 txtJumlahBeli.setText("");
     }
@@ -1434,6 +1441,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
                 txtKembalian.setVisible(true);
                 totalHarga.setVisible(true);
                 hargaTotal.setVisible(true);
+                btnSimpan.setText("SIMPAN");
             }
             int totalHarga = getTotalHarga(idTransaksiPenjualan);
             int totalUntung = getTotalUntung(idTransaksiPenjualan);
@@ -1479,12 +1487,12 @@ public class transaksiPenjualan extends javax.swing.JPanel {
                     String namaProduct = rs.getString("nama_product");
                     String hargaBeli = rs.getString("harga_beli");
                     String hargaJual = rs.getString("harga_jual");
-                    String harga = rs.getString("harga");
                     String jumlahBeli = rs.getString("jumlah_beli");
+                    String harga = rs.getString("harga");
                     String untung = rs.getString("untung");
 
 
-                    Object[] rowData = {idTransaksi, idProduct, namaProduct ,hargaBeli, hargaJual, harga, jumlahBeli, untung};
+                    Object[] rowData = {idTransaksi, idProduct, namaProduct ,hargaBeli, hargaJual, jumlahBeli, harga, untung};
                     model.addRow(rowData);
                 }
            }
@@ -1677,7 +1685,8 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         txtHargaBeli.setText(tblDataSementara.getValueAt(row, 3).toString());
         txtHargaJual.setText(tblDataSementara.getValueAt(row, 4).toString());
         txtJumlahBeli.setText(tblDataSementara.getValueAt(row, 5).toString());
-        txtUntung.setText(tblDataSementara.getValueAt(row, 6).toString());
+        txtHarga.setText(tblDataSementara.getValueAt(row, 6).toString());
+        txtUntung.setText(tblDataSementara.getValueAt(row, 7).toString());
         
         }
     }
@@ -1690,15 +1699,16 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         String hargaBeli = txtHargaBeli.getText();
         String hargaJual = txtHargaJual.getText();
         String jumlahBeli = txtJumlahBeli.getText();
+        String harga = txtHarga.getText();
         String untung = txtUntung.getText();
 
         if (idTransaksiPenjualan.isEmpty() || idProduct.isEmpty() || namaProduct.isEmpty()
-                || hargaBeli.isEmpty() || hargaJual.isEmpty() || jumlahBeli.isEmpty() || untung.isEmpty()) {
+                || hargaBeli.isEmpty() || hargaJual.isEmpty() || jumlahBeli.isEmpty() || untung.isEmpty() || harga.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Semua Kolom Harus Diisi", "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        String sql = "UPDATE sementara_penjualan SET id_transaksi=?, nama_product=?, harga_beli=?, harga_jual=?, jumlah_beli=?, untung=? WHERE id_product=?";
+        String sql = "UPDATE sementara_penjualan SET id_transaksi=?, nama_product=?, harga_beli=?, harga_jual=?, jumlah_beli=?, harga=?, untung=? WHERE id_product=?";
 
         try (PreparedStatement st = conn.prepareStatement(sql)) {
             st.setString(1, idTransaksiPenjualan);
@@ -1706,8 +1716,9 @@ public class transaksiPenjualan extends javax.swing.JPanel {
             st.setString(3, hargaBeli);
             st.setString(4, hargaJual);
             st.setString(5, jumlahBeli);
-            st.setString(6, untung);
-            st.setString(7, idProduct);
+            st.setString(6, harga);
+            st.setString(7, untung);
+            st.setString(8, idProduct);
 
             int rowUpdated = st.executeUpdate();
             if (rowUpdated > 0) {
@@ -1723,18 +1734,15 @@ public class transaksiPenjualan extends javax.swing.JPanel {
                 resetForm();
                 loadDataSementara();
 
-                // Reset tampilan input pembayaran
-                txtJumlahBeli.setText("");
-                txtJumlahBeli.setEnabled(false);
+                // Reset tampilan input pembayar
 
                 txtJumlahBayar.setVisible(true);
                 jumlahBayar.setVisible(true);
                 txtKembalian.setVisible(true);
                 kembalian.setVisible(true);
 
-                txtJumlahBayar.setText("");
-                txtKembalian.setText("Enter after input jumlah bayar");
                 txtKembalian.setEnabled(false);
+                btnSimpan.setText("SIMPAN");
             } else {
                 JOptionPane.showMessageDialog(this, "Gagal mengubah data", "Error", JOptionPane.ERROR_MESSAGE);
             }
