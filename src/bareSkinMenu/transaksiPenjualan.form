@@ -903,7 +903,7 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="263" max="32767" attributes="0"/>
-                              <Component id="totalHarga" min="-2" max="-2" attributes="0"/>
+                              <Component id="totalHargaa" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="hargaTotal" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="205" max="-2" attributes="0"/>
@@ -923,7 +923,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                      <Component id="totalHarga" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
+                                      <Component id="totalHargaa" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
                                       <Component id="hargaTotal" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="103" groupAlignment="3" attributes="0">
@@ -989,7 +989,7 @@
                         <Property name="text" type="java.lang.String" value="15/01/2025"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="totalHarga">
+                    <Component class="javax.swing.JLabel" name="totalHargaa">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="SansSerif" size="24" style="1"/>

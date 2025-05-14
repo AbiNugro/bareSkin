@@ -51,6 +51,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         setTabelModelDetail();
         setTabelModelSementara();
         countHarga();
+        countTotalHarga();
         pagination();
         btnCetak.setVisible(false);
     }
@@ -108,7 +109,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        totalHarga = new javax.swing.JLabel();
+        totalHargaa = new javax.swing.JLabel();
         hargaTotal = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         txtNamaMember = new custom.JTextFieldRounded();
@@ -623,9 +624,9 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("15/01/2025");
 
-        totalHarga.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
-        totalHarga.setForeground(new java.awt.Color(255, 255, 255));
-        totalHarga.setText("Total Harga :");
+        totalHargaa.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        totalHargaa.setForeground(new java.awt.Color(255, 255, 255));
+        totalHargaa.setText("Total Harga :");
 
         hargaTotal.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         hargaTotal.setForeground(new java.awt.Color(255, 255, 255));
@@ -643,7 +644,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 263, Short.MAX_VALUE)
-                .addComponent(totalHarga)
+                .addComponent(totalHargaa)
                 .addGap(18, 18, 18)
                 .addComponent(hargaTotal)
                 .addGap(205, 205, 205))
@@ -659,7 +660,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(panelCustom4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelCustom4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(totalHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(totalHargaa, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(hargaTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelCustom4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -901,8 +902,13 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         txtJumlahBayar.setVisible(false);
         kembalian.setVisible(false);
         txtKembalian.setVisible(false);
-        totalHarga.setVisible(false);
+        totalHargaa.setVisible(false);
+        hargaTotal.setVisible(false);
         btnSimpan.setText("UBAH");
+        cancelFieldColor(txtJumlahBeli);
+        btnHapus.setVisible(true);
+        btnBatal.setVisible(true);
+        txtJumlahBeli.setEnabled(true);
     }//GEN-LAST:event_tblDataSementaraMouseClicked
 
     private void btnSetProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetProductActionPerformed
@@ -910,7 +916,30 @@ public class transaksiPenjualan extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSetProductActionPerformed
 
     private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalActionPerformed
-        // TODO add your handling code here:
+                btnSimpan.setText("SIMPAN");
+                btnHapus.setVisible(false);
+                btnBatal.setVisible(false);
+        
+                int totalHarga = getTotalHarga(idTransaksi.getText());
+                int totalUntung = getTotalUntung(idTransaksi.getText());
+
+                hargaTotal.setText(String.valueOf(totalHarga));
+                hargaTotal.setVisible(true);
+                resetForm();
+                loadDataSementara();
+
+                // Reset tampilan input pembayar
+
+                txtJumlahBayar.setVisible(true);
+                jumlahBayar.setVisible(true);
+                txtKembalian.setVisible(true);
+                kembalian.setVisible(true);
+
+                txtKembalian.setEnabled(false);
+                btnSimpan.setText("SIMPAN");
+                totalHargaa.setVisible(true);
+                
+                fieldColor(txtJumlahBeli);
     }//GEN-LAST:event_btnBatalActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -929,7 +958,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         } else if(btnSimpan.getText().equals("UBAH")){
             updateData();
         } else if (btnSimpan.getText().equals("SIMPAN")) {
-            
+            insertData();
         }
             
     }//GEN-LAST:event_btnSimpanActionPerformed
@@ -1064,7 +1093,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
     private javax.swing.JTable tblData;
     private javax.swing.JTable tblDataDetail;
     private javax.swing.JTable tblDataSementara;
-    private javax.swing.JLabel totalHarga;
+    private javax.swing.JLabel totalHargaa;
     private custom.JTextFieldRounded txtAlamat;
     private custom.JTextFieldRounded txtDiskon;
     private custom.JTextFieldRounded txtHarga;
@@ -1116,7 +1145,35 @@ public class transaksiPenjualan extends javax.swing.JPanel {
             }
         });
     }
+    
+    private void countTotalHarga() {
+        txtJumlahBayar.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                String jumlahBayarText = txtJumlahBayar.getText();
+                String hargaTotalText = hargaTotal.getText();
 
+                // Validasi awal: pastikan semua field sudah terisi dan berupa angka
+                if (jumlahBayarText.isEmpty() || hargaTotalText.isEmpty()) {
+                    txtKembalian.setText("");
+                    return;
+                }
+
+                try {
+                    int jumlahBayar = Integer.parseInt(jumlahBayarText);
+                    int hargaTotal = Integer.parseInt(hargaTotalText);
+
+                    int kembalian = jumlahBayar - hargaTotal;
+
+                    txtKembalian.setText(String.valueOf(kembalian));
+                    
+                } catch (NumberFormatException ex) {
+                    // Jika input bukan angka
+                    txtKembalian.setText("");
+                }
+            }
+        });
+    }
     
     private String generateId() {
         SimpleDateFormat sdf = new SimpleDateFormat("mmHHddMM");
@@ -1128,6 +1185,12 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         field.setOpaque(true);
         field.setEditable(false);
         field.setBackground(new Color(219, 219, 219));
+    }
+    
+    private void cancelFieldColor(JTextField field) {
+        field.setOpaque(true);
+        field.setEditable(true);
+        field.setBackground(new Color(255, 255, 255));
     }
 
     private void finishing() {
@@ -1144,7 +1207,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         btnCetak.setVisible(false);
         jhargaBeli.setVisible(false);
         hargaTotal.setVisible(false);
-        totalHarga.setVisible(false);
+        totalHargaa.setVisible(false);
         txtHargaBeli.setVisible(false);
         untung.setVisible(false);
         txtUntung.setVisible(false);
@@ -1345,7 +1408,6 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         txtHargaJual.setText("");
         btnSetMember.setVisible(false);
         txtJumlahBeli.setText("");
-        hargaTotal.setText("");
         txtUntung.setText("");
         txtHarga.setText("");
     }
@@ -1362,17 +1424,17 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         int totalHarga = 0;
 
         try {
-            String sql = "SELECT SUM(" + totalHarga + " + (harga_jual * jumlah_beli)) AS total FROM sementara_penjualan WHERE id_transaksi = ?";
-            try (PreparedStatement st = conn.prepareStatement(sql)) {
-                st.setString(1, idTransaksi);
-                ResultSet rs = st.executeQuery();
-                if (rs.next()) {
-                    totalHarga = rs.getInt("total");
-                }
-            } 
+        String sql = "SELECT SUM(harga_jual * jumlah_beli) AS total FROM sementara_penjualan WHERE id_transaksi = ?";
+        try (PreparedStatement st = conn.prepareStatement(sql)) {
+            st.setString(1, idTransaksi);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                totalHarga = rs.getInt("total");
+            }
+        } 
         } catch (Exception e) {
-            Logger.getLogger(transaksiPenjualan.class.getName()).log(Level.SEVERE, null, e);
-        }
+                Logger.getLogger(transaksiPenjualan.class.getName()).log(Level.SEVERE, null, e);
+            }
 
         return totalHarga;
     }
@@ -1433,19 +1495,21 @@ public class transaksiPenjualan extends javax.swing.JPanel {
                 btnSimpan.requestFocus();
                 clickNoSementara();
                 
-                
+                fieldColor(txtJumlahBeli);
                 txtKembalian.setEnabled(false);
                 jumlahBayar.setVisible(true);
                 txtJumlahBayar.setVisible(true);
                 kembalian.setVisible(true);
                 txtKembalian.setVisible(true);
-                totalHarga.setVisible(true);
+                totalHargaa.setVisible(true);
                 hargaTotal.setVisible(true);
                 btnSimpan.setText("SIMPAN");
+                txtHarga.setText("");
             }
             int totalHarga = getTotalHarga(idTransaksiPenjualan);
             int totalUntung = getTotalUntung(idTransaksiPenjualan);
             
+            hargaTotal.setText(String.valueOf(totalHarga));
             /*
             if (txtDiscount.getText().equals("")) {
                 txtHargaTotal.setText(String.valueOf(totalHarga));
@@ -1729,8 +1793,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
                 int totalUntung = getTotalUntung(idTransaksiPenjualan);
 
                 hargaTotal.setText(String.valueOf(totalHarga));
-                txtUntung.setText(String.valueOf(totalUntung));
-
+                hargaTotal.setVisible(true);
                 resetForm();
                 loadDataSementara();
 
@@ -1743,6 +1806,10 @@ public class transaksiPenjualan extends javax.swing.JPanel {
 
                 txtKembalian.setEnabled(false);
                 btnSimpan.setText("SIMPAN");
+                totalHargaa.setVisible(true);
+                btnHapus.setVisible(false);
+                btnBatal.setVisible(false);
+                fieldColor(txtJumlahBeli);
             } else {
                 JOptionPane.showMessageDialog(this, "Gagal mengubah data", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -1801,8 +1868,27 @@ public class transaksiPenjualan extends javax.swing.JPanel {
                 Logger.getLogger(transaksiPenjualan.class.getName()).log(Level.SEVERE, null, e);
             }
         }
-        resetForm();
-        loadDataSementara();
+                int totalHarga = getTotalHarga(idTransaksi.getText());
+                int totalUntung = getTotalUntung(idTransaksi.getText());
+
+                hargaTotal.setText(String.valueOf(totalHarga));
+                hargaTotal.setVisible(true);
+                resetForm();
+                loadDataSementara();
+
+                // Reset tampilan input pembayar
+
+                txtJumlahBayar.setVisible(true);
+                jumlahBayar.setVisible(true);
+                txtKembalian.setVisible(true);
+                kembalian.setVisible(true);
+
+                txtKembalian.setEnabled(false);
+                btnSimpan.setText("SIMPAN");
+                totalHargaa.setVisible(true);
+                btnHapus.setVisible(false);
+                btnBatal.setVisible(false);
+                fieldColor(txtJumlahBeli);
     }
 
     private void deleteDataSementara(){
