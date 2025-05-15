@@ -598,7 +598,7 @@ public class menuSupplier extends javax.swing.JPanel {
                while (rs.next()) {
                     String idSupplier = rs.getString("id_supplier");
                     String namaSupplier = rs.getString("nama_supplier");
-                    String noTelp = rs.getString("no_telepon");
+                    String noTelp = rs.getString("telepon");
                     String alamat = rs.getString("alamat");
                    
                     Object[] rowData = {idSupplier, namaSupplier, noTelp, alamat};
@@ -652,7 +652,7 @@ public class menuSupplier extends javax.swing.JPanel {
         model.setRowCount(0);
 
         try {
-            String sql = "SELECT * FROM supplier WHERE id_supplier LIKE ? OR nama_supplier LIKE ? OR no_telepon LIKE ? OR alamat LIKE ?";
+            String sql = "SELECT * FROM supplier WHERE id_supplier LIKE ? OR nama_supplier LIKE ? OR telepon LIKE ? OR alamat LIKE ?";
             try (PreparedStatement st = conn.prepareStatement(sql)) {
                 // Set parameter query untuk semua kolom
                 st.setString(1, "%" + kataKunci + "%");
@@ -665,7 +665,7 @@ public class menuSupplier extends javax.swing.JPanel {
                 while (rs.next()) {
                     String idSupplier = rs.getString("id_supplier");
                     String namaSupplier = rs.getString("nama_supplier");
-                    String noTelp = rs.getString("no_telepon");
+                    String noTelp = rs.getString("telepon");
                     String alamat = rs.getString("alamat");
                     Object[] rowData = {idSupplier, namaSupplier, noTelp, alamat};
                     model.addRow(rowData);

@@ -24,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Locale;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -52,10 +53,26 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         setTabelModelSementara();
         countHarga();
         countTotalHarga();
+        setTanggalHariIni();
         pagination();
         btnCetak.setVisible(false);
+        tanggalView();
     }
-
+    
+    private void setTanggalHariIni() {
+        Locale indonesia = new Locale("in", "ID");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", indonesia);
+        String tanggalSekarang = sdf.format(new Date());
+        tanggalPenjualan.setText(tanggalSekarang);
+    }
+    
+    private void tanggalView() {
+        Date tanggalHariIni = new Date();
+        SimpleDateFormat formatTanggal = new SimpleDateFormat("dd MMMM yyyy", new Locale("id", "ID"));
+        String tanggalFormatIndonesia = formatTanggal.format(tanggalHariIni);
+        tanggalIndonesia.setText(tanggalFormatIndonesia);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -76,11 +93,11 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         panelCustom16 = new custom.PanelCustom();
-        jLabel8 = new javax.swing.JLabel();
+        tanggalIndonesia = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         panelCustom17 = new custom.PanelCustom();
-        jLabel10 = new javax.swing.JLabel();
+        seluruhData = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         iSearch = new javax.swing.JLabel();
@@ -108,7 +125,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         idTransaksi = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        tanggalPenjualan = new javax.swing.JLabel();
         totalHargaa = new javax.swing.JLabel();
         hargaTotal = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
@@ -301,9 +318,9 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         panelCustom16.setRoundTopLeft(20);
         panelCustom16.setRoundTopRight(20);
 
-        jLabel8.setBackground(new java.awt.Color(75, 22, 76));
-        jLabel8.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
-        jLabel8.setText("30 Agustus 2025");
+        tanggalIndonesia.setBackground(new java.awt.Color(75, 22, 76));
+        tanggalIndonesia.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
+        tanggalIndonesia.setText("30 Agustus 2025");
 
         jLabel9.setBackground(new java.awt.Color(106, 106, 106));
         jLabel9.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
@@ -319,7 +336,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
                 .addGap(36, 36, 36)
                 .addGroup(panelCustom16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
-                    .addComponent(jLabel8))
+                    .addComponent(tanggalIndonesia))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(jLabel19)
                 .addGap(28, 28, 28))
@@ -333,7 +350,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
                     .addGroup(panelCustom16Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8)))
+                        .addComponent(tanggalIndonesia)))
                 .addGap(27, 27, 27))
         );
 
@@ -345,9 +362,9 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         panelCustom17.setRoundTopLeft(20);
         panelCustom17.setRoundTopRight(20);
 
-        jLabel10.setBackground(new java.awt.Color(75, 22, 76));
-        jLabel10.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
-        jLabel10.setText("100");
+        seluruhData.setBackground(new java.awt.Color(75, 22, 76));
+        seluruhData.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
+        seluruhData.setText("100");
 
         jLabel11.setBackground(new java.awt.Color(106, 106, 106));
         jLabel11.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
@@ -363,7 +380,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
                 .addGap(36, 36, 36)
                 .addGroup(panelCustom17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel11)
-                    .addComponent(jLabel10))
+                    .addComponent(seluruhData))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                 .addComponent(jLabel21)
                 .addGap(27, 27, 27))
@@ -377,7 +394,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
                     .addGroup(panelCustom17Layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel10)))
+                        .addComponent(seluruhData)))
                 .addGap(27, 27, 27))
         );
 
@@ -620,9 +637,9 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("Tgl. Transaksi :");
 
-        jLabel14.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("15/01/2025");
+        tanggalPenjualan.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        tanggalPenjualan.setForeground(new java.awt.Color(255, 255, 255));
+        tanggalPenjualan.setText("15-01-2025");
 
         totalHargaa.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         totalHargaa.setForeground(new java.awt.Color(255, 255, 255));
@@ -642,8 +659,8 @@ public class transaksiPenjualan extends javax.swing.JPanel {
                 .addGap(227, 227, 227)
                 .addComponent(jLabel13)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel14)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 263, Short.MAX_VALUE)
+                .addComponent(tanggalPenjualan)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 261, Short.MAX_VALUE)
                 .addComponent(totalHargaa)
                 .addGap(18, 18, 18)
                 .addComponent(hargaTotal)
@@ -664,7 +681,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
                         .addComponent(hargaTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelCustom4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tanggalPenjualan, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(idTransaksi)))
                 .addContainerGap())
             .addGroup(panelCustom4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -958,7 +975,17 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         } else if(btnSimpan.getText().equals("UBAH")){
             updateData();
         } else if (btnSimpan.getText().equals("SIMPAN")) {
-            insertData();
+            try {
+            if (insertDataAndDetails()) {
+                deleteDataSementara(); // Clear temporary data if everything was successful
+                JOptionPane.showMessageDialog(this, "Data berhasil diubah", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                resetForm();
+                loadData();
+                showPanel();
+            }
+            } catch (Exception ex) {
+                Logger.getLogger(transaksiPenjualan.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
             
     }//GEN-LAST:event_btnSimpanActionPerformed
@@ -1040,11 +1067,9 @@ public class transaksiPenjualan extends javax.swing.JPanel {
     private javax.swing.JLabel hargaTotal;
     private javax.swing.JLabel iSearch;
     private javax.swing.JLabel idTransaksi;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
@@ -1064,7 +1089,6 @@ public class transaksiPenjualan extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -1088,8 +1112,11 @@ public class transaksiPenjualan extends javax.swing.JPanel {
     private custom.PanelCustom pnDetail;
     private custom.PanelCustom pnHeader;
     private custom.PanelCustom pnMain;
+    private javax.swing.JLabel seluruhData;
     private javax.swing.JLabel tPenjualan;
     private javax.swing.JLabel tPenjualan2;
+    private javax.swing.JLabel tanggalIndonesia;
+    private javax.swing.JLabel tanggalPenjualan;
     private javax.swing.JTable tblData;
     private javax.swing.JTable tblDataDetail;
     private javax.swing.JTable tblDataSementara;
@@ -1145,6 +1172,47 @@ public class transaksiPenjualan extends javax.swing.JPanel {
             }
         });
     }
+    
+    private boolean insertDataAndDetails() {
+    try {
+        conn.setAutoCommit(false); // Start transaction
+
+        /*
+        if (!validateStockAndReduce()) {
+            conn.rollback(); // Rollback if stock validation fails
+            return false;
+        } */
+
+        // Insert transaction data
+        if (!insertData()) {
+            conn.rollback(); // Rollback if insertData fails
+            return false;
+        }
+
+        // Insert transaction details
+        if (!insertDataDetail()) {
+            conn.rollback(); // Rollback if insertDataDetail fails
+            return false;
+        }
+
+        conn.commit(); // Commit if all operations succeed
+        return true;
+    } catch (Exception e) {
+        try {
+            conn.rollback(); // Rollback on exception
+        } catch (SQLException rollbackEx) {
+            rollbackEx.printStackTrace();
+        }
+        Logger.getLogger(transaksiPenjualan.class.getName()).log(Level.SEVERE, null, e);
+        return false;
+    } finally {
+        try {
+            conn.setAutoCommit(true); // Reset to auto-commit mode
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+}
     
     private void countTotalHarga() {
         txtJumlahBayar.addKeyListener(new KeyAdapter() {
@@ -1386,6 +1454,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
     private void loadData() {
         calculateTotalPages();
         int totalData = getTotalData();
+        seluruhData.setText(String.valueOf(totalData));
         lb_halaman.setText(String.valueOf("Halaman " + halamanSaatIni + " dari Total Data " + totalData));
 
         int startIndex = (halamanSaatIni - 1) * dataPerHalaman; // Indeks awal untuk pagination
@@ -1635,18 +1704,31 @@ public class transaksiPenjualan extends javax.swing.JPanel {
     private boolean insertData() {
     String idTransaksiPenjualan = idTransaksi.getText();
     String idMember = txtIdMember.getText();
-    String namaMember = txtNamaMember.getText();
     String totalHarga = hargaTotal.getText();
     String jumlahBayar = txtJumlahBayar.getText();
     String Kembalian = txtKembalian.getText();
-    String Untung = txtUntung.getText();
+    String Untung = "0";
+    
+        try {
+            String sqlUntung = "SELECT SUM(untung) AS totalUntung FROM sementara_penjualan";
+            PreparedStatement pst = conn.prepareStatement(sqlUntung);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                Untung = rs.getString("totalUntung");
+                if (Untung == null) Untung = "0";
+            }
+            rs.close();
+            pst.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Untung = "0"; // fallback
+        }
 
     // Dapatkan waktu sekarang dalam format yang benar
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     String tglPenjualan = LocalDateTime.now().format(formatter);
 
     if (jumlahBayar.isEmpty()) {
-        
         JOptionPane.showMessageDialog(this, "Semua Kolom Harus Di-isi", "Peringatan", JOptionPane.WARNING_MESSAGE);
             return false;
     }
@@ -1722,7 +1804,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
 
             // Insert ke detail_transaksi_penjualan
             String insertSQL = "INSERT INTO detail_transaksi_penjualan (id_transaksi, id_product, jumlah_beli, harga, untung) " +
-                               "SELECT ?, id_product, jumlah_beli, harga_beli, untung FROM sementara_penjualan";
+                               "SELECT ?, id_product, jumlah_beli, harga, untung FROM sementara_penjualan";
             try (PreparedStatement insertStmt = conn.prepareStatement(insertSQL)) {
                 insertStmt.setString(1, idTransaksiPenjualan);
                 insertStmt.executeUpdate();

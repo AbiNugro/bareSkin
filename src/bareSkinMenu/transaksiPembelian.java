@@ -17,33 +17,45 @@ import javax.swing.table.DefaultTableModel;
 import menu.dataMember;
 import menu.menuTransaksi;
 import config.koneksi;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 /**
  *
  * @author LENOVO
  */
 public class transaksiPembelian extends javax.swing.JPanel {
-
-    /**
-     * Creates new form transaksiPenjualan
-     */
     
     private int halamanSaatIni = 1;
     private int dataPerHalaman = 14;
     private int totalPages;
-    // private String id_user;
+    private String id_user;
     private final Connection conn;
     
     
     public transaksiPembelian() {
         conn = koneksi.getConnection();
+        this.id_user = id_user;
         initComponents();
         finishing();
         loadData();
         setTabelModel();
         setTabelModelDetail();
+        // setTabelModelSementara();
+        // countHarga();
+        // countTotalHarga();
+        setTanggalHariIni();
         pagination();
+        // btnCetak.setVisible(false);
     }
-
+    
+    private void setTanggalHariIni() {
+        Locale indonesia = new Locale("in", "ID");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", indonesia);
+        String tanggalSekarang = sdf.format(new Date());
+        tanggalPembelian.setText(tanggalSekarang);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -72,7 +84,7 @@ public class transaksiPembelian extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         panelCustom17 = new custom.PanelCustom();
-        jLabel10 = new javax.swing.JLabel();
+        seluruhData = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         iSearch = new javax.swing.JLabel();
@@ -100,7 +112,7 @@ public class transaksiPembelian extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        tanggalPembelian = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
@@ -127,6 +139,15 @@ public class transaksiPembelian extends javax.swing.JPanel {
         cbxSatuan1 = new javax.swing.JComboBox<>();
         jLabel26 = new javax.swing.JLabel();
         txtDiskon1 = new custom.JTextFieldRounded();
+        jLabel24 = new javax.swing.JLabel();
+        txtIdMember3 = new custom.JTextFieldRounded();
+        btnSetMember1 = new javax.swing.JButton();
+        jLabel27 = new javax.swing.JLabel();
+        txtNamaProduct1 = new custom.JTextFieldRounded();
+        jLabel31 = new javax.swing.JLabel();
+        txtPoin1 = new custom.JTextFieldRounded();
+        jLabel34 = new javax.swing.JLabel();
+        txtDiskon2 = new custom.JTextFieldRounded();
         panelCustom14 = new custom.PanelCustom();
         tPenjualan2 = new javax.swing.JLabel();
         btnBack = new rojerusan.RSMaterialButtonRectangle();
@@ -317,9 +338,9 @@ public class transaksiPembelian extends javax.swing.JPanel {
         panelCustom17.setRoundTopLeft(20);
         panelCustom17.setRoundTopRight(20);
 
-        jLabel10.setBackground(new java.awt.Color(75, 22, 76));
-        jLabel10.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
-        jLabel10.setText("100");
+        seluruhData.setBackground(new java.awt.Color(75, 22, 76));
+        seluruhData.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
+        seluruhData.setText("100");
 
         jLabel11.setBackground(new java.awt.Color(106, 106, 106));
         jLabel11.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
@@ -335,7 +356,7 @@ public class transaksiPembelian extends javax.swing.JPanel {
                 .addGap(36, 36, 36)
                 .addGroup(panelCustom17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel11)
-                    .addComponent(jLabel10))
+                    .addComponent(seluruhData))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                 .addComponent(jLabel21)
                 .addGap(27, 27, 27))
@@ -349,7 +370,7 @@ public class transaksiPembelian extends javax.swing.JPanel {
                     .addGroup(panelCustom17Layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel10)))
+                        .addComponent(seluruhData)))
                 .addGap(27, 27, 27))
         );
 
@@ -587,9 +608,9 @@ public class transaksiPembelian extends javax.swing.JPanel {
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("Tgl. Transaksi :");
 
-        jLabel14.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("15/01/2025");
+        tanggalPembelian.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        tanggalPembelian.setForeground(new java.awt.Color(255, 255, 255));
+        tanggalPembelian.setText("15/01/2025");
 
         jLabel17.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
@@ -609,7 +630,7 @@ public class transaksiPembelian extends javax.swing.JPanel {
                 .addGap(227, 227, 227)
                 .addComponent(jLabel13)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel14)
+                .addComponent(tanggalPembelian)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 263, Short.MAX_VALUE)
                 .addComponent(jLabel17)
                 .addGap(18, 18, 18)
@@ -631,7 +652,7 @@ public class transaksiPembelian extends javax.swing.JPanel {
                         .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelCustom4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tanggalPembelian, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel4)))
                 .addContainerGap())
             .addGroup(panelCustom4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -644,44 +665,44 @@ public class transaksiPembelian extends javax.swing.JPanel {
         panelCustom8.add(panelCustom4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1560, 60));
 
         jLabel22.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
-        jLabel22.setText("ID Product");
+        jLabel22.setText("ID Supplier");
         panelCustom8.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
 
         jLabel23.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
-        jLabel23.setText("Nama Product");
+        jLabel23.setText("Nama Supplier");
         panelCustom8.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
 
         jLabel25.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
-        jLabel25.setText("Satuan");
+        jLabel25.setText("Alamat");
         panelCustom8.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, -1, -1));
 
-        txtPoin.setText("100");
+        txtPoin.setText("081244445555");
         txtPoin.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
-        panelCustom8.add(txtPoin, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 90, 50));
+        panelCustom8.add(txtPoin, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 170, 50));
 
         txtDiskon.setText("Item");
         txtDiskon.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
-        panelCustom8.add(txtDiskon, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 480, 180, 50));
+        panelCustom8.add(txtDiskon, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 480, 430, 50));
 
         jLabel28.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
         jLabel28.setText("Jumlah Beli");
-        panelCustom8.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 110, -1, -1));
+        panelCustom8.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 100, -1, -1));
 
         jLabel29.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
         jLabel29.setText("Satuan");
-        panelCustom8.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 220, -1, -1));
+        panelCustom8.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 210, -1, -1));
 
         txtNamaProduct.setText("Scarlett Whitening Brightly ");
         txtNamaProduct.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
         panelCustom8.add(txtNamaProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 430, 50));
 
         jLabel30.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
-        jLabel30.setText("Stok Sekarang");
+        jLabel30.setText("Nomor Telepon");
         panelCustom8.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, -1, -1));
 
         jLabel32.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
         jLabel32.setText("Harga");
-        panelCustom8.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 110, -1, -1));
+        panelCustom8.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 320, -1, -1));
 
         btnSimpan1.setBackground(new java.awt.Color(75, 22, 76));
         btnSimpan1.setText("GENERATE");
@@ -691,11 +712,11 @@ public class transaksiPembelian extends javax.swing.JPanel {
                 btnSimpan1ActionPerformed(evt);
             }
         });
-        panelCustom8.add(btnSimpan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 350, 150, 60));
+        panelCustom8.add(btnSimpan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 540, 150, 60));
 
         txtHarga.setText("10.000.000");
         txtHarga.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
-        panelCustom8.add(txtHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 150, 230, -1));
+        panelCustom8.add(txtHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 360, 230, -1));
 
         btnBatal1.setBackground(new java.awt.Color(75, 22, 76));
         btnBatal1.setText("BATAL");
@@ -705,7 +726,7 @@ public class transaksiPembelian extends javax.swing.JPanel {
                 btnBatal1ActionPerformed(evt);
             }
         });
-        panelCustom8.add(btnBatal1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 350, 140, 60));
+        panelCustom8.add(btnBatal1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1300, 540, 140, 60));
 
         btnBatal.setBackground(new java.awt.Color(75, 22, 76));
         btnBatal.setText("BATAL");
@@ -729,11 +750,11 @@ public class transaksiPembelian extends javax.swing.JPanel {
 
         jLabel33.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
         jLabel33.setText("Harga/satuan");
-        panelCustom8.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 220, -1, -1));
+        panelCustom8.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 430, -1, -1));
 
         txtJumlahBayar.setText("10.000.000");
         txtJumlahBayar.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
-        panelCustom8.add(txtJumlahBayar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 260, 430, -1));
+        panelCustom8.add(txtJumlahBayar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 470, 430, -1));
 
         btnSimpan.setBackground(new java.awt.Color(75, 22, 76));
         btnSimpan.setText("TAMBAH");
@@ -769,7 +790,7 @@ public class transaksiPembelian extends javax.swing.JPanel {
                 txtIdMember2ActionPerformed(evt);
             }
         });
-        panelCustom8.add(txtIdMember2, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 150, 140, 50));
+        panelCustom8.add(txtIdMember2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 140, 140, 50));
 
         cbxSatuan1.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
         cbxSatuan1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Satuan Product", "Item", "Gram", "KiloGram", "Renteng", "Slop Kecil", "Slop Besar", "Pak", "Roll", "Kotak Susu" }));
@@ -778,15 +799,60 @@ public class transaksiPembelian extends javax.swing.JPanel {
                 cbxSatuan1ActionPerformed(evt);
             }
         });
-        panelCustom8.add(cbxSatuan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 260, 420, 50));
+        panelCustom8.add(cbxSatuan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 250, 420, 50));
 
         jLabel26.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
         jLabel26.setText("Tambahan Stok");
-        panelCustom8.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 440, -1, -1));
+        panelCustom8.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 330, -1, -1));
 
         txtDiskon1.setText("100000");
         txtDiskon1.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
-        panelCustom8.add(txtDiskon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 480, 120, 50));
+        panelCustom8.add(txtDiskon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 370, 120, 50));
+
+        jLabel24.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
+        jLabel24.setText("ID Product");
+        panelCustom8.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 110, -1, -1));
+
+        txtIdMember3.setText("9999999999999");
+        txtIdMember3.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
+        txtIdMember3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdMember3ActionPerformed(evt);
+            }
+        });
+        panelCustom8.add(txtIdMember3, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 150, 190, 50));
+
+        btnSetMember1.setText("...");
+        btnSetMember1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSetMember1ActionPerformed(evt);
+            }
+        });
+        panelCustom8.add(btnSetMember1, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 150, 50, 50));
+
+        jLabel27.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
+        jLabel27.setText("Nama Product");
+        panelCustom8.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 220, -1, -1));
+
+        txtNamaProduct1.setText("Scarlett Whitening Brightly ");
+        txtNamaProduct1.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
+        panelCustom8.add(txtNamaProduct1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 260, 430, 50));
+
+        jLabel31.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
+        jLabel31.setText("Stok Sekarang");
+        panelCustom8.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 330, -1, -1));
+
+        txtPoin1.setText("100");
+        txtPoin1.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
+        panelCustom8.add(txtPoin1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 370, 90, 50));
+
+        jLabel34.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
+        jLabel34.setText("Satuan");
+        panelCustom8.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 440, -1, -1));
+
+        txtDiskon2.setText("Item");
+        txtDiskon2.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
+        panelCustom8.add(txtDiskon2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 480, 180, 50));
 
         panelAdd.add(panelCustom8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 1600, 940));
 
@@ -899,6 +965,14 @@ public class transaksiPembelian extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBatal1ActionPerformed
 
+    private void txtIdMember3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdMember3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdMember3ActionPerformed
+
+    private void btnSetMember1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetMember1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSetMember1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rojerusan.RSMaterialButtonRectangle btnBack;
@@ -907,6 +981,7 @@ public class transaksiPembelian extends javax.swing.JPanel {
     private javax.swing.JButton btnCloseDetail;
     private rojerusan.RSMaterialButtonRectangle btnHapus;
     private javax.swing.JButton btnSetMember;
+    private javax.swing.JButton btnSetMember1;
     private rojerusan.RSMaterialButtonRectangle btnSimpan;
     private rojerusan.RSMaterialButtonRectangle btnSimpan1;
     private rojerusan.RSMaterialButtonRectangle btnTambah;
@@ -918,11 +993,9 @@ public class transaksiPembelian extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cbx_data;
     private javax.swing.JLabel databahan;
     private javax.swing.JLabel iSearch;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -931,14 +1004,18 @@ public class transaksiPembelian extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -964,19 +1041,25 @@ public class transaksiPembelian extends javax.swing.JPanel {
     private custom.PanelCustom pnDetail;
     private custom.PanelCustom pnHeader;
     private custom.PanelCustom pnMain;
+    private javax.swing.JLabel seluruhData;
     private javax.swing.JLabel tPenjualan;
     private javax.swing.JLabel tPenjualan2;
+    private javax.swing.JLabel tanggalPembelian;
     private javax.swing.JTable tblData;
     private javax.swing.JTable tblData1;
     private javax.swing.JTable tblDataDetail;
     private custom.JTextFieldRounded txtDiskon;
     private custom.JTextFieldRounded txtDiskon1;
+    private custom.JTextFieldRounded txtDiskon2;
     private custom.JTextFieldRounded txtHarga;
     private custom.JTextFieldRounded txtIdMember1;
     private custom.JTextFieldRounded txtIdMember2;
+    private custom.JTextFieldRounded txtIdMember3;
     private custom.JTextFieldRounded txtJumlahBayar;
     private custom.JTextFieldRounded txtNamaProduct;
+    private custom.JTextFieldRounded txtNamaProduct1;
     private custom.JTextFieldRounded txtPoin;
+    private custom.JTextFieldRounded txtPoin1;
     private custom.JTextFieldRounded txtSearch;
     // End of variables declaration//GEN-END:variables
     
