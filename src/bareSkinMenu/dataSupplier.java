@@ -19,52 +19,43 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author user
  */
-public class dataProduct extends javax.swing.JDialog {
+public class dataSupplier extends javax.swing.JDialog {
     
     private int halamanSaatIni = 1;
     private int dataPerHalaman = 14;
     private int totalPages;
     private Connection conn;
     
-    private String id_product;
-    private String nama_product;
-    private String stok_product;
-    private String satuan;
-    private String harga_beli;
-    private String harga_jual;
+    private String id_supplier;
+    private String nama_supplier;
+    private String no_telepon;
+    private String alamat;
     
-    public String getId_product() {
-        return id_product;
+    public String getId_supplier() {
+        return id_supplier;
     }
 
-    public String getNama_product() {
-        return nama_product;
+    public String getNama_supplier() {
+        return nama_supplier;
     }
 
-    public String getStok_product() {
-        return stok_product;
+    public String getNo_telepon() {
+        return no_telepon;
     }
 
-    public String getSatuan() {
-        return satuan;
-    }
-    
-    public String getHarga_beli() {
-        return harga_beli;
-    }
-    
-    public String getHarga_jual() {
-        return harga_jual;
+    public String getAlamat() {
+        return alamat;
     }
 
-    public dataProduct(java.awt.Frame parent, boolean modal) {
+
+    public dataSupplier(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         
         conn = koneksi.getConnection();
         loadData();
         setTabelModel();
-        paginationVarian();
+        pagination();
         actionButton();
     }
 
@@ -99,14 +90,14 @@ public class dataProduct extends javax.swing.JDialog {
         tblData.setForeground(new java.awt.Color(75, 22, 76));
         tblData.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID Product", "Nama Product", "Stok Product", "Satuan", "Harga Beli", "Harga Jual", "Tgl Expired", "Kategori"
+                "ID Supplier", "Nama Supplier", "Nomor Telepon", "Alamat"
             }
         ));
         tblData.setRowMargin(3);
@@ -120,7 +111,7 @@ public class dataProduct extends javax.swing.JDialog {
         databahan.setBackground(new java.awt.Color(75, 22, 76));
         databahan.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         databahan.setForeground(new java.awt.Color(75, 22, 76));
-        databahan.setText("Data Product");
+        databahan.setText("Data Supplier");
         panelView.add(databahan, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 22, -1, -1));
 
         txtSearch.setForeground(new java.awt.Color(102, 102, 102));
@@ -200,14 +191,18 @@ public class dataProduct extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(dataProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(dataSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(dataProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(dataSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(dataProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(dataSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(dataProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(dataSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -216,7 +211,7 @@ public class dataProduct extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                dataProduct dialog = new dataProduct(new javax.swing.JFrame(), true);
+                dataSupplier dialog = new dataSupplier(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -247,7 +242,7 @@ public class dataProduct extends javax.swing.JDialog {
         DefaultTableModel model = (DefaultTableModel) tblData.getModel();
     }
 
-    private void paginationVarian() {
+    private void pagination() {
         btn_first.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -331,7 +326,7 @@ public class dataProduct extends javax.swing.JDialog {
         int totalData = 0;
         
         try {
-            String sql = "SELECT COUNT(*) AS total FROM product";
+            String sql = "SELECT COUNT(*) AS total FROM supplier";
             try (PreparedStatement st = conn.prepareStatement(sql)){
                 ResultSet rs = st.executeQuery();
                 if(rs.next()){
@@ -339,7 +334,7 @@ public class dataProduct extends javax.swing.JDialog {
                 }
             } 
         }catch (Exception e) {     
-            Logger.getLogger(dataProduct.class.getName()).log(Level.SEVERE,null, e);
+            Logger.getLogger(dataSupplier.class.getName()).log(Level.SEVERE,null, e);
         }
         
         return totalData;
@@ -358,28 +353,24 @@ public class dataProduct extends javax.swing.JDialog {
         model.setRowCount(0);
         
         try {
-           String sql = "SELECT * FROM product LIMIT ?,?";
+           String sql = "SELECT * FROM supplier LIMIT ?,?";
            try (PreparedStatement st = conn.prepareStatement(sql)) {
                st.setInt(1, startIndex);
                st.setInt(2, entriesPage);
                ResultSet rs = st.executeQuery();
                
                while (rs.next()) {
-                    String idProduct = rs.getString("id_product");
-                    String namaProduct = rs.getString("nama_product");
-                    int stokProduct = rs.getInt("stok_product");
-                    String satuan = rs.getString("satuan");
-                    int hargaBeli = rs.getInt("harga_beli");
-                    int hargaJual = rs.getInt("harga_jual");
-                    String tglExpired = rs.getString("tgl_expired");
-                    String kategori = rs.getString("kategori");
+                    String idSupplier = rs.getString("id_supplier");
+                    String namaSupplier = rs.getString("nama_supplier");
+                    String telepon = rs.getString("no_telepon");
+                    String alamat = rs.getString("alamat");
 
-                    Object[] rowData = {idProduct, namaProduct, stokProduct, satuan, hargaBeli, hargaJual, tglExpired, kategori};
+                    Object[] rowData = {idSupplier, namaSupplier, telepon, alamat};
                     model.addRow(rowData);
                 }
            }
         }catch (Exception e) {
-            Logger.getLogger(dataProduct.class.getName()).log(Level.SEVERE,null, e);
+            Logger.getLogger(dataSupplier.class.getName()).log(Level.SEVERE,null, e);
         }
     }
     
@@ -390,36 +381,27 @@ public class dataProduct extends javax.swing.JDialog {
     model.setRowCount(0);
 
     try {
-        String sql = "SELECT * FROM product WHERE id_product LIKE ? OR nama_product LIKE ? OR CAST(stok_product AS CHAR) LIKE ? OR "
-                + "satuan LIKE ? OR CAST(harga_beli AS CHAR) LIKE ? OR CAST(harga_jual AS CHAR) LIKE ? OR tgl_expired LIKE ? OR kategori LIKE ?";
+        String sql = "SELECT * FROM supplier WHERE id_supplier LIKE ? OR nama_supplier LIKE ? OR no_telepon LIKE ? OR alamat LIKE ?";
         try (PreparedStatement st = conn.prepareStatement(sql)) {
             // Set parameter query untuk semua kolom
             st.setString(1, "%" + kataKunci + "%");
             st.setString(2, "%" + kataKunci + "%");
             st.setString(3, "%" + kataKunci + "%");
             st.setString(4, "%" + kataKunci + "%");
-            st.setString(5, "%" + kataKunci + "%");
-            st.setString(6, "%" + kataKunci + "%");
-            st.setString(7, "%" + kataKunci + "%");
-            st.setString(8, "%" + kataKunci + "%");
 
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
-                String idProduct = rs.getString("id_product");
-                String namaProduct = rs.getString("nama_product");
-                int stokProduct = rs.getInt("stok_product");
-                String satuan = rs.getString("satuan");
-                int hargaBeli = rs.getInt("harga_beli");
-                int hargaJual = rs.getInt("harga_jual");
-                String tglExpired = rs.getString("tgl_expired");
-                String kategori = rs.getString("kategori");
-                Object[] rowData = {idProduct, namaProduct, stokProduct, satuan, hargaBeli, hargaJual, tglExpired, kategori};
+                String idSupplier = rs.getString("id_supplier");
+                String namaSupplier = rs.getString("nama_supplier");
+                String telepon = rs.getString("no_telepon");
+                String alamat = rs.getString("alamat");
+                Object[] rowData = {idSupplier, namaSupplier, telepon, alamat};
                 model.addRow(rowData);
             }
         }
     } catch (Exception e) {
-        Logger.getLogger(dataProduct.class.getName()).log(Level.SEVERE, null, e);
+        Logger.getLogger(dataSupplier.class.getName()).log(Level.SEVERE, null, e);
         JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat mencari data: " + e.getMessage(),
                 "Error", JOptionPane.ERROR_MESSAGE);
     }
@@ -428,12 +410,10 @@ public class dataProduct extends javax.swing.JDialog {
     private void pilihData(){
         int row = tblData.getSelectedRow();
         
-        id_product        = tblData.getValueAt(row, 0).toString();
-        nama_product      = tblData.getValueAt(row, 1).toString();
-        stok_product      = tblData.getValueAt(row, 2).toString();
-        satuan          = tblData.getValueAt(row, 3).toString();
-        harga_beli      =  tblData.getValueAt(row, 4).toString();
-        harga_jual   = tblData.getValueAt(row, 5).toString();
+        id_supplier        = tblData.getValueAt(row, 0).toString();
+        nama_supplier      = tblData.getValueAt(row, 1).toString();
+        no_telepon         = tblData.getValueAt(row, 2).toString();
+        alamat             = tblData.getValueAt(row, 3).toString();
         dispose();
     }
 

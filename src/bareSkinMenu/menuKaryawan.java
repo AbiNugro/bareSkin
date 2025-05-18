@@ -32,11 +32,11 @@ public class menuKaryawan extends javax.swing.JPanel {
     private int halamanSaatIni = 1;
     private int dataPerHalaman = 14;
     private int totalPages;
-    // private String id_user;
+    private String nama;
     private final Connection conn;
     
     
-    public menuKaryawan() {
+    public menuKaryawan(String nama) {
 
         conn = koneksi.getConnection();
         initComponents(); 
@@ -44,6 +44,7 @@ public class menuKaryawan extends javax.swing.JPanel {
         setTabelModel();
         pagination();
         
+        namaUser.setText(nama.split("\\s+")[0].toUpperCase());
         btnHapus.setVisible(false);
         btnBatal.setVisible(false);
         
@@ -71,13 +72,9 @@ public class menuKaryawan extends javax.swing.JPanel {
         tblData = new javax.swing.JTable();
         panelCustom3 = new custom.PanelCustom();
         panelCustom6 = new custom.PanelCustom();
-        jLabel2 = new javax.swing.JLabel();
+        namaUser = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        panelCustom7 = new custom.PanelCustom();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
         panelCustom16 = new custom.PanelCustom();
         tanggalIndonesia = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -151,13 +148,13 @@ public class menuKaryawan extends javax.swing.JPanel {
         panelCustom6.setRoundTopLeft(20);
         panelCustom6.setRoundTopRight(20);
 
-        jLabel2.setBackground(new java.awt.Color(75, 22, 76));
-        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
-        jLabel2.setText("TONO");
+        namaUser.setBackground(new java.awt.Color(75, 22, 76));
+        namaUser.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
+        namaUser.setText("TONO");
 
         jLabel3.setBackground(new java.awt.Color(106, 106, 106));
         jLabel3.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        jLabel3.setText("Nama Pengakses");
+        jLabel3.setText("Nama User");
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/userr.png"))); // NOI18N
 
@@ -169,8 +166,8 @@ public class menuKaryawan extends javax.swing.JPanel {
                 .addGap(36, 36, 36)
                 .addGroup(panelCustom6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                    .addComponent(namaUser))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addGap(31, 31, 31))
         );
@@ -183,33 +180,11 @@ public class menuKaryawan extends javax.swing.JPanel {
                     .addGroup(panelCustom6Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)))
+                        .addComponent(namaUser)))
                 .addGap(27, 27, 27))
         );
 
         panelCustom3.add(panelCustom6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 310, 110));
-
-        panelCustom7.setBackground(new java.awt.Color(255, 255, 255));
-        panelCustom7.setRoundBottomLeft(20);
-        panelCustom7.setRoundBottomRight(20);
-        panelCustom7.setRoundTopLeft(20);
-        panelCustom7.setRoundTopRight(20);
-        panelCustom7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel6.setBackground(new java.awt.Color(75, 22, 76));
-        jLabel6.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
-        jLabel6.setText("Tono Wijianto");
-        panelCustom7.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 54, -1, -1));
-
-        jLabel7.setBackground(new java.awt.Color(106, 106, 106));
-        jLabel7.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        jLabel7.setText("Karyawan Teraktif");
-        panelCustom7.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 27, -1, -1));
-
-        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/userlove.png"))); // NOI18N
-        panelCustom7.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, -1, -1));
-
-        panelCustom3.add(panelCustom7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, 310, 110));
 
         panelCustom16.setBackground(new java.awt.Color(255, 255, 255));
         panelCustom16.setRoundBottomLeft(20);
@@ -299,7 +274,7 @@ public class menuKaryawan extends javax.swing.JPanel {
 
         panelCustom3.add(panelCustom17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 310, 110));
 
-        pnMain.add(panelCustom3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1250, 40, 330, 650));
+        pnMain.add(panelCustom3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1250, 40, 330, 480));
 
         iSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/search.png"))); // NOI18N
         pnMain.add(iSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 50, 30, 30));
@@ -485,22 +460,18 @@ public class menuKaryawan extends javax.swing.JPanel {
     private javax.swing.JLabel iSearch;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lb_halaman;
+    private javax.swing.JLabel namaUser;
     private custom.PanelCustom panelCustom1;
     private custom.PanelCustom panelCustom16;
     private custom.PanelCustom panelCustom17;
     private custom.PanelCustom panelCustom3;
     private custom.PanelCustom panelCustom6;
-    private custom.PanelCustom panelCustom7;
     private javax.swing.JPanel panelMain;
     private javax.swing.JPanel panelView;
     private custom.PanelCustom pnHeader;

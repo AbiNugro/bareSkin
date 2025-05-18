@@ -65,15 +65,11 @@
                   <Color blue="4c" green="16" red="4b" type="rgb"/>
                 </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="8" rowCount="5">
-                    <Column editable="true" title="ID Product" type="java.lang.Object"/>
-                    <Column editable="true" title="Nama Product" type="java.lang.Object"/>
-                    <Column editable="true" title="Stok Product" type="java.lang.Object"/>
-                    <Column editable="true" title="Satuan" type="java.lang.Object"/>
-                    <Column editable="true" title="Harga Beli" type="java.lang.Object"/>
-                    <Column editable="true" title="Harga Jual" type="java.lang.Object"/>
-                    <Column editable="true" title="Tgl Expired" type="java.lang.Object"/>
-                    <Column editable="true" title="Kategori" type="java.lang.Object"/>
+                  <Table columnCount="4" rowCount="5">
+                    <Column editable="true" title="ID Supplier" type="java.lang.Object"/>
+                    <Column editable="true" title="Nama Supplier" type="java.lang.Object"/>
+                    <Column editable="true" title="Nomor Telepon" type="java.lang.Object"/>
+                    <Column editable="true" title="Alamat" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="rowMargin" type="int" value="3"/>
@@ -104,7 +100,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="4c" green="16" red="4b" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Data Product"/>
+            <Property name="text" type="java.lang.String" value="Data Supplier"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

@@ -297,7 +297,7 @@ public class loginBareSkin extends javax.swing.JFrame {
     });
     
     
-}
+    }
      
     public String getMd5java(String message){
         String digest = null;

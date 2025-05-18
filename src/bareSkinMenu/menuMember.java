@@ -27,17 +27,18 @@ public class menuMember extends javax.swing.JPanel {
     private int halamanSaatIni = 1;
     private int dataPerHalaman = 14;
     private int totalPages;
+    private String nama;
     private final Connection conn;
  
 
-    public menuMember() {
+    public menuMember(String nama) {
 
         conn = koneksi.getConnection();
         initComponents(); 
         loadData();
         setTabelModel();
         pagination();
-        
+        namaUser.setText(nama.split("\\s+")[0].toUpperCase());
         btnHapus.setVisible(false);
         btnBatal.setVisible(false);
         
@@ -147,7 +148,7 @@ public class menuMember extends javax.swing.JPanel {
 
         jLabel3.setBackground(new java.awt.Color(106, 106, 106));
         jLabel3.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        jLabel3.setText("Nama Karyawan");
+        jLabel3.setText("Nama User");
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/userr.png"))); // NOI18N
 
@@ -160,7 +161,7 @@ public class menuMember extends javax.swing.JPanel {
                 .addGroup(panelCustom6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(namaUser))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addGap(31, 31, 31))
         );

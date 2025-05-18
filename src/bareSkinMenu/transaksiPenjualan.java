@@ -24,10 +24,14 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 import notification.Notification;
 /**
  *
@@ -39,13 +43,17 @@ public class transaksiPenjualan extends javax.swing.JPanel {
     private int dataPerHalaman = 14;
     private int totalPages;
     private String id_user;
+    private String nama;
+    private String level;
     private final Connection conn;
     
     
-    public transaksiPenjualan(String id_user) {
+    public transaksiPenjualan(String id_user, String nama) {
         conn = koneksi.getConnection();
-        this.id_user = id_user;
         initComponents();
+        this.id_user = id_user;
+        this.nama = nama;
+        
         finishing();
         loadData();
         setTabelModel();
@@ -57,6 +65,27 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         pagination();
         btnCetak.setVisible(false);
         tanggalView();
+    }
+   private void total() {
+       try {
+       String sql = "SELECT SUM(untung) AS total_pendapatan FROM transaksi_penjualan WHERE DATE(tgl_penjualan) = CURDATE()";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            int pendapatan = rs.getInt("total_pendapatan");
+            txtPendapatan.setText(String.valueOf(pendapatan));
+        }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+   }
+    public String getIdUser() {
+        return id_user;
+    }
+    
+    public String getNama() {
+        return nama;
     }
     
     private void setTanggalHariIni() {
@@ -85,11 +114,11 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         tblData = new javax.swing.JTable();
         panelCustom3 = new custom.PanelCustom();
         panelCustom6 = new custom.PanelCustom();
-        jLabel2 = new javax.swing.JLabel();
+        namaUser = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         panelCustom7 = new custom.PanelCustom();
-        jLabel6 = new javax.swing.JLabel();
+        txtPendapatan = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         panelCustom16 = new custom.PanelCustom();
@@ -178,6 +207,11 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         pnMain.setRoundBottomRight(20);
         pnMain.setRoundTopLeft(20);
         pnMain.setRoundTopRight(20);
+        pnMain.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnMainMouseClicked(evt);
+            }
+        });
         pnMain.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnCetak.setBackground(new java.awt.Color(75, 22, 76));
@@ -230,13 +264,13 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         panelCustom6.setRoundTopLeft(20);
         panelCustom6.setRoundTopRight(20);
 
-        jLabel2.setBackground(new java.awt.Color(75, 22, 76));
-        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
-        jLabel2.setText("TONO");
+        namaUser.setBackground(new java.awt.Color(75, 22, 76));
+        namaUser.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
+        namaUser.setText("TONO");
 
         jLabel3.setBackground(new java.awt.Color(106, 106, 106));
         jLabel3.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        jLabel3.setText("Nama Karyawan");
+        jLabel3.setText("Nama User");
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/userr.png"))); // NOI18N
 
@@ -248,8 +282,8 @@ public class transaksiPenjualan extends javax.swing.JPanel {
                 .addGap(36, 36, 36)
                 .addGroup(panelCustom6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                    .addComponent(namaUser))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addGap(31, 31, 31))
         );
@@ -262,7 +296,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
                     .addGroup(panelCustom6Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)))
+                        .addComponent(namaUser)))
                 .addGap(27, 27, 27))
         );
 
@@ -274,9 +308,9 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         panelCustom7.setRoundTopLeft(20);
         panelCustom7.setRoundTopRight(20);
 
-        jLabel6.setBackground(new java.awt.Color(75, 22, 76));
-        jLabel6.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
-        jLabel6.setText("100.000");
+        txtPendapatan.setBackground(new java.awt.Color(75, 22, 76));
+        txtPendapatan.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
+        txtPendapatan.setText("100.000");
 
         jLabel7.setBackground(new java.awt.Color(106, 106, 106));
         jLabel7.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
@@ -292,7 +326,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
                 .addGap(36, 36, 36)
                 .addGroup(panelCustom7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel6))
+                    .addComponent(txtPendapatan))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
                 .addComponent(jLabel20)
                 .addGap(28, 28, 28))
@@ -306,7 +340,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
                     .addGroup(panelCustom7Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6)))
+                        .addComponent(txtPendapatan)))
                 .addGap(27, 27, 27))
         );
 
@@ -698,6 +732,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         panelCustom8.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
 
         txtNamaMember.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtNamaMember.setText("-");
         txtNamaMember.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
         panelCustom8.add(txtNamaMember, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 270, 50));
 
@@ -732,6 +767,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         jLabel27.setText("Discount");
         panelCustom8.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 440, -1, -1));
 
+        txtAlamat.setText("-");
         txtAlamat.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
         panelCustom8.add(txtAlamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 430, -1));
 
@@ -841,6 +877,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         });
         panelCustom8.add(txtIdProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 150, 190, 50));
 
+        txtIdMember.setText("0000000000");
         txtIdMember.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
         txtIdMember.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -901,7 +938,25 @@ public class transaksiPenjualan extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed
-        
+    int row = tblData.getSelectedRow();
+
+        String idTransaksi = tblData.getValueAt(row, 0).toString(); // Ambil ID Transaksi dari kolom pertama
+
+        try {
+            String reportPath = "src/report/strukPenjualann.jasper"; 
+
+            // Siapkan parameter
+            HashMap<String, Object> parameters = new HashMap<>();
+            parameters.put("id_transaksi", idTransaksi); // Sesuaikan dengan parameter yang ada di laporan
+
+            JasperPrint print = JasperFillManager.fillReport(reportPath, parameters, conn);
+
+            JasperViewer viewer = new JasperViewer(print, false);
+            viewer.setExtendedState(JasperViewer.MAXIMIZED_BOTH);
+            viewer.setVisible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btnCetakActionPerformed
 
     private void tblDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDataMouseClicked
@@ -978,7 +1033,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
             try {
             if (insertDataAndDetails()) {
                 deleteDataSementara(); // Clear temporary data if everything was successful
-                JOptionPane.showMessageDialog(this, "Data berhasil diubah", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Transaksi Penjualan Berhasil", "Sukses", JOptionPane.INFORMATION_MESSAGE);
                 resetForm();
                 loadData();
                 showPanel();
@@ -1032,7 +1087,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
     }//GEN-LAST:event_txtIdMemberActionPerformed
 
     private void txtSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyTyped
-        // searchData();
+        searchData();
     }//GEN-LAST:event_txtSearchKeyTyped
 
     private void txtDiskonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDiskonActionPerformed
@@ -1046,6 +1101,12 @@ public class transaksiPenjualan extends javax.swing.JPanel {
     private void txtHargaBeliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHargaBeliActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtHargaBeliActionPerformed
+
+    private void pnMainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnMainMouseClicked
+        deleteDataSementara();
+        showPanel();
+        loadData();
+    }//GEN-LAST:event_pnMainMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1071,7 +1132,6 @@ public class transaksiPenjualan extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -1087,7 +1147,6 @@ public class transaksiPenjualan extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
@@ -1097,6 +1156,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
     private javax.swing.JLabel jumlahBayar;
     private javax.swing.JLabel kembalian;
     private javax.swing.JLabel lb_halaman;
+    private javax.swing.JLabel namaUser;
     private javax.swing.JPanel panelAdd;
     private custom.PanelCustom panelCustom1;
     private custom.PanelCustom panelCustom14;
@@ -1133,6 +1193,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
     private custom.JTextFieldRounded txtKembalian;
     private custom.JTextFieldRounded txtNamaMember;
     private custom.JTextFieldRounded txtNamaProduct;
+    private javax.swing.JLabel txtPendapatan;
     private custom.JTextFieldRounded txtPoin;
     private custom.JTextFieldRounded txtSearch;
     private custom.JTextFieldRounded txtUntung;
@@ -1176,12 +1237,6 @@ public class transaksiPenjualan extends javax.swing.JPanel {
     private boolean insertDataAndDetails() {
     try {
         conn.setAutoCommit(false); // Start transaction
-
-        /*
-        if (!validateStockAndReduce()) {
-            conn.rollback(); // Rollback if stock validation fails
-            return false;
-        } */
 
         // Insert transaction data
         if (!insertData()) {
@@ -1297,8 +1352,6 @@ public class transaksiPenjualan extends javax.swing.JPanel {
     }
     
     private void setMember(){
-            
-    
         boolean closable = true;
         dataMemberr member = new dataMemberr(null, closable);
         member.setVisible(true);
@@ -1364,7 +1417,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
     
     private void showPanel(){
         panelMain.removeAll();
-        panelMain.add(new transaksiPenjualan(id_user));
+        panelMain.add(new transaksiPenjualan(id_user, nama));
         panelMain.repaint();
         panelMain.revalidate();
     }
@@ -1460,6 +1513,8 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         int startIndex = (halamanSaatIni - 1) * dataPerHalaman; // Indeks awal untuk pagination
         getData(startIndex, dataPerHalaman, (DefaultTableModel) tblData.getModel());
         pnDetail.setVisible(false);
+        namaUser.setText(nama.split("\\s+")[0].toUpperCase());
+        total();
     }
     
     private void setTabelModel() {
@@ -1638,66 +1693,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblDataSementara.getModel();
     }
     
-    /*
-    private boolean validateStockAndReduce() {
-    String selectSQL = "SELECT id_product, jumlah_beli FROM sementara_penjualan";
-    try (PreparedStatement selectStmt = conn.prepareStatement(selectSQL);
-         ResultSet rs = selectStmt.executeQuery()) {
-
-        while (rs.next()) {
-            String idProduct = rs.getString("id_product");
-            int jumlahBeli = rs.getInt("jumlah_beli");
-
-            // Validasi stok bahan
-            String detailSQL = "SELECT id_product, jumlah_bahan FROM product WHERE id_product = ?";
-            try (PreparedStatement detailStmt = conn.prepareStatement(detailSQL)) {
-                detailStmt.setString(1, idProduct);
-
-                try (ResultSet detailRs = detailStmt.executeQuery()) {
-                    while (detailRs.next()) {
-                        String idProduct = detailRs.getString("id_product");
-                        int jumlahBahan = detailRs.getInt("jumlah_bahan");
-                        int penguranganStok = jumlahBeli * jumlahBahan;
-
-                        // Cek stok bahan
-                        String checkStokSQL = "SELECT stok_bahan, nama_bahan, satuan FROM bahan WHERE id_bahan = ?";
-                        try (PreparedStatement checkStokStmt = conn.prepareStatement(checkStokSQL)) {
-                            checkStokStmt.setString(1, idBahan);
-                            try (ResultSet stokRs = checkStokStmt.executeQuery()) {
-                                if (stokRs.next()) {
-                                    int stokBahan = stokRs.getInt("stok_bahan");
-                                    String namaBahan = stokRs.getString("nama_bahan");
-                                    String Satuan = stokRs.getString("satuan");
-                                    if (stokBahan < penguranganStok) {
-                                        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
-                                        if (frame != null) {
-                                            Notification panel = new Notification(frame, Notification.Type.WARNING, Notification.Location.CENTER, namaBahan + " kurang, Dibutuhkan: " + penguranganStok + ", tersedia: " + stokBahan + " (" + Satuan + ")" );
-                                            panel.showNotification();
-                                        }
-                                        return false; // Not enough stock
-                                    }
-                                }
-                            }
-                        }
-
-                        // Update stok bahan
-                        String updateSQL = "UPDATE bahan SET stok_bahan = stok_bahan - ? WHERE id_bahan = ?";
-                        try (PreparedStatement updateStmt = conn.prepareStatement(updateSQL)) {
-                            updateStmt.setInt(1, penguranganStok);
-                            updateStmt.setString(2, idBahan);
-                            updateStmt.executeUpdate();
-                        }
-                    }
-                }
-            }
-        }
-        return true; // All stock checks passed
-    } catch (Exception e) {
-        Logger.getLogger(menuTransaksi.class.getName()).log(Level.SEVERE, null, e);
-        return false; // Error occurred
-    }
-    }
-    */
+   
 
     
     // main
@@ -1761,63 +1757,30 @@ public class transaksiPenjualan extends javax.swing.JPanel {
     private boolean insertDataDetail() {
     String idTransaksiPenjualan = idTransaksi.getText();
 
-    try {
-        // Ambil data dari sementara_penjualan
-        String selectSQL = "SELECT id_product, jumlah_beli FROM sementara_penjualan";
-        try (PreparedStatement selectStmt = conn.prepareStatement(selectSQL);
-             ResultSet rs = selectStmt.executeQuery()) {
+    if (idTransaksiPenjualan == null || idTransaksiPenjualan.trim().isEmpty()) {
+        System.err.println("ID Transaksi tidak boleh kosong");
+        return false;
+    }
 
-            while (rs.next()) {
-                String idProduct = rs.getString("id_product");
-                int jumlahBeli = rs.getInt("jumlah_beli");
+    String insertSQL = "INSERT INTO detail_transaksi_penjualan (id_transaksi, id_product, jumlah_beli, harga, untung) " +
+                       "SELECT ?, id_product, jumlah_beli, harga, untung FROM sementara_penjualan";
 
-                // Ambil stok dan info produk
-                String checkProductSQL = "SELECT stok_product, nama_product, satuan FROM product WHERE id_product = ?";
-                try (PreparedStatement checkProductStmt = conn.prepareStatement(checkProductSQL)) {
-                    checkProductStmt.setString(1, idProduct);
-                    try (ResultSet productRs = checkProductStmt.executeQuery()) {
-                        if (productRs.next()) {
-                            int stokProduct = productRs.getInt("stok_product");
-                            String namaProduct = productRs.getString("nama_product");
-                            String satuan = productRs.getString("satuan");
-
-                            if (stokProduct < jumlahBeli) {
-                                JOptionPane.showMessageDialog(this, 
-                                    "Stok " + namaProduct + " kurang.\n" +
-                                    "Dibutuhkan: " + jumlahBeli + " " + satuan + 
-                                    ", tersedia: " + stokProduct + " " + satuan,
-                                    "Peringatan", JOptionPane.WARNING_MESSAGE);
-                                return false;
-                            }
-
-                            // Kurangi stok
-                            String updateSQL = "UPDATE product SET stok_product = stok_product - ? WHERE id_product = ?";
-                            try (PreparedStatement updateStmt = conn.prepareStatement(updateSQL)) {
-                                updateStmt.setInt(1, jumlahBeli);
-                                updateStmt.setString(2, idProduct);
-                                updateStmt.executeUpdate();
-                            }
-                        }
-                    }
-                }
-            }
-
-            // Insert ke detail_transaksi_penjualan
-            String insertSQL = "INSERT INTO detail_transaksi_penjualan (id_transaksi, id_product, jumlah_beli, harga, untung) " +
-                               "SELECT ?, id_product, jumlah_beli, harga, untung FROM sementara_penjualan";
-            try (PreparedStatement insertStmt = conn.prepareStatement(insertSQL)) {
-                insertStmt.setString(1, idTransaksiPenjualan);
-                insertStmt.executeUpdate();
-            }
-
+    try (PreparedStatement insertStmt = conn.prepareStatement(insertSQL)) {
+        insertStmt.setString(1, idTransaksiPenjualan);
+        int affectedRows = insertStmt.executeUpdate();
+        
+        if (affectedRows > 0) {
             return true;
-
+        } else {
+            System.err.println("Tidak ada data yang disisipkan ke detail_transaksi_penjualan");
+            return false;
         }
     } catch (Exception e) {
         Logger.getLogger(transaksiPenjualan.class.getName()).log(Level.SEVERE, null, e);
         return false;
     }
 }
+
 
     
     private void dataTabelSementara() {
@@ -1983,5 +1946,50 @@ public class transaksiPenjualan extends javax.swing.JPanel {
             Logger.getLogger(transaksiPenjualan.class.getName()).log(Level.SEVERE,null,e);
         }
     }
+    
+    
+    private void searchData() {
+    String kataKunci = txtSearch.getText().trim(); // Menghapus spasi di awal/akhir input
+
+    DefaultTableModel model = (DefaultTableModel) tblData.getModel();
+    model.setRowCount(0);
+    
+    
+    
+    try {
+        String sql = "SELECT t.id_transaksi, cu.nama_member, DATE(t.tgl_penjualan) AS tgl_penjualan, t.total_harga, t.jumlah_bayar, "
+                   + "t.kembalian, us.nama FROM transaksi_penjualan t INNER JOIN member cu ON t.id_member = cu.id_member "
+                   + "INNER JOIN user us ON t.id_user = us.id_user WHERE t.id_transaksi LIKE ? OR cu.nama_member LIKE ? OR tgl_penjualan LIKE ?"
+                   + "OR t.total_harga LIKE ? OR t.jumlah_bayar LIKE ? OR t.kembalian LIKE ? OR us.nama LIKE ?";
+        
+        try (PreparedStatement st = conn.prepareStatement(sql)) {
+            // Set parameter query untuk semua kolom
+            st.setString(1, "%" + kataKunci + "%");
+            st.setString(2, "%" + kataKunci + "%");
+            st.setString(3, "%" + kataKunci + "%");
+            st.setString(4, "%" + kataKunci + "%");
+            st.setString(5, "%" + kataKunci + "%");
+            st.setString(6, "%" + kataKunci + "%");
+            st.setString(7, "%" + kataKunci + "%");
+
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                String idTransaksi = rs.getString("id_transaksi");
+                String namaMember = rs.getString("nama_member");
+                String tglPenjualan = rs.getString("tgl_penjualan");
+                int totalHarga = rs.getInt("total_harga");
+                int jumlahBayar = rs.getInt("jumlah_bayar");
+                int kembalian = rs.getInt("kembalian");
+                String namaUser = rs.getString("nama");
+                Object[] rowData = {idTransaksi, namaMember, tglPenjualan, totalHarga,
+                jumlahBayar, kembalian, namaUser};
+                model.addRow(rowData);
+            }
+        }
+    } catch (Exception e) {
+        Logger.getLogger(transaksiPenjualan.class.getName()).log(Level.SEVERE, null, e);
+    }
+}
 }
 

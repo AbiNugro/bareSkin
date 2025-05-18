@@ -32,9 +32,8 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
         setUndecorated(true);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         initComponents();
-        
-        this.id_user = id_user;
         this.nama = nama;
+        this.id_user = id_user;
         this.level = level;
         switchPanel(new bareSkinMenu.dashboardAdmin());
         activeButton = tDashboard;
@@ -708,7 +707,7 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
 
     private void pnProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnProductMouseClicked
         setActiveButton(pnProduct, tProduct, iProductG, iProductT, Kproduct);
-        switchPanel(new bareSkinMenu.menuProductt());
+        switchPanel(new bareSkinMenu.menuProductt(getNama()));
     }//GEN-LAST:event_pnProductMouseClicked
 
     private void pnDashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnDashboardMouseClicked
@@ -742,7 +741,7 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
 
     private void pnMemberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnMemberMouseClicked
         setActiveButton(pnMember, tMember, iMemberG, iMemberT, Kmember);
-        switchPanel(new bareSkinMenu.menuMember());
+        switchPanel(new bareSkinMenu.menuMember(getNama()));
     }//GEN-LAST:event_pnMemberMouseClicked
 
     private void pnMemberMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnMemberMouseEntered
@@ -759,7 +758,7 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
 
     private void pnKaryawanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnKaryawanMouseClicked
         setActiveButton(pnKaryawan, tKaryawan, iKaryawanG, iKaryawanT, Kkaryawan);
-        switchPanel(new bareSkinMenu.menuKaryawan());
+        switchPanel(new bareSkinMenu.menuKaryawan(getNama()));
     }//GEN-LAST:event_pnKaryawanMouseClicked
 
     private void pnKaryawanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnKaryawanMouseEntered
@@ -776,7 +775,7 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
 
     private void pnPenjualanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnPenjualanMouseClicked
         setActiveButton(pnPenjualan, tPenjualan, iPenjualanG, iPenjualanT, Kpenjualan);
-        switchPanel(new bareSkinMenu.transaksiPenjualan(getid_user()));
+        switchPanel(new bareSkinMenu.transaksiPenjualan(getid_user(), getNama()));
     }//GEN-LAST:event_pnPenjualanMouseClicked
 
     private void pnPenjualanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnPenjualanMouseEntered
@@ -793,7 +792,7 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
 
     private void pnPembelianMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnPembelianMouseClicked
         setActiveButton(pnPembelian, tPembelian, iPembelianG, iPembelianT, Kpembelian);
-        switchPanel(new bareSkinMenu.transaksiPembelian());
+        switchPanel(new bareSkinMenu.transaksiPembeliaan(getid_user(), getNama()));
     }//GEN-LAST:event_pnPembelianMouseClicked
 
     private void pnPembelianMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnPembelianMouseEntered
@@ -858,7 +857,7 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
 
     private void pnReturMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnReturMouseClicked
         setActiveButton(pnRetur, tRetur, iReturG, iReturT, Kretur);
-        switchPanel(new bareSkinMenu.menuRetur());
+        switchPanel(new bareSkinMenu.menuReturr(getid_user(), getNama()));
     }//GEN-LAST:event_pnReturMouseClicked
 
     private void pnReturMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnReturMouseEntered
@@ -875,7 +874,7 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
 
     private void pnSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnSupplierMouseClicked
         setActiveButton(pnSupplier, tSupplier, iSupplierG, iSupplierT, Ksupplier);
-        switchPanel(new bareSkinMenu.menuSupplier());
+        switchPanel(new bareSkinMenu.menuSupplier(getNama()));
     }//GEN-LAST:event_pnSupplierMouseClicked
 
     private void pnSupplierMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnSupplierMouseEntered

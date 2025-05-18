@@ -88,6 +88,7 @@ public class dataMemberr extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         panelView.setBackground(new java.awt.Color(255, 255, 255));
+        panelView.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tblData.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         tblData.setForeground(new java.awt.Color(75, 22, 76));
@@ -106,12 +107,16 @@ public class dataMemberr extends javax.swing.JDialog {
         tblData.setRowMargin(3);
         jScrollPane1.setViewportView(tblData);
 
+        panelView.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 132, 870, 348));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/search.png"))); // NOI18N
+        panelView.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 80, -1, -1));
 
         databahan.setBackground(new java.awt.Color(75, 22, 76));
         databahan.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         databahan.setForeground(new java.awt.Color(75, 22, 76));
-        databahan.setText("Data Product");
+        databahan.setText("Data Member");
+        panelView.add(databahan, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 22, -1, -1));
 
         txtSearch.setForeground(new java.awt.Color(102, 102, 102));
         txtSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -119,18 +124,23 @@ public class dataMemberr extends javax.swing.JDialog {
                 txtSearchActionPerformed(evt);
             }
         });
+        panelView.add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 350, 40));
 
         btn_first.setForeground(new java.awt.Color(75, 22, 76));
         btn_first.setText("First Page");
+        panelView.add(btn_first, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 520, -1, -1));
 
         btn_last.setForeground(new java.awt.Color(75, 22, 76));
         btn_last.setText("Last Page");
+        panelView.add(btn_last, new org.netbeans.lib.awtextra.AbsoluteConstraints(535, 520, -1, -1));
 
         btn_before.setForeground(new java.awt.Color(75, 22, 76));
         btn_before.setText("<");
+        panelView.add(btn_before, new org.netbeans.lib.awtextra.AbsoluteConstraints(389, 520, -1, -1));
 
         cbx_data.setForeground(new java.awt.Color(75, 22, 76));
         cbx_data.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
+        panelView.add(cbx_data, new org.netbeans.lib.awtextra.AbsoluteConstraints(422, 520, 68, -1));
 
         btn_next.setForeground(new java.awt.Color(75, 22, 76));
         btn_next.setText(">");
@@ -139,79 +149,21 @@ public class dataMemberr extends javax.swing.JDialog {
                 btn_nextActionPerformed(evt);
             }
         });
+        panelView.add(btn_next, new org.netbeans.lib.awtextra.AbsoluteConstraints(502, 520, -1, -1));
 
         lb_halaman.setForeground(new java.awt.Color(75, 22, 76));
         lb_halaman.setText("Halaman Of Total Halaman");
-
-        javax.swing.GroupLayout panelViewLayout = new javax.swing.GroupLayout(panelView);
-        panelView.setLayout(panelViewLayout);
-        panelViewLayout.setHorizontalGroup(
-            panelViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelViewLayout.createSequentialGroup()
-                .addGroup(panelViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelViewLayout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addComponent(databahan))
-                    .addGroup(panelViewLayout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addGroup(panelViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(panelViewLayout.createSequentialGroup()
-                                .addGap(400, 400, 400)
-                                .addComponent(jLabel1))))
-                    .addGroup(panelViewLayout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelViewLayout.createSequentialGroup()
-                        .addGap(400, 400, 400)
-                        .addComponent(lb_halaman))
-                    .addGroup(panelViewLayout.createSequentialGroup()
-                        .addGap(300, 300, 300)
-                        .addComponent(btn_first)
-                        .addGap(8, 8, 8)
-                        .addComponent(btn_before)
-                        .addGap(11, 11, 11)
-                        .addComponent(cbx_data, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(btn_next)
-                        .addGap(11, 11, 11)
-                        .addComponent(btn_last)))
-                .addContainerGap(43, Short.MAX_VALUE))
-        );
-        panelViewLayout.setVerticalGroup(
-            panelViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelViewLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(databahan)
-                .addGap(16, 16, 16)
-                .addGroup(panelViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelViewLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel1)))
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(lb_halaman)
-                .addGap(9, 9, 9)
-                .addGroup(panelViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_first)
-                    .addComponent(btn_before)
-                    .addComponent(cbx_data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_next)
-                    .addComponent(btn_last))
-                .addContainerGap(25, Short.MAX_VALUE))
-        );
+        panelView.add(lb_halaman, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 495, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panelView, javax.swing.GroupLayout.DEFAULT_SIZE, 965, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panelView, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
         );
 
         pack();

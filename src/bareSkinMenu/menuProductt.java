@@ -26,15 +26,17 @@ public class menuProductt extends javax.swing.JPanel {
     private int dataPerHalaman = 14;
     private int totalPages;
     private final Connection conn;
+    private String nama;
  
 
-    public menuProductt() {
+    public menuProductt(String nama) {
 
         conn = koneksi.getConnection();
         initComponents(); 
         loadData();
         setTabelModel();
         pagination();
+        namaUser.setText(nama.split("\\s+")[0].toUpperCase());
         
         btnBatal.setVisible(false);
         btnHapus.setVisible(false);
@@ -63,7 +65,7 @@ public class menuProductt extends javax.swing.JPanel {
         tblData = new javax.swing.JTable();
         panelCustom3 = new custom.PanelCustom();
         panelCustom6 = new custom.PanelCustom();
-        jLabel2 = new javax.swing.JLabel();
+        namaUser = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         panelCustom7 = new custom.PanelCustom();
@@ -147,13 +149,13 @@ public class menuProductt extends javax.swing.JPanel {
         panelCustom6.setRoundTopLeft(20);
         panelCustom6.setRoundTopRight(20);
 
-        jLabel2.setBackground(new java.awt.Color(75, 22, 76));
-        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
-        jLabel2.setText("TONO");
+        namaUser.setBackground(new java.awt.Color(75, 22, 76));
+        namaUser.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
+        namaUser.setText("TONO");
 
         jLabel3.setBackground(new java.awt.Color(106, 106, 106));
         jLabel3.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        jLabel3.setText("Nama Karyawan");
+        jLabel3.setText("Nama User");
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/userr.png"))); // NOI18N
 
@@ -165,8 +167,8 @@ public class menuProductt extends javax.swing.JPanel {
                 .addGap(36, 36, 36)
                 .addGroup(panelCustom6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                    .addComponent(namaUser))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addGap(31, 31, 31))
         );
@@ -179,7 +181,7 @@ public class menuProductt extends javax.swing.JPanel {
                     .addGroup(panelCustom6Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)))
+                        .addComponent(namaUser)))
                 .addGap(27, 27, 27))
         );
 
@@ -483,7 +485,6 @@ public class menuProductt extends javax.swing.JPanel {
     private javax.swing.JLabel iSearch;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
@@ -493,6 +494,7 @@ public class menuProductt extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lb_halaman;
+    private javax.swing.JLabel namaUser;
     private custom.PanelCustom panelCustom1;
     private custom.PanelCustom panelCustom16;
     private custom.PanelCustom panelCustom17;

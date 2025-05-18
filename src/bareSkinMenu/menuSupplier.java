@@ -28,16 +28,16 @@ public class menuSupplier extends javax.swing.JPanel {
     private int dataPerHalaman = 14;
     private int totalPages;
     private final Connection conn;
- 
+    private String nama;
 
-    public menuSupplier() {
+    public menuSupplier(String nama) {
 
         conn = koneksi.getConnection();
         initComponents(); 
         loadData();
         setTabelModel();
         pagination();
-        
+        namaUser.setText(nama.split("\\s+")[0].toUpperCase());
         btnHapus.setVisible(false);
         btnBatal.setVisible(false);
         
@@ -63,10 +63,6 @@ public class menuSupplier extends javax.swing.JPanel {
         namaUser = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        panelCustom7 = new custom.PanelCustom();
-        namaPoin = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
         panelCustom16 = new custom.PanelCustom();
         tanggalIndonesia = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -147,7 +143,7 @@ public class menuSupplier extends javax.swing.JPanel {
 
         jLabel3.setBackground(new java.awt.Color(106, 106, 106));
         jLabel3.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        jLabel3.setText("Nama Karyawan");
+        jLabel3.setText("Nama User");
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/userr.png"))); // NOI18N
 
@@ -160,7 +156,7 @@ public class menuSupplier extends javax.swing.JPanel {
                 .addGroup(panelCustom6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(namaUser))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addGap(31, 31, 31))
         );
@@ -178,28 +174,6 @@ public class menuSupplier extends javax.swing.JPanel {
         );
 
         panelCustom3.add(panelCustom6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 310, 110));
-
-        panelCustom7.setBackground(new java.awt.Color(255, 255, 255));
-        panelCustom7.setRoundBottomLeft(20);
-        panelCustom7.setRoundBottomRight(20);
-        panelCustom7.setRoundTopLeft(20);
-        panelCustom7.setRoundTopRight(20);
-        panelCustom7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        namaPoin.setBackground(new java.awt.Color(75, 22, 76));
-        namaPoin.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
-        namaPoin.setText("Ananda Rafael");
-        panelCustom7.add(namaPoin, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 54, -1, -1));
-
-        jLabel7.setBackground(new java.awt.Color(106, 106, 106));
-        jLabel7.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        jLabel7.setText("Poin Terbanyak");
-        panelCustom7.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 27, -1, -1));
-
-        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/userlove.png"))); // NOI18N
-        panelCustom7.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, -1, -1));
-
-        panelCustom3.add(panelCustom7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, 310, 110));
 
         panelCustom16.setBackground(new java.awt.Color(255, 255, 255));
         panelCustom16.setRoundBottomLeft(20);
@@ -289,7 +263,7 @@ public class menuSupplier extends javax.swing.JPanel {
 
         panelCustom3.add(panelCustom17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 310, 110));
 
-        pnMain.add(panelCustom3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1250, 40, 330, 650));
+        pnMain.add(panelCustom3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1250, 40, 330, 480));
 
         iSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/search.png"))); // NOI18N
         pnMain.add(iSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 50, 30, 30));
@@ -475,22 +449,18 @@ public class menuSupplier extends javax.swing.JPanel {
     private javax.swing.JLabel iSearch;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lb_halaman;
-    private javax.swing.JLabel namaPoin;
     private javax.swing.JLabel namaUser;
     private custom.PanelCustom panelCustom1;
     private custom.PanelCustom panelCustom16;
     private custom.PanelCustom panelCustom17;
     private custom.PanelCustom panelCustom3;
     private custom.PanelCustom panelCustom6;
-    private custom.PanelCustom panelCustom7;
     private javax.swing.JPanel panelMain;
     private javax.swing.JPanel panelView;
     private custom.PanelCustom pnHeader;
@@ -598,7 +568,7 @@ public class menuSupplier extends javax.swing.JPanel {
                while (rs.next()) {
                     String idSupplier = rs.getString("id_supplier");
                     String namaSupplier = rs.getString("nama_supplier");
-                    String noTelp = rs.getString("telepon");
+                    String noTelp = rs.getString("no_telepon");
                     String alamat = rs.getString("alamat");
                    
                     Object[] rowData = {idSupplier, namaSupplier, noTelp, alamat};
@@ -652,7 +622,7 @@ public class menuSupplier extends javax.swing.JPanel {
         model.setRowCount(0);
 
         try {
-            String sql = "SELECT * FROM supplier WHERE id_supplier LIKE ? OR nama_supplier LIKE ? OR telepon LIKE ? OR alamat LIKE ?";
+            String sql = "SELECT * FROM supplier WHERE id_supplier LIKE ? OR nama_supplier LIKE ? OR no_telepon LIKE ? OR alamat LIKE ?";
             try (PreparedStatement st = conn.prepareStatement(sql)) {
                 // Set parameter query untuk semua kolom
                 st.setString(1, "%" + kataKunci + "%");
@@ -665,7 +635,7 @@ public class menuSupplier extends javax.swing.JPanel {
                 while (rs.next()) {
                     String idSupplier = rs.getString("id_supplier");
                     String namaSupplier = rs.getString("nama_supplier");
-                    String noTelp = rs.getString("telepon");
+                    String noTelp = rs.getString("no_telepon");
                     String alamat = rs.getString("alamat");
                     Object[] rowData = {idSupplier, namaSupplier, noTelp, alamat};
                     model.addRow(rowData);
