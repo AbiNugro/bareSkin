@@ -114,6 +114,8 @@ public class menuSupplier extends javax.swing.JPanel {
             }
         ));
         tblData.setGridColor(new java.awt.Color(255, 255, 255));
+        tblData.setRowHeight(30);
+        tblData.setRowMargin(10);
         tblData.setSelectionBackground(new java.awt.Color(75, 22, 76));
         tblData.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -474,7 +476,8 @@ public class menuSupplier extends javax.swing.JPanel {
     
 
     private void tambahSupplier() {
-        tambahSupplier supplier = new tambahSupplier(null, true, null, null, null, null);
+        tambahSupplier supplier = new tambahSupplier(null, true, 
+                null, null, null, null);
         supplier.setVisible(true);
         loadData();
     }
@@ -650,7 +653,8 @@ public class menuSupplier extends javax.swing.JPanel {
     private void ubahData() {
         int row = tblData.getSelectedRow();
         if (row == -1) {
-            JOptionPane.showMessageDialog(this, "Pilih data yang ingin diubah!");
+            JOptionPane.showMessageDialog(this, 
+                    "Pilih data yang ingin diubah!");
             return;
         }
 
@@ -659,7 +663,8 @@ public class menuSupplier extends javax.swing.JPanel {
         String telp = tblData.getValueAt(row, 2).toString();
         String alamat = tblData.getValueAt(row, 3).toString();
 
-        tambahSupplier form = new tambahSupplier(null, true, id, nama, telp, alamat);
+        tambahSupplier form = new tambahSupplier(null, true, 
+                id, nama, telp, alamat);
         form.setVisible(true);
         loadData();
         btnHapus.setVisible(false);
@@ -671,15 +676,12 @@ public class menuSupplier extends javax.swing.JPanel {
     
     private void deleteData() {
         int selectedRow = tblData.getSelectedRow();
-
-        // Validasi apakah ada baris yang dipilih
         if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Pilih data yang ingin dihapus", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Pilih data yang ingin dihapus", 
+                    "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-
-        // Konfirmasi penghapusan
         int confirm = JOptionPane.showConfirmDialog(this,
                 "Apakah yakin ingin menghapus data ini?",
                 "Konfirmasi Hapus Data",
@@ -696,10 +698,12 @@ public class menuSupplier extends javax.swing.JPanel {
 
                     int rowDeleted = st.executeUpdate();
                     if (rowDeleted > 0) {
-                        JOptionPane.showMessageDialog(this, "Data berhasil dihapus", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Data berhasil dihapus", 
+                                "Sukses", JOptionPane.INFORMATION_MESSAGE);
                         loadData(); // Refresh tabel setelah penghapusan
                     } else {
-                        JOptionPane.showMessageDialog(this, "Data gagal dihapus", "Peringatan", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Data gagal dihapus", 
+                                "Peringatan", JOptionPane.WARNING_MESSAGE);
                     }
                 }
             } catch (Exception e) {

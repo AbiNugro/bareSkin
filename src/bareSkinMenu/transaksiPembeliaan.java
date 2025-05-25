@@ -15,7 +15,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import menu.dataMember;
 import config.koneksi;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -207,6 +206,8 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
             }
         ));
         tblData.setGridColor(new java.awt.Color(255, 255, 255));
+        tblData.setRowHeight(30);
+        tblData.setRowMargin(10);
         tblData.setSelectionBackground(new java.awt.Color(75, 22, 76));
         tblData.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -443,6 +444,8 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
                 "ID Pembelian", "Nama Supplier", "Nama Product", "Jumlah", "Satuan", "Harga Beli"
             }
         ));
+        tblDataDetail.setRowHeight(30);
+        tblDataDetail.setRowMargin(10);
         tblDataDetail.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblDataDetailMouseClicked(evt);
@@ -614,6 +617,8 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
             }
         ));
         tblDataSementara.setGridColor(new java.awt.Color(255, 255, 255));
+        tblDataSementara.setRowHeight(30);
+        tblDataSementara.setRowMargin(10);
         tblDataSementara.setSelectionBackground(new java.awt.Color(75, 22, 76));
         tblDataSementara.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -699,7 +704,7 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
         panelCustom8.add(panelCustom4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1560, 60));
 
         jLabel22.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
-        jLabel22.setText("ID Supplier");
+        jLabel22.setText("ID Product");
         panelCustom8.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
 
         txtNamaSupplier.setHorizontalAlignment(javax.swing.JTextField.LEFT);
@@ -1156,22 +1161,22 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
     
     private boolean insertDataAndDetails() {
     try {
-        conn.setAutoCommit(false); // Start transaction
-
+        conn.setAutoCommit(false);
+        
         // Insert transaction data
         if (!insertData()) {
-            conn.rollback(); // Rollback if insertData fails
+            conn.rollback();
             return false;
         }
-
-        // Insert transaction details
+        
         if (!insertDataDetail()) {
-            conn.rollback(); // Rollback if insertDataDetail fails
+            conn.rollback();
             return false;
         }
-
-        conn.commit(); // Commit if all operations succeed
-        return true;
+        
+        conn.commit();
+        return true; // Pindahkan ke sini - hanya return true jika semua berhasil
+        
     } catch (Exception e) {
         try {
             conn.rollback(); // Rollback on exception
@@ -1180,6 +1185,7 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
         }
         Logger.getLogger(transaksiPembeliaan.class.getName()).log(Level.SEVERE, null, e);
         return false;
+        
     } finally {
         try {
             conn.setAutoCommit(true); // Reset to auto-commit mode
@@ -1334,7 +1340,8 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
         
         try {
            String sql = "SELECT t.id_pembelian, DATE(t.tgl_pembelian) AS tgl_pembelian, t.total_harga_pembelian,"
-                   + "us.nama AS nama_user FROM transaksi_pembelian t INNER JOIN user us ON t.id_user = us.id_user ORDER BY t.id_pembelian ASC LIMIT ?,?";
+                   + "us.nama AS nama_user FROM transaksi_pembelian t INNER JOIN user us ON t.id_user = us.id_user "
+                   + "ORDER BY t.id_pembelian ASC LIMIT ?,?";
            try (PreparedStatement st = conn.prepareStatement(sql)) {
                st.setInt(1, startIndex);
                st.setInt(2, entriesPage);
@@ -1506,19 +1513,6 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
             int totalHarga = getTotalHarga(idTransaksiPembelian);
             
             hargaTotal.setText(String.valueOf(totalHarga));
-            /*
-            if (txtDiscount.getText().equals("")) {
-                txtHargaTotal.setText(String.valueOf(totalHarga));
-                txtUntung.setText(String.valueOf(totalUntung));
-            } else {
-                int discount = Integer.parseInt(txtDiscount.getText());
-                int countHarga = totalHarga - (totalHarga * discount / 100);
-                totalUntung = totalUntung - (totalHarga * discount / 100);
-                
-                txtHargaTotal.setText(String.valueOf(countHarga));
-                txtUntung.setText(String.valueOf(totalUntung));
-            }
-            */
             loadDataSementara();
         }
     } catch (Exception e) {
@@ -1584,7 +1578,8 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
 
 
     try {
-        String sql = "INSERT INTO transaksi_pembelian (id_pembelian, tgl_pembelian, total_harga_pembelian, id_user) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO transaksi_pembelian (id_pembelian, tgl_pembelian, total_harga_pembelian, "
+                + "id_user) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement st = conn.prepareStatement(sql)) {
             st.setString(1, idTransaksiPembelian);
@@ -1604,30 +1599,63 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
     
     private boolean insertDataDetail() {
     String idTransaksiPembelian = idPembelian.getText();
-
     if (idTransaksiPembelian == null || idTransaksiPembelian.trim().isEmpty()) {
         System.err.println("ID Pembelian tidak boleh kosong");
         return false;
     }
-
-    String insertSQL = "INSERT INTO detail_transaksi_pembelian (id_pembelian, id_supplier, id_product, jumlah, satuan, harga_beli, harga_per_satuan) " +
-                       "SELECT ?, id_supplier, id_product, jumlah_beli, pilihan_satuan, harga, harga_satuan FROM sementara_pembelian";
-
-    try (PreparedStatement insertStmt = conn.prepareStatement(insertSQL)) {
-        insertStmt.setString(1, idTransaksiPembelian);
-        int affectedRows = insertStmt.executeUpdate();
-        
-        if (affectedRows > 0) {
-            return true;
-        } else {
-            System.err.println("Tidak ada data yang disisipkan ke detail_transaksi_penjualan");
+    
+    try {
+        // Pastikan koneksi aktif
+        if (conn == null || conn.isClosed()) {
+            System.err.println("Koneksi database tidak tersedia.");
             return false;
         }
+        
+        // HAPUS: conn.setAutoCommit(false) - sudah diatur di method pemanggil
+        
+        // 1. Insert ke detail_transaksi_pembelian dari sementara_pembelian
+        String insertSQL = "INSERT INTO detail_transaksi_pembelian " +
+                "(id_pembelian, id_supplier, id_product, jumlah, satuan, harga_beli, harga_per_satuan) " +
+                "SELECT ?, id_supplier, id_product, jumlah_beli, pilihan_satuan, harga, harga_satuan " +
+                "FROM sementara_pembelian";
+                
+        try (PreparedStatement insertStmt = conn.prepareStatement(insertSQL)) {
+            insertStmt.setString(1, idTransaksiPembelian);
+            int rows = insertStmt.executeUpdate();
+            if (rows == 0) {
+                System.err.println("Gagal menyisipkan ke detail_transaksi_pembelian");
+                return false; // Biarkan method pemanggil yang handle rollback
+            }
+        }
+        
+        // 2. Tambah stok produk di tabel product
+        String selectStokSQL = "SELECT id_product, jumlah_beli FROM sementara_pembelian";
+        try (PreparedStatement selectStmt = conn.prepareStatement(selectStokSQL);
+             ResultSet rs = selectStmt.executeQuery()) {
+             
+            while (rs.next()) {
+                String idProduct = rs.getString("id_product");
+                int jumlahBeli = rs.getInt("jumlah_beli");
+                
+                String updateStokSQL = "UPDATE product SET stok_product = stok_product + ? WHERE id_product = ?";
+                try (PreparedStatement updateStmt = conn.prepareStatement(updateStokSQL)) {
+                    updateStmt.setInt(1, jumlahBeli);
+                    updateStmt.setString(2, idProduct);
+                    updateStmt.executeUpdate();
+                }
+            }
+        }
+        
+        // HAPUS: conn.commit() - biarkan method pemanggil yang handle commit
+        return true;
+        
     } catch (Exception e) {
-        Logger.getLogger(transaksiPembeliaan.class.getName()).log(Level.SEVERE, null, e);
+        // HAPUS: rollback handling - biarkan method pemanggil yang handle
+        Logger.getLogger(transaksiPembeliaan.class.getName()).log(Level.SEVERE, "Kesalahan saat insert detail pembelian", e);
         return false;
     }
 }
+
 
 
     

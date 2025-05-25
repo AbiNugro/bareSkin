@@ -25,7 +25,6 @@ import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
-import kasiramanah.MenuUtama;
 import notification.Notification;
 
 /**
@@ -138,7 +137,7 @@ public class loginBareSkinRFID extends javax.swing.JFrame {
 
     private void t_rfidKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_rfidKeyTyped
         if (!Character.isDigit(evt.getKeyChar())) { 
-        evt.consume(); // Mencegah input selain angka
+        evt.consume(); 
     }
     }//GEN-LAST:event_t_rfidKeyTyped
 
@@ -220,8 +219,6 @@ public class loginBareSkinRFID extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     
     private void noText() {
-
-
     t_rfid.addKeyListener(new KeyAdapter() {
         @Override
         public void keyPressed(KeyEvent e) {
@@ -243,6 +240,7 @@ public class loginBareSkinRFID extends javax.swing.JFrame {
         }
         return data;
     }
+    
     private void setDate(){
         timer = new Timer(100, new ActionListener(){
             @Override
@@ -284,7 +282,7 @@ public class loginBareSkinRFID extends javax.swing.JFrame {
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 result.put("id_user", rs.getString("id_user"));
-                result.put("nama", rs.getString("nama")); // pastikan kolom 'nama' ada
+                result.put("nama", rs.getString("nama"));
                 result.put("level", rs.getString("level"));
                 return result;
             }
@@ -312,7 +310,7 @@ public class loginBareSkinRFID extends javax.swing.JFrame {
             if (level.equalsIgnoreCase("Admin")) {
                 menu = new menuDashboardAdmin(id_user, nama, level);
             } else {
-                menu = new menuDashboardKasir(id_user, nama, level); // Ganti dengan class kasir kamu
+                menu = new menuDashboardKasir(id_user, nama, level); 
             }
 
             menu.setOpacity(0f);
@@ -330,12 +328,13 @@ public class loginBareSkinRFID extends javax.swing.JFrame {
 
             timer.start();
         } else {
-            Notification panel = new Notification(this, Notification.Type.WARNING, Notification.Location.TOP_CENTER, "RFID Tidak terdaftar");
+            Notification panel = new Notification(this, Notification.Type.WARNING, 
+                    Notification.Location.TOP_CENTER, "RFID Tidak terdaftar");
             panel.showNotification();
         }
     }
     return false;
-}
+    }
 
 
     

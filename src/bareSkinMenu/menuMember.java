@@ -119,6 +119,8 @@ public class menuMember extends javax.swing.JPanel {
             }
         ));
         tblData.setGridColor(new java.awt.Color(255, 255, 255));
+        tblData.setRowHeight(30);
+        tblData.setRowMargin(10);
         tblData.setSelectionBackground(new java.awt.Color(75, 22, 76));
         tblData.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -505,7 +507,8 @@ public class menuMember extends javax.swing.JPanel {
     
 
     private void tambahMember() {
-        tambahMember member = new tambahMember(null, true, null, null, null, null, "0");
+        tambahMember member = new tambahMember(null, true, 
+                null, null, null, null, "0");
         member.setVisible(true);
         loadData();
     }
@@ -707,22 +710,18 @@ public class menuMember extends javax.swing.JPanel {
     
     private void deleteData() {
         int selectedRow = tblData.getSelectedRow();
-
-        // Validasi apakah ada baris yang dipilih
         if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Pilih data yang ingin dihapus", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Pilih data yang ingin dihapus", 
+                    "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-
-        // Konfirmasi penghapusan
         int confirm = JOptionPane.showConfirmDialog(this,
                 "Apakah yakin ingin menghapus data ini?",
                 "Konfirmasi Hapus Data",
                 JOptionPane.YES_NO_OPTION);
 
         if (confirm == JOptionPane.YES_OPTION) {
-            // Ambil ID dari kolom pertama (indeks 0)
             String id = tblData.getValueAt(selectedRow, 0).toString();
 
             try {
@@ -732,10 +731,12 @@ public class menuMember extends javax.swing.JPanel {
 
                     int rowDeleted = st.executeUpdate();
                     if (rowDeleted > 0) {
-                        JOptionPane.showMessageDialog(this, "Data berhasil dihapus", "Sukses", JOptionPane.INFORMATION_MESSAGE);
-                        loadData(); // Refresh tabel setelah penghapusan
+                        JOptionPane.showMessageDialog(this, "Data berhasil dihapus", 
+                                "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                        loadData();
                     } else {
-                        JOptionPane.showMessageDialog(this, "Data gagal dihapus", "Peringatan", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Data gagal dihapus", 
+                                "Peringatan", JOptionPane.WARNING_MESSAGE);
                     }
                 }
             } catch (Exception e) {

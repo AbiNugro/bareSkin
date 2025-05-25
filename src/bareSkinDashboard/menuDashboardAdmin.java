@@ -707,7 +707,7 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
 
     private void pnProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnProductMouseClicked
         setActiveButton(pnProduct, tProduct, iProductG, iProductT, Kproduct);
-        switchPanel(new bareSkinMenu.menuProductt(getNama()));
+        switchPanel(new bareSkinMenu.menuProductt(getid_user(),getNama()));
     }//GEN-LAST:event_pnProductMouseClicked
 
     private void pnDashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnDashboardMouseClicked

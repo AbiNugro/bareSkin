@@ -1,6 +1,5 @@
 package bareSkinMenu;
 
-import menu.*;
 import config.koneksi;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -100,7 +99,8 @@ public class dataSupplier extends javax.swing.JDialog {
                 "ID Supplier", "Nama Supplier", "Nomor Telepon", "Alamat"
             }
         ));
-        tblData.setRowMargin(3);
+        tblData.setRowHeight(30);
+        tblData.setRowMargin(10);
         jScrollPane1.setViewportView(tblData);
 
         panelView.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 132, 870, 348));

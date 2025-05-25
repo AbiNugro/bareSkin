@@ -32,6 +32,7 @@ public class dashboardKaryawan extends javax.swing.JPanel {
         panelView = new javax.swing.JPanel();
         panelCustom1 = new custom.PanelCustom();
         tNamaMenu1 = new javax.swing.JLabel();
+        tNamaMenu2 = new javax.swing.JLabel();
         panelCustom2 = new custom.PanelCustom();
         tNamaMenu = new javax.swing.JLabel();
 
@@ -52,8 +53,14 @@ public class dashboardKaryawan extends javax.swing.JPanel {
         tNamaMenu1.setBackground(new java.awt.Color(245, 245, 245));
         tNamaMenu1.setFont(new java.awt.Font("SansSerif", 1, 40)); // NOI18N
         tNamaMenu1.setForeground(new java.awt.Color(75, 22, 76));
-        tNamaMenu1.setText("MENU DASHBOARD KARYAWAN");
-        panelCustom1.add(tNamaMenu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 410, -1, -1));
+        tNamaMenu1.setText("Selamat beraktivitas");
+        panelCustom1.add(tNamaMenu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 240, -1, -1));
+
+        tNamaMenu2.setBackground(new java.awt.Color(245, 245, 245));
+        tNamaMenu2.setFont(new java.awt.Font("SansSerif", 1, 40)); // NOI18N
+        tNamaMenu2.setForeground(new java.awt.Color(75, 22, 76));
+        tNamaMenu2.setText("Selamat datang, Nama!");
+        panelCustom1.add(tNamaMenu2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, -1, -1));
 
         panelView.add(panelCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 1600, 940));
 
@@ -85,5 +92,6 @@ public class dashboardKaryawan extends javax.swing.JPanel {
     private javax.swing.JPanel panelView;
     private javax.swing.JLabel tNamaMenu;
     private javax.swing.JLabel tNamaMenu1;
+    private javax.swing.JLabel tNamaMenu2;
     // End of variables declaration//GEN-END:variables
 }

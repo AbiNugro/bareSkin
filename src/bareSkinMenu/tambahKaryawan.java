@@ -1,7 +1,6 @@
 package bareSkinMenu;
 
 import bareSkinLogin.loginBareSkin;
-import menu.*;
 import config.koneksi;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -59,35 +58,33 @@ public class tambahKaryawan extends javax.swing.JDialog {
         return level;
     }
 
-    public tambahKaryawan(java.awt.Frame parent, boolean modal, String id, String nama, String alamat, String username, String password) {
-    super(parent, modal);
-    initComponents();
-    setLocationRelativeTo(null);
+    public tambahKaryawan(java.awt.Frame parent, boolean modal, String id, 
+            String nama, String alamat, String username, String password) {
+        super(parent, modal);
+        initComponents();
+        setLocationRelativeTo(null);
 
-    conn = koneksi.getConnection();
-    // finishing();
+        conn = koneksi.getConnection();
 
-    // Set data ke field dan komponen input
-    this.id_user = id;
-    this.nama = nama;
-    this.alamat = alamat;
-    this.username = username;
-    this.password = password;
+        this.id_user = id;
+        this.nama = nama;
+        this.alamat = alamat;
+        this.username = username;
+        this.password = password;
 
-    txtIdKaryawan.setText(id);
-    txtNamaKaryawan.setText(nama);
-    txtAlamat.setText(alamat);
-    txtUsername.setText(username);
-    txtPassword.setText(password);
-    btnSimpan.setText("SIMPAN");
-    
-    if (!txtIdKaryawan.getText().trim().isEmpty()) {
-        btnSimpan.setText("UBAH");
-        txtIdKaryawan.setEnabled(false);
-        fieldColor(txtIdKaryawan);
-    } 
-    
-}
+        txtIdKaryawan.setText(id);
+        txtNamaKaryawan.setText(nama);
+        txtAlamat.setText(alamat);
+        txtUsername.setText(username);
+        txtPassword.setText(password);
+        btnSimpan.setText("SIMPAN");
+
+        if (!txtIdKaryawan.getText().trim().isEmpty()) {
+            btnSimpan.setText("UBAH");
+            txtIdKaryawan.setEnabled(false);
+            fieldColor(txtIdKaryawan);
+        } 
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -262,14 +259,17 @@ public class tambahKaryawan extends javax.swing.JDialog {
         String username = txtUsername.getText().trim();
         String password = txtPassword.getText().trim();
 
-        if (id_user.isEmpty() || nama.isEmpty() || alamat.isEmpty() || username.isEmpty() || password.isEmpty()) {
+        if (id_user.isEmpty() || nama.isEmpty() || alamat.isEmpty() 
+                || username.isEmpty() || password.isEmpty()) {
             // Menggunakan JOptionPane untuk menampilkan pesan peringatan
-            JOptionPane.showMessageDialog(this, "Semua Kolom Harus Di-isi", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Semua Kolom Harus Di-isi", 
+                    "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         try {
-            String sql = "INSERT INTO user (id_user, nama, alamat, username, password, level) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO user (id_user, nama, alamat, username, password, level) "
+                    + "VALUES (?, ?, ?, ?, ?, ?)";
             try (PreparedStatement st = conn.prepareStatement(sql)) {
                 st.setString(1, id_user);
                 st.setString(2, nama);
@@ -281,7 +281,8 @@ public class tambahKaryawan extends javax.swing.JDialog {
                 int rowInserted = st.executeUpdate();
                 if (rowInserted > 0) {
                     // Notifikasi sukses
-                    JOptionPane.showMessageDialog(this, "Data Berhasil Ditambahkan", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Data Berhasil Ditambahkan", 
+                            "Sukses", JOptionPane.INFORMATION_MESSAGE);
 
                     resetForm();
                     dispose();
@@ -299,14 +300,17 @@ public class tambahKaryawan extends javax.swing.JDialog {
         String username = txtUsername.getText();
         String password = txtPassword.getText();
 
-        if (id_user.isEmpty() || nama.isEmpty() || alamat.isEmpty() || username.isEmpty() || password.isEmpty()) {
+        if (id_user.isEmpty() || nama.isEmpty() || alamat.isEmpty() 
+                || username.isEmpty() || password.isEmpty()) {
             // Menggunakan JOptionPane untuk menampilkan pesan peringatan
-            JOptionPane.showMessageDialog(this, "Semua Kolom Harus Di-isi", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Semua Kolom Harus Di-isi", 
+                    "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
         try {
-            String sql = "UPDATE user SET nama=?, alamat=?, username=?, password=? WHERE id_user=?";
+            String sql = "UPDATE user SET nama=?, alamat=?, username=?, password=? "
+                    + "WHERE id_user=?";
             try(PreparedStatement st = conn.prepareStatement(sql)){
                 st.setString(1, nama);
                 st.setString(2, alamat);
@@ -318,7 +322,8 @@ public class tambahKaryawan extends javax.swing.JDialog {
                 int rowInserted = st.executeUpdate();
                 if (rowInserted > 0) {
                     // Notifikasi sukses
-                    JOptionPane.showMessageDialog(this, "Data Berhasil Diubah", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Data Berhasil Diubah", 
+                            "Sukses", JOptionPane.INFORMATION_MESSAGE);
 
                     resetForm();
                     dispose();

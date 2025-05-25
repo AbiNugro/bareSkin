@@ -1,6 +1,5 @@
 package bareSkinMenu;
 
-import menu.*;
 import config.koneksi;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -69,8 +68,9 @@ public class tambahProduct extends javax.swing.JDialog {
         return kategori;
     }
 
-    public tambahProduct(java.awt.Frame parent, boolean modal, String id, String nama, String stok, String satuan, 
-            String hargaBeli, String hargaJual, String tanggal, String kategori) {
+    public tambahProduct(java.awt.Frame parent, boolean modal, String id, String nama, 
+            String stok, String satuan, String hargaBeli, String hargaJual, 
+            String tanggal, String kategori) {
         
         super(parent, modal);
         initComponents();
@@ -104,10 +104,17 @@ public class tambahProduct extends javax.swing.JDialog {
             fieldColor(txtIdProduct);
             fieldColor(txtStok);
             fieldColor(txtHargaBeli);
+            cancelFieldColor(txtHargaJual);
         } 
 
     }
 
+    private void cancelFieldColor(JTextField field) {
+        field.setOpaque(true);
+        field.setEditable(true);
+        field.setBackground(new Color(255, 255, 255));
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -338,15 +345,18 @@ public class tambahProduct extends javax.swing.JDialog {
         String kategori = cbxKategori.getSelectedItem().toString();
 
         if (id_product.isEmpty() || nama_product.isEmpty() || stok_product.isEmpty() 
-                || harga_beli.isEmpty() || harga_jual.isEmpty() || tgl_expired.isEmpty() || cbxSatuan.getSelectedItem().toString().equals("Pilih Satuan Product") 
+                || harga_beli.isEmpty() || harga_jual.isEmpty() || tgl_expired.isEmpty() || 
+                cbxSatuan.getSelectedItem().toString().equals("Pilih Satuan Product") 
                 || cbxKategori.getSelectedItem().toString().equals("Pilih Kategori Product")) {
             // Menggunakan JOptionPane untuk menampilkan pesan peringatan
-            JOptionPane.showMessageDialog(this, "Semua Kolom Harus Di-isi", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Semua Kolom Harus Di-isi", 
+                    "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         try {
-            String sql = "INSERT INTO product (id_product, nama_product, stok_product, satuan, harga_beli, harga_jual, tgl_expired, kategori) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO product (id_product, nama_product, stok_product, satuan, "
+                    + "harga_beli, harga_jual, tgl_expired, kategori) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             try (PreparedStatement st = conn.prepareStatement(sql)) {
                 st.setString(1, id_product);
                 st.setString(2, nama_product);
@@ -360,7 +370,8 @@ public class tambahProduct extends javax.swing.JDialog {
                 int rowInserted = st.executeUpdate();
                 if (rowInserted > 0) {
                     // Notifikasi sukses
-                    JOptionPane.showMessageDialog(this, "Data Berhasil Ditambahkan", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Data Berhasil Ditambahkan", 
+                            "Sukses", JOptionPane.INFORMATION_MESSAGE);
 
                     resetForm();
                     dispose();
@@ -383,15 +394,18 @@ public class tambahProduct extends javax.swing.JDialog {
         
         
         if (id_product.isEmpty() || nama_product.isEmpty() || stok_product.isEmpty() 
-                || harga_beli.isEmpty() || harga_jual.isEmpty() || tgl_expired.isEmpty() || cbxSatuan.getSelectedItem().toString().equals("Pilih Satuan Product") 
+                || harga_beli.isEmpty() || harga_jual.isEmpty() || tgl_expired.isEmpty() || 
+                cbxSatuan.getSelectedItem().toString().equals("Pilih Satuan Product") 
                 || cbxKategori.getSelectedItem().toString().equals("Pilih Kategori Product")) {
             // Menggunakan JOptionPane untuk menampilkan pesan peringatan
-            JOptionPane.showMessageDialog(this, "Semua Kolom Harus Di-isi", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Semua Kolom Harus Di-isi", 
+                    "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
         try {
-            String sql = "UPDATE product SET nama_product=?, stok_product=?, satuan=?, harga_beli=?, harga_jual=?, tgl_expired=?, kategori=? WHERE id_product=?";
+            String sql = "UPDATE product SET nama_product=?, stok_product=?, satuan=?, harga_beli=?, "
+                    + "harga_jual=?, tgl_expired=?, kategori=? WHERE id_product=?";
             try(PreparedStatement st = conn.prepareStatement(sql)){
                 st.setString(1, nama_product);
                 st.setString(2, stok_product);
@@ -405,7 +419,8 @@ public class tambahProduct extends javax.swing.JDialog {
                 int rowInserted = st.executeUpdate();
                 if (rowInserted > 0) {
                     // Notifikasi sukses
-                    JOptionPane.showMessageDialog(this, "Data Berhasil Diubah", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Data Berhasil Diubah", 
+                            "Sukses", JOptionPane.INFORMATION_MESSAGE);
 
                     resetForm();
                     dispose();

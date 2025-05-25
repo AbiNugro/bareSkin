@@ -23,8 +23,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.Timer;
-import kasiramanah.FormLogin;
-import kasiramanah.MenuUtama;
 import notification.Notification;
 
 /**
@@ -312,7 +310,7 @@ public class loginBareSkin extends javax.swing.JFrame {
             digest = sb.toString();
             
         }catch (Exception e) {
-            Logger.getLogger(FormLogin.class.getName()).log(Level.SEVERE,null, e);
+            Logger.getLogger(loginBareSkin.class.getName()).log(Level.SEVERE,null, e);
         }
         
         return digest;
@@ -358,47 +356,67 @@ public class loginBareSkin extends javax.swing.JFrame {
 }
 
     private void prosesLogin() {
-    if (validasiInput()) {
-        String username = t_username.getText();
-        String password = new String(t_password.getPassword()); // Ambil password dengan aman
-        String hashedPassword = getMd5java(password); // Hash password
+        if (validasiInput()) {
+            String username = t_username.getText();
+            String password = new String(t_password.getPassword());
+            String hashedPassword = getMd5java(password); // Hash password
 
-        Map<String, String> loginResult = checkLogin(username, hashedPassword);
+            Map<String, String> loginResult = checkLogin(username, hashedPassword);
 
-        if (loginResult != null) {
-            String id_user = loginResult.get("id_user");
-            String nama = loginResult.get("nama");
-            String level = loginResult.get("level");
+            if (loginResult != null) {
+                String id_user = loginResult.get("id_user");
+                String nama = loginResult.get("nama");
+                String level = loginResult.get("level");
 
-            Timer timer = new Timer(10, null);
+                // Record attendance when login is successful
+                recordAttendance(id_user); // Call to the method that records attendance
 
-            JFrame menu;
-            if (level.equalsIgnoreCase("Admin")) {
-                menu = new menuDashboardAdmin(id_user, nama, level);
-            } else {
-                menu = new menuDashboardKasir(id_user, nama, level); // Ganti dengan class kasir kamu
-            }
-
-            menu.setOpacity(0f);
-            menu.setVisible(true);
-
-            timer.addActionListener(e -> {
-                float opacity = menu.getOpacity();
-                opacity += 0.05f;
-                if (opacity >= 1f) {
-                    opacity = 1f;
-                    timer.stop();
+                // Proceed to open the dashboard
+                Timer timer = new Timer(10, null);
+                JFrame menu;
+                if (level.equalsIgnoreCase("Admin")) {
+                    menu = new menuDashboardAdmin(id_user, nama, level);
+                } else {
+                    menu = new menuDashboardKasir(id_user, nama, level);
                 }
-                menu.setOpacity(opacity);
-            });
 
-            timer.start();
-        } else {
-            Notification panel = new Notification(this, Notification.Type.WARNING, Notification.Location.TOP_CENTER, "USERNAME/PASSWORD ANDA SALAH");
-            panel.showNotification();
+                menu.setOpacity(0f);
+                menu.setVisible(true);
+                timer.addActionListener(e -> {
+                    float opacity = menu.getOpacity();
+                    opacity += 0.05f;
+                    if (opacity >= 1f) {
+                        opacity = 1f;
+                        timer.stop();
+                    }
+                    menu.setOpacity(opacity);
+                });
+                timer.start();
+            } else {
+                Notification panel = new Notification(this, Notification.Type.WARNING, 
+                        Notification.Location.TOP_CENTER, "USERNAME/PASSWORD ANDA SALAH");
+                panel.showNotification();
+            }
         }
     }
-}
+
+    private void recordAttendance(String id_user) {
+        if (conn != null) {
+            try {
+                String sql = "INSERT INTO absen (id_user, tanggal, jam_masuk, jam_pulang, keterangan) VALUES (?, CURDATE(), CURTIME(), '17:00:00', " +
+                            "CASE " +
+                            "WHEN CURRENT_TIME BETWEEN '09:00:00' AND '09:30:00' THEN 'HADIR' " +
+                            "WHEN CURRENT_TIME > '17:00:00' THEN 'ABSEN' " +
+                            "ELSE 'TERLAMBAT' END)";
+                PreparedStatement st = conn.prepareStatement(sql);
+                st.setString(1, id_user);
+                st.executeUpdate(); // Execute the insert operation
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
 }
 

@@ -1,6 +1,5 @@
 package bareSkinMenu;
 
-import menu.*;
 import config.koneksi;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -90,7 +89,7 @@ public class dataMemberr extends javax.swing.JDialog {
         panelView.setBackground(new java.awt.Color(255, 255, 255));
         panelView.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tblData.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        tblData.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
         tblData.setForeground(new java.awt.Color(75, 22, 76));
         tblData.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -104,7 +103,8 @@ public class dataMemberr extends javax.swing.JDialog {
                 "ID Member", "Nama Member", "Alamat", "No Telepon", "Poin"
             }
         ));
-        tblData.setRowMargin(3);
+        tblData.setRowHeight(30);
+        tblData.setRowMargin(10);
         jScrollPane1.setViewportView(tblData);
 
         panelView.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 132, 870, 348));
@@ -424,14 +424,44 @@ public class dataMemberr extends javax.swing.JDialog {
 }
     
     private void pilihData(){
-        int row = tblData.getSelectedRow();
-        
-        id_member        = tblData.getValueAt(row, 0).toString();
-        nama_member      = tblData.getValueAt(row, 1).toString();
-        alamat           = tblData.getValueAt(row, 2).toString();
-        poin             = tblData.getValueAt(row, 4).toString();
-        dispose();
+    int row = tblData.getSelectedRow();
+    
+    // Validasi: Pastikan ada baris yang dipilih
+    if (row == -1) {
+        JOptionPane.showMessageDialog(this, "Silakan pilih data terlebih dahulu!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        return;
     }
+    
+    // Validasi: Pastikan baris yang dipilih valid
+    if (row >= tblData.getRowCount()) {
+        JOptionPane.showMessageDialog(this, "Baris yang dipilih tidak valid!", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    
+    try {
+        // Ambil nilai dengan null checking
+        Object idObj = tblData.getValueAt(row, 0);
+        Object namaObj = tblData.getValueAt(row, 1);
+        Object alamatObj = tblData.getValueAt(row, 2);
+        Object poinObj = tblData.getValueAt(row, 4);
+        
+        // Konversi ke string dengan null checking
+        id_member = (idObj != null) ? idObj.toString() : "";
+        nama_member = (namaObj != null) ? namaObj.toString() : "";
+        alamat = (alamatObj != null) ? alamatObj.toString() : "";
+        poin = (poinObj != null) ? poinObj.toString() : "0";
+        
+        dispose();
+        
+    } catch (IndexOutOfBoundsException e) {
+        JOptionPane.showMessageDialog(this, "Error: Kolom tidak ditemukan. Pastikan tabel memiliki data yang lengkap.", "Error", JOptionPane.ERROR_MESSAGE);
+        System.err.println("IndexOutOfBoundsException di pilihData: " + e.getMessage());
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat mengambil data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        System.err.println("Exception di pilihData: " + e.getMessage());
+        e.printStackTrace();
+    }
+}
 
     
 }

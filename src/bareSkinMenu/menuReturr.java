@@ -15,7 +15,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import menu.dataMember;
 import config.koneksi;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -192,6 +191,8 @@ public class menuReturr extends javax.swing.JPanel {
             }
         ));
         tblData.setGridColor(new java.awt.Color(255, 255, 255));
+        tblData.setRowHeight(30);
+        tblData.setRowMargin(10);
         tblData.setSelectionBackground(new java.awt.Color(75, 22, 76));
         tblData.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -423,6 +424,8 @@ public class menuReturr extends javax.swing.JPanel {
                 "ID Retur", "Nama Product", "Jumlah", "Keterangan"
             }
         ));
+        tblDataDetail.setRowHeight(30);
+        tblDataDetail.setRowMargin(10);
         tblDataDetail.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblDataDetailMouseClicked(evt);
@@ -594,6 +597,8 @@ public class menuReturr extends javax.swing.JPanel {
             }
         ));
         tblDataSementara.setGridColor(new java.awt.Color(255, 255, 255));
+        tblDataSementara.setRowHeight(30);
+        tblDataSementara.setRowMargin(10);
         tblDataSementara.setSelectionBackground(new java.awt.Color(75, 22, 76));
         tblDataSementara.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1007,30 +1012,31 @@ public class menuReturr extends javax.swing.JPanel {
    
     private boolean insertDataAndDetails() {
     try {
-        conn.setAutoCommit(false); // Start transaction
-
+        conn.setAutoCommit(false);
+        
         // Insert transaction data
         if (!insertData()) {
-            conn.rollback(); // Rollback if insertData fails
+            conn.rollback();
             return false;
         }
-
-        // Insert transaction details
+        
         if (!insertDataDetail()) {
-            conn.rollback(); // Rollback if insertDataDetail fails
+            conn.rollback();
             return false;
         }
-
-        conn.commit(); // Commit if all operations succeed
-        return true;
+        
+        conn.commit();
+        return true; // Pindahkan ke sini - hanya return true jika semua berhasil
+        
     } catch (Exception e) {
         try {
             conn.rollback(); // Rollback on exception
         } catch (SQLException rollbackEx) {
             rollbackEx.printStackTrace();
         }
-        Logger.getLogger(menuReturr.class.getName()).log(Level.SEVERE, null, e);
+        Logger.getLogger(transaksiPembeliaan.class.getName()).log(Level.SEVERE, null, e);
         return false;
+        
     } finally {
         try {
             conn.setAutoCommit(true); // Reset to auto-commit mode
@@ -1278,7 +1284,8 @@ public class menuReturr extends javax.swing.JPanel {
 
     if (idReturn.isEmpty() || idProduct.isEmpty() || jumlah.isEmpty() || keterangan.isEmpty()) {
             // Menggunakan JOptionPane untuk menampilkan pesan peringatan
-            JOptionPane.showMessageDialog(this, "Semua Kolom Harus Di-isi", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Semua Kolom Harus Di-isi", 
+                    "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
@@ -1295,7 +1302,8 @@ public class menuReturr extends javax.swing.JPanel {
             st.setString(7, keterangan);
             st.executeUpdate();
 
-            if (JOptionPane.showConfirmDialog(this, "Mau Retur Product Lain?", "Konfirmasi", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            if (JOptionPane.showConfirmDialog(this, "Mau Retur Product Lain?", 
+                    "Konfirmasi", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 resetForm();
             } else {
                 resetForm();
@@ -1318,6 +1326,8 @@ public class menuReturr extends javax.swing.JPanel {
         Logger.getLogger(menuReturr.class.getName()).log(Level.SEVERE, null, e);
     }
 }
+    
+    
     private void loadDataSementara() {
         int startIndex = 0; 
         int entriesPage = 10; 
@@ -1391,22 +1401,74 @@ public class menuReturr extends javax.swing.JPanel {
     
     private boolean insertDataDetail() {
     String idTransaksiPenjualan = txtIdReturn.getText();
-
-    String insertSQL = "INSERT INTO detail_return_product (id_return, id_product, jumlah, keterangan) " +
-                       "SELECT ?, id_product, jumlah, keterangan FROM sementara_return";
-
-    try (PreparedStatement insertStmt = conn.prepareStatement(insertSQL)) {
-        insertStmt.setString(1, idTransaksiPenjualan);
-        int affectedRows = insertStmt.executeUpdate();
-        
-        if (affectedRows > 0) {
-            return true;
-        } else {
-            System.err.println("Tidak ada data yang disisipkan ke detail_return_product");
+    if (idTransaksiPenjualan == null || idTransaksiPenjualan.trim().isEmpty()) {
+        System.err.println("ID Return tidak boleh kosong");
+        return false;
+    }
+    
+    try {
+        // Pastikan koneksi aktif
+        if (conn == null || conn.isClosed()) {
+            System.err.println("Koneksi database tidak tersedia.");
             return false;
         }
+        
+        // 1. Insert ke detail_return_product dari sementara_return
+        String insertSQL = "INSERT INTO detail_return_product (id_return, id_product, jumlah, keterangan) " +
+                           "SELECT ?, id_product, jumlah, keterangan FROM sementara_return";
+                           
+        try (PreparedStatement insertStmt = conn.prepareStatement(insertSQL)) {
+            insertStmt.setString(1, idTransaksiPenjualan);
+            int affectedRows = insertStmt.executeUpdate();
+            
+            if (affectedRows == 0) {
+                System.err.println("Tidak ada data yang disisipkan ke detail_return_product");
+                return false;
+            }
+        }
+        
+        // 2. Tambah kembali stok produk yang di-return (kebalikan dari penjualan)
+        String selectReturnSQL = "SELECT id_product, jumlah FROM sementara_return";
+        try (PreparedStatement selectStmt = conn.prepareStatement(selectReturnSQL);
+             ResultSet rs = selectStmt.executeQuery()) {
+             
+            while (rs.next()) {
+                String idProduct = rs.getString("id_product");
+                int jumlahReturn = rs.getInt("jumlah");
+                
+                // Validasi bahwa produk ada di database
+                String checkProductSQL = "SELECT id_product FROM product WHERE id_product = ?";
+                try (PreparedStatement checkStmt = conn.prepareStatement(checkProductSQL)) {
+                    checkStmt.setString(1, idProduct);
+                    try (ResultSet productRs = checkStmt.executeQuery()) {
+                        if (!productRs.next()) {
+                            System.err.println("Produk dengan ID " + idProduct + " tidak ditemukan");
+                            return false;
+                        }
+                    }
+                }
+                
+                // Update stok dengan menambah (karena barang dikembalikan)
+                String updateStokSQL = "UPDATE product SET stok_product = stok_product - ? WHERE id_product = ?";
+                try (PreparedStatement updateStmt = conn.prepareStatement(updateStokSQL)) {
+                    updateStmt.setInt(1, jumlahReturn);
+                    updateStmt.setString(2, idProduct);
+                    int updateResult = updateStmt.executeUpdate();
+                    
+                    if (updateResult == 0) {
+                        System.err.println("Gagal mengupdate stok untuk produk ID: " + idProduct);
+                        return false;
+                    } else {
+                        System.out.println("Stok produk " + idProduct + " bertambah " + jumlahReturn + " unit (return)");
+                    }
+                }
+            }
+        }
+        
+        return true;
+        
     } catch (Exception e) {
-        Logger.getLogger(menuReturr.class.getName()).log(Level.SEVERE, null, e);
+        Logger.getLogger(menuReturr.class.getName()).log(Level.SEVERE, "Kesalahan saat insert detail return", e);
         return false;
     }
 }

@@ -45,7 +45,8 @@ public class tambahMember extends javax.swing.JDialog {
         return poin;
     }
 
-    public tambahMember(java.awt.Frame parent, boolean modal, String id, String nama, String alamat, String nomor, String poin) {
+    public tambahMember(java.awt.Frame parent, boolean modal, String id, 
+            String nama, String alamat, String nomor, String poin) {
     super(parent, modal);
     initComponents();
     setLocationRelativeTo(null);
@@ -241,14 +242,17 @@ public class tambahMember extends javax.swing.JDialog {
         String no_telepon = txtNomorTelepon.getText().trim();
         String poin = txtPoin.getText().trim();
 
-        if (id_member.isEmpty() || nama_member.isEmpty() || alamat.isEmpty() || no_telepon.isEmpty() || poin.isEmpty()) {
+        if (id_member.isEmpty() || nama_member.isEmpty() || alamat.isEmpty() 
+                || no_telepon.isEmpty() || poin.isEmpty()) {
             // Menggunakan JOptionPane untuk menampilkan pesan peringatan
-            JOptionPane.showMessageDialog(this, "Semua Kolom Harus Di-isi", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Semua Kolom Harus Di-isi", 
+                    "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         try {
-            String sql = "INSERT INTO member (id_member, nama_member, alamat, no_telepon, poin) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO member (id_member, nama_member, alamat, no_telepon, poin) "
+                    + "VALUES (?, ?, ?, ?, ?)";
             try (PreparedStatement st = conn.prepareStatement(sql)) {
                 st.setString(1, id_member);
                 st.setString(2, nama_member);
@@ -259,7 +263,8 @@ public class tambahMember extends javax.swing.JDialog {
                 int rowInserted = st.executeUpdate();
                 if (rowInserted > 0) {
                     // Notifikasi sukses
-                    JOptionPane.showMessageDialog(this, "Data Berhasil Ditambahkan", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Data Berhasil Ditambahkan", 
+                            "Sukses", JOptionPane.INFORMATION_MESSAGE);
 
                     resetForm();
                     dispose();
@@ -278,14 +283,16 @@ public class tambahMember extends javax.swing.JDialog {
         String poin = txtPoin.getText();
         
         
-        if (id_member.isEmpty() || nama_member.isEmpty() || alamat.isEmpty() || no_telepon.isEmpty() || poin.isEmpty()) {
-            // Menggunakan JOptionPane untuk menampilkan pesan peringatan
-            JOptionPane.showMessageDialog(this, "Semua Kolom Harus Di-isi", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        if (id_member.isEmpty() || nama_member.isEmpty() || alamat.isEmpty() 
+                || no_telepon.isEmpty() || poin.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Semua Kolom Harus Di-isi", 
+                    "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
         try {
-            String sql = "UPDATE member SET nama_member=?, alamat=?, no_telepon=?,poin=? WHERE id_member=?";
+            String sql = "UPDATE member SET nama_member=?, alamat=?, no_telepon=?,poin=? "
+                    + "WHERE id_member=?";
             try(PreparedStatement st = conn.prepareStatement(sql)){
                 st.setString(1, nama_member);
                 st.setString(2, alamat);
@@ -297,7 +304,8 @@ public class tambahMember extends javax.swing.JDialog {
                 int rowInserted = st.executeUpdate();
                 if (rowInserted > 0) {
                     // Notifikasi sukses
-                    JOptionPane.showMessageDialog(this, "Data Berhasil Diubah", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Data Berhasil Diubah", 
+                            "Sukses", JOptionPane.INFORMATION_MESSAGE);
 
                     resetForm();
                     dispose();

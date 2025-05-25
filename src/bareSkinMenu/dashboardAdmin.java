@@ -5,6 +5,21 @@
 package bareSkinMenu;
 
 import java.awt.Color;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
+import java.awt.BorderLayout;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.time.LocalDate;
+import java.util.LinkedHashMap;
+import java.util.Locale;
+import java.util.Map;
+import config.koneksi;
+import javax.swing.JPanel;
 
 /**
  *
@@ -16,8 +31,20 @@ public class dashboardAdmin extends javax.swing.JPanel {
      * Creates new form transaksiPenjualan
      */
     public dashboardAdmin() {
+        
         initComponents();
+        /*
+        loadPendapatan();
+        loadPengeluaran();
+        loadKeuntungan();
+        loadStokMenipis();
+        loadItemTerlaris();
+        loadExpired();
+        initComboBox();
+        updateChart();
+        */
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,7 +58,37 @@ public class dashboardAdmin extends javax.swing.JPanel {
         panelMain = new javax.swing.JPanel();
         panelView = new javax.swing.JPanel();
         panelCustom1 = new custom.PanelCustom();
-        tNamaMenu1 = new javax.swing.JLabel();
+        panel1 = new custom.PanelCustom();
+        panelPendapatan = new custom.PanelCustom();
+        lblPendapatan = new javax.swing.JLabel();
+        rp = new javax.swing.JLabel();
+        nominalPendapatan = new javax.swing.JLabel();
+        panelPengeluaran = new custom.PanelCustom();
+        lblPengeluaran = new javax.swing.JLabel();
+        nominalPengeluaran = new javax.swing.JLabel();
+        rp2 = new javax.swing.JLabel();
+        panelKeuntungan = new custom.PanelCustom();
+        lblKeuntungan = new javax.swing.JLabel();
+        nominalKeuntungan = new javax.swing.JLabel();
+        rp3 = new javax.swing.JLabel();
+        panel2 = new custom.PanelCustom();
+        panelExpired = new custom.PanelCustom();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblExp = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        panelGRAFIK = new custom.PanelCustom();
+        jLabel3 = new javax.swing.JLabel();
+        panelChart = new custom.PanelCustom();
+        cbBulan = new javax.swing.JComboBox<>();
+        cbMinggu = new javax.swing.JComboBox<>();
+        panelStokMenipis = new custom.PanelCustom();
+        jLabel8 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblStokMenipis = new javax.swing.JTable();
+        panelItemTerlaris = new custom.PanelCustom();
+        jLabel7 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblItemTerlaris = new javax.swing.JTable();
         panelCustom2 = new custom.PanelCustom();
         tNamaMenu = new javax.swing.JLabel();
 
@@ -49,11 +106,201 @@ public class dashboardAdmin extends javax.swing.JPanel {
         panelCustom1.setRoundTopRight(20);
         panelCustom1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tNamaMenu1.setBackground(new java.awt.Color(245, 245, 245));
-        tNamaMenu1.setFont(new java.awt.Font("SansSerif", 1, 40)); // NOI18N
-        tNamaMenu1.setForeground(new java.awt.Color(75, 22, 76));
-        tNamaMenu1.setText("MENU DASHBOARD ADMIN");
-        panelCustom1.add(tNamaMenu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 410, -1, -1));
+        panel1.setBackground(new java.awt.Color(75, 22, 76));
+        panel1.setRoundBottomLeft(30);
+        panel1.setRoundBottomRight(30);
+        panel1.setRoundTopLeft(30);
+        panel1.setRoundTopRight(30);
+        panel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panelPendapatan.setBackground(new java.awt.Color(255, 255, 255));
+        panelPendapatan.setRoundBottomLeft(30);
+        panelPendapatan.setRoundBottomRight(30);
+        panelPendapatan.setRoundTopLeft(30);
+        panelPendapatan.setRoundTopRight(30);
+        panelPendapatan.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblPendapatan.setFont(new java.awt.Font("SansSerif", 1, 28)); // NOI18N
+        lblPendapatan.setText("Pendapatan");
+        panelPendapatan.add(lblPendapatan, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, -1));
+
+        rp.setFont(new java.awt.Font("SansSerif", 1, 28)); // NOI18N
+        rp.setText("Rp. ");
+        panelPendapatan.add(rp, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 60, -1));
+
+        nominalPendapatan.setFont(new java.awt.Font("SansSerif", 1, 28)); // NOI18N
+        nominalPendapatan.setText("Nominal");
+        panelPendapatan.add(nominalPendapatan, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 70, 220, -1));
+
+        panel1.add(panelPendapatan, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 310, 130));
+
+        panelPengeluaran.setBackground(new java.awt.Color(255, 255, 255));
+        panelPengeluaran.setRoundBottomLeft(30);
+        panelPengeluaran.setRoundBottomRight(30);
+        panelPengeluaran.setRoundTopLeft(30);
+        panelPengeluaran.setRoundTopRight(30);
+        panelPengeluaran.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblPengeluaran.setFont(new java.awt.Font("SansSerif", 1, 28)); // NOI18N
+        lblPengeluaran.setText("Pengeluaran");
+        panelPengeluaran.add(lblPengeluaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
+
+        nominalPengeluaran.setFont(new java.awt.Font("SansSerif", 1, 28)); // NOI18N
+        nominalPengeluaran.setText("Nominal");
+        panelPengeluaran.add(nominalPengeluaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 220, -1));
+
+        rp2.setFont(new java.awt.Font("SansSerif", 1, 28)); // NOI18N
+        rp2.setText("Rp. ");
+        panelPengeluaran.add(rp2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 60, -1));
+
+        panel1.add(panelPengeluaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, 310, 130));
+
+        panelKeuntungan.setBackground(new java.awt.Color(255, 255, 255));
+        panelKeuntungan.setRoundBottomLeft(30);
+        panelKeuntungan.setRoundBottomRight(30);
+        panelKeuntungan.setRoundTopLeft(30);
+        panelKeuntungan.setRoundTopRight(30);
+        panelKeuntungan.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblKeuntungan.setFont(new java.awt.Font("SansSerif", 1, 28)); // NOI18N
+        lblKeuntungan.setText("Keuntungan");
+        panelKeuntungan.add(lblKeuntungan, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
+
+        nominalKeuntungan.setFont(new java.awt.Font("SansSerif", 1, 28)); // NOI18N
+        nominalKeuntungan.setText("Nominal");
+        panelKeuntungan.add(nominalKeuntungan, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 220, -1));
+
+        rp3.setFont(new java.awt.Font("SansSerif", 1, 28)); // NOI18N
+        rp3.setText("Rp. ");
+        panelKeuntungan.add(rp3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
+
+        panel1.add(panelKeuntungan, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 20, 310, 130));
+
+        panelCustom1.add(panel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 1100, 170));
+
+        panel2.setBackground(new java.awt.Color(75, 22, 76));
+        panel2.setRoundBottomLeft(30);
+        panel2.setRoundBottomRight(30);
+        panel2.setRoundTopLeft(30);
+        panel2.setRoundTopRight(30);
+        panel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panelExpired.setBackground(new java.awt.Color(255, 255, 255));
+        panelExpired.setRoundBottomLeft(20);
+        panelExpired.setRoundBottomRight(20);
+        panelExpired.setRoundTopLeft(20);
+        panelExpired.setRoundTopRight(20);
+        panelExpired.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tblExp.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Nama Produk", "Tanggal Expired"
+            }
+        ));
+        jScrollPane3.setViewportView(tblExp);
+
+        panelExpired.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 330, 710));
+
+        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(75, 22, 76));
+        jLabel1.setText("Produk Mendekati Expired");
+        panelExpired.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
+
+        panel2.add(panelExpired, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 380, 820));
+
+        panelCustom1.add(panel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 30, 420, 870));
+
+        panelGRAFIK.setBackground(new java.awt.Color(75, 22, 76));
+        panelGRAFIK.setRoundBottomLeft(30);
+        panelGRAFIK.setRoundBottomRight(30);
+        panelGRAFIK.setRoundTopLeft(30);
+        panelGRAFIK.setRoundTopRight(30);
+        panelGRAFIK.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel3.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Grafik Keuangan");
+        panelGRAFIK.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, -1, -1));
+
+        panelChart.setBackground(new java.awt.Color(255, 255, 255));
+        panelChart.setRoundBottomLeft(20);
+        panelChart.setRoundBottomRight(20);
+        panelChart.setRoundTopLeft(20);
+        panelChart.setRoundTopRight(20);
+        panelChart.setLayout(new java.awt.BorderLayout());
+        panelGRAFIK.add(panelChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 630, 480));
+
+        cbBulan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        panelGRAFIK.add(cbBulan, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 589, 300, 50));
+
+        cbMinggu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        panelGRAFIK.add(cbMinggu, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 590, 290, 50));
+
+        panelCustom1.add(panelGRAFIK, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 670, 660));
+
+        panelStokMenipis.setBackground(new java.awt.Color(75, 22, 76));
+        panelStokMenipis.setRoundBottomLeft(30);
+        panelStokMenipis.setRoundBottomRight(30);
+        panelStokMenipis.setRoundTopLeft(30);
+        panelStokMenipis.setRoundTopRight(30);
+        panelStokMenipis.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel8.setFont(new java.awt.Font("SansSerif", 1, 28)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Stok Menipis");
+        panelStokMenipis.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, -1, -1));
+
+        tblStokMenipis.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Nama Produk", "Sisa Stok", "Satuan"
+            }
+        ));
+        jScrollPane2.setViewportView(tblStokMenipis);
+
+        panelStokMenipis.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 360, 190));
+
+        panelCustom1.add(panelStokMenipis, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 240, 400, 290));
+
+        panelItemTerlaris.setBackground(new java.awt.Color(75, 22, 76));
+        panelItemTerlaris.setRoundBottomLeft(30);
+        panelItemTerlaris.setRoundBottomRight(30);
+        panelItemTerlaris.setRoundTopLeft(30);
+        panelItemTerlaris.setRoundTopRight(30);
+        panelItemTerlaris.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel7.setFont(new java.awt.Font("SansSerif", 1, 28)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Item Terlaris");
+        panelItemTerlaris.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, -1, -1));
+
+        tblItemTerlaris.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Nama Item", "Satuan", "Terjual"
+            }
+        ));
+        jScrollPane1.setViewportView(tblItemTerlaris);
+
+        panelItemTerlaris.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 360, 240));
+
+        panelCustom1.add(panelItemTerlaris, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 560, 400, 340));
 
         panelView.add(panelCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 1600, 940));
 
@@ -76,14 +323,291 @@ public class dashboardAdmin extends javax.swing.JPanel {
 
         add(panelMain, "card2");
     }// </editor-fold>//GEN-END:initComponents
+    /*
+    private void loadPendapatan() {
+        try {
+            Connection conn = koneksi.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(
+                "SELECT SUM(total_harga) AS total_pendapatan FROM transaksi_penjualan WHERE DATE(tgl_penjualan) = CURDATE()"
+            );
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                double pendapatan = rs.getDouble("total_pendapatan");
+                nominalPendapatan.setText(String.format("%,.0f", pendapatan));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void loadPengeluaran() {
+        try {
+            Connection conn = koneksi.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(
+                "SELECT SUM(total_harga_pembelian) AS total_pengeluaran FROM transaksi_pembelian WHERE DATE(tgl_pembelian) = CURDATE()"
+            );
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                double pengeluaran = rs.getDouble("total_pengeluaran");
+                nominalPengeluaran.setText(String.format("%,.0f", pengeluaran));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void loadKeuntungan() {
+        try {
+            Connection conn = koneksi.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(
+                "SELECT SUM(untung) AS total_untung FROM transaksi_penjualan WHERE DATE(tgl_penjualan) = CURDATE()"
+            );
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                double keuntungan = rs.getDouble("total_untung");
+                nominalKeuntungan.setText(String.format("%,.0f", keuntungan));
+            }
+        } catch (Exception e) { 
+            e.printStackTrace();
+        }
+    }
+    
+    private void loadStokMenipis() {
+        DefaultTableModel model = (DefaultTableModel) tblStokMenipis.getModel();
+        model.setRowCount(0); // kosongkan tabel
+
+        try {
+            Connection conn = koneksi.getConnection();
+            String sql = "SELECT nama_product, stok_product, satuan FROM product WHERE stok_product <= 20 ORDER BY stok_product ASC";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String namaProduk = rs.getString("nama_product");
+                int stok = rs.getInt("stok_product");
+                String satuan = rs.getString("satuan");
+                model.addRow(new Object[]{namaProduk, stok, satuan});
+            }
+
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Gagal menampilkan data stok menipis: " + e.getMessage());
+        }
+    }
+    
+    private void loadItemTerlaris() {
+        DefaultTableModel model = (DefaultTableModel) tblItemTerlaris.getModel();
+        model.setRowCount(0); // kosongkan tabel
+
+        try {
+            Connection conn = koneksi.getConnection();
+            String sql = "SELECT p.nama_product, p.satuan, SUM(dtp.jumlah_beli) AS total_terjual\n" +
+            "FROM detail_transaksi_penjualan dtp\n" +
+            "JOIN product p ON dtp.id_product = p.id_product\n" +
+            "GROUP BY dtp.id_product\n" +
+            "ORDER BY total_terjual DESC\n" +
+            "LIMIT 10;";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String namaProduk = rs.getString("nama_product");
+                String satuan = rs.getString("satuan");
+                int terjual = rs.getInt("total_terjual");
+                model.addRow(new Object[]{namaProduk,satuan, terjual});
+            }
+
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Gagal menampilkan data stok menipis: " + e.getMessage());
+        }
+    }
+    
+    private void loadExpired() {
+        DefaultTableModel model = (DefaultTableModel) tblExp.getModel();
+        model.setRowCount(0); // kosongkan tabel
+
+        try {
+            Connection conn = koneksi.getConnection();
+            String sql = "SELECT nama_product, tgl_expired FROM product WHERE tgl_expired <= DATE_ADD(CURDATE(), INTERVAL 5 MONTH) ORDER BY tgl_expired ASC";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String namaProduk = rs.getString("nama_product");
+                String tglExp = rs.getString("tgl_expired");
+                model.addRow(new Object[]{namaProduk,tglExp});
+            }
+
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Gagal menampilkan data stok menipis: " + e.getMessage());
+        }
+    }
+    
+    private void initComboBox() {
+        cbBulan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {
+            "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+            "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+        }));
+
+        cbMinggu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {
+            "Minggu ke-1", "Minggu ke-2", "Minggu ke-3", "Minggu ke-4"
+        }));
+
+        cbBulan.addActionListener(e -> updateChart());
+        cbMinggu.addActionListener(e -> updateChart());
+    }
+    
+    private void updateChart() {
+    int bulanIndex = cbBulan.getSelectedIndex() + 1;
+    int mingguKe = cbMinggu.getSelectedIndex() + 1;
+
+    LocalDate awalBulan = LocalDate.of(LocalDate.now().getYear(), bulanIndex, 1);
+    LocalDate mingguAwal = awalBulan.plusDays((mingguKe - 1) * 7);
+    LocalDate mingguAkhir = mingguAwal.plusDays(6);
+
+    String[] hariList = {"Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"};
+    Map<String, Integer> pendapatanMap = new LinkedHashMap<>();
+    Map<String, Integer> pengeluaranMap = new LinkedHashMap<>();
+    Map<String, Integer> keuntunganMap = new LinkedHashMap<>();
+
+    for (String hari : hariList) {
+        pendapatanMap.put(hari, 0);
+        pengeluaranMap.put(hari, 0);
+        keuntunganMap.put(hari, 0);
+    }
+
+    try (Connection conn = koneksi.getConnection()) {
+        // Pendapatan
+        String sqlPendapatan = 
+            "SELECT CASE DAYOFWEEK(tgl_penjualan) " +
+            " WHEN 1 THEN 'Minggu' WHEN 2 THEN 'Senin' WHEN 3 THEN 'Selasa' " +
+            " WHEN 4 THEN 'Rabu' WHEN 5 THEN 'Kamis' WHEN 6 THEN 'Jumat' WHEN 7 THEN 'Sabtu' END AS hari, " +
+            "SUM(total_harga) AS total " +
+            "FROM transaksi_penjualan " +
+            "WHERE DATE(tgl_penjualan) BETWEEN ? AND ? " +
+            "GROUP BY hari";
+
+        PreparedStatement stmtPendapatan = conn.prepareStatement(sqlPendapatan);
+        stmtPendapatan.setDate(1, java.sql.Date.valueOf(mingguAwal));
+        stmtPendapatan.setDate(2, java.sql.Date.valueOf(mingguAkhir));
+        ResultSet rsPendapatan = stmtPendapatan.executeQuery();
+        while (rsPendapatan.next()) {
+            pendapatanMap.put(rsPendapatan.getString("hari"), rsPendapatan.getInt("total"));
+        }
+
+        // Pengeluaran
+        String sqlPengeluaran = 
+            "SELECT CASE DAYOFWEEK(tgl_pembelian) " +
+            " WHEN 1 THEN 'Minggu' WHEN 2 THEN 'Senin' WHEN 3 THEN 'Selasa' " +
+            " WHEN 4 THEN 'Rabu' WHEN 5 THEN 'Kamis' WHEN 6 THEN 'Jumat' WHEN 7 THEN 'Sabtu' END AS hari, " +
+            "SUM(total_harga_pembelian) AS total " +
+            "FROM transaksi_pembelian " +
+            "WHERE DATE(tgl_pembelian) BETWEEN ? AND ? " +
+            "GROUP BY hari";
+
+        PreparedStatement stmtPengeluaran = conn.prepareStatement(sqlPengeluaran);
+        stmtPengeluaran.setDate(1, java.sql.Date.valueOf(mingguAwal));
+        stmtPengeluaran.setDate(2, java.sql.Date.valueOf(mingguAkhir));
+        ResultSet rsPengeluaran = stmtPengeluaran.executeQuery();
+        while (rsPengeluaran.next()) {
+            pengeluaranMap.put(rsPengeluaran.getString("hari"), rsPengeluaran.getInt("total"));
+        }
+
+        // Hitung keuntungan
+        for (String hari : hariList) {
+            int pendapatan = pendapatanMap.get(hari);
+            int pengeluaran = pengeluaranMap.get(hari);
+            keuntunganMap.put(hari, pendapatan - pengeluaran);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Gagal memuat data grafik: " + e.getMessage());
+    }
+
+    // Dataset
+    DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+    for (String hari : hariList) {
+        dataset.addValue(pendapatanMap.get(hari), "Pendapatan", hari);
+        dataset.addValue(pengeluaranMap.get(hari), "Pengeluaran", hari);
+        dataset.addValue(keuntunganMap.get(hari), "Keuntungan", hari);
+    }
+
+    // Chart
+    JFreeChart chart = ChartFactory.createAreaChart(
+        "Laporan Keuangan - Minggu ke-" + mingguKe + ", Bulan " + cbBulan.getSelectedItem(),
+        "Hari",
+        "Jumlah (Rp)",
+        dataset,
+        PlotOrientation.VERTICAL,
+        true, true, false
+    );
+
+    CategoryPlot plot = chart.getCategoryPlot();
+    plot.setBackgroundPaint(Color.WHITE);
+    plot.setRangeGridlinePaint(Color.BLACK);
+
+    NumberAxis yAxis = (NumberAxis) plot.getRangeAxis();
+    yAxis.setNumberFormatOverride(new DecimalFormat("#,##0", new DecimalFormatSymbols(new Locale("id", "ID"))));
+    yAxis.setTickUnit(new NumberTickUnit(50000));
+
+    // Update panel chart
+    panelChart.removeAll();
+    panelChart.setLayout(new BorderLayout()); // Tambahkan ini jika belum diset di constructor
+    panelChart.add(new ChartPanel(chart), BorderLayout.CENTER);
+    panelChart.revalidate();
+    panelChart.repaint(); // Penting untuk menampilkan grafik baru
+*/
 
 
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbBulan;
+    private javax.swing.JComboBox<String> cbMinggu;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel lblKeuntungan;
+    private javax.swing.JLabel lblPendapatan;
+    private javax.swing.JLabel lblPengeluaran;
+    private javax.swing.JLabel nominalKeuntungan;
+    private javax.swing.JLabel nominalPendapatan;
+    private javax.swing.JLabel nominalPengeluaran;
+    private custom.PanelCustom panel1;
+    private custom.PanelCustom panel2;
+    private custom.PanelCustom panelChart;
     private custom.PanelCustom panelCustom1;
     private custom.PanelCustom panelCustom2;
+    private custom.PanelCustom panelExpired;
+    private custom.PanelCustom panelGRAFIK;
+    private custom.PanelCustom panelItemTerlaris;
+    private custom.PanelCustom panelKeuntungan;
     private javax.swing.JPanel panelMain;
+    private custom.PanelCustom panelPendapatan;
+    private custom.PanelCustom panelPengeluaran;
+    private custom.PanelCustom panelStokMenipis;
     private javax.swing.JPanel panelView;
+    private javax.swing.JLabel rp;
+    private javax.swing.JLabel rp2;
+    private javax.swing.JLabel rp3;
     private javax.swing.JLabel tNamaMenu;
-    private javax.swing.JLabel tNamaMenu1;
+    private javax.swing.JTable tblExp;
+    private javax.swing.JTable tblItemTerlaris;
+    private javax.swing.JTable tblStokMenipis;
     // End of variables declaration//GEN-END:variables
+
+
 }

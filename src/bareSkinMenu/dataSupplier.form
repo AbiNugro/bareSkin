@@ -72,7 +72,8 @@
                     <Column editable="true" title="Alamat" type="java.lang.Object"/>
                   </Table>
                 </Property>
-                <Property name="rowMargin" type="int" value="3"/>
+                <Property name="rowHeight" type="int" value="30"/>
+                <Property name="rowMargin" type="int" value="10"/>
               </Properties>
             </Component>
           </SubComponents>

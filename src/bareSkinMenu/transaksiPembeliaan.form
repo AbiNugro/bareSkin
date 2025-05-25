@@ -92,6 +92,8 @@
                         <Property name="gridColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="ff" green="ff" red="ff" type="rgb"/>
                         </Property>
+                        <Property name="rowHeight" type="int" value="30"/>
+                        <Property name="rowMargin" type="int" value="10"/>
                         <Property name="selectionBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="4c" green="16" red="4b" type="rgb"/>
                         </Property>
@@ -557,6 +559,8 @@
                                 <Column editable="true" title="Harga Beli" type="java.lang.Object"/>
                               </Table>
                             </Property>
+                            <Property name="rowHeight" type="int" value="30"/>
+                            <Property name="rowMargin" type="int" value="10"/>
                           </Properties>
                           <Events>
                             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblDataDetailMouseClicked"/>
@@ -852,6 +856,8 @@
                         <Property name="gridColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="ff" green="ff" red="ff" type="rgb"/>
                         </Property>
+                        <Property name="rowHeight" type="int" value="30"/>
+                        <Property name="rowMargin" type="int" value="10"/>
                         <Property name="selectionBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="4c" green="16" red="4b" type="rgb"/>
                         </Property>
@@ -1004,7 +1010,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="SansSerif" size="22" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="ID Supplier"/>
+                    <Property name="text" type="java.lang.String" value="ID Product"/>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

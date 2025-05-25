@@ -1,6 +1,5 @@
 package bareSkinMenu;
 
-import menu.*;
 import config.koneksi;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -95,7 +94,7 @@ public class dataProduct extends javax.swing.JDialog {
         panelView.setBackground(new java.awt.Color(255, 255, 255));
         panelView.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tblData.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        tblData.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
         tblData.setForeground(new java.awt.Color(75, 22, 76));
         tblData.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -109,7 +108,8 @@ public class dataProduct extends javax.swing.JDialog {
                 "ID Product", "Nama Product", "Stok Product", "Satuan", "Harga Beli", "Harga Jual", "Tgl Expired", "Kategori"
             }
         ));
-        tblData.setRowMargin(3);
+        tblData.setRowHeight(30);
+        tblData.setRowMargin(10);
         jScrollPane1.setViewportView(tblData);
 
         panelView.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 132, 870, 348));

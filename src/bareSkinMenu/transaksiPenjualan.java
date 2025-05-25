@@ -15,7 +15,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import menu.dataMember;
 import config.koneksi;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -101,6 +100,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         String tanggalFormatIndonesia = formatTanggal.format(tanggalHariIni);
         tanggalIndonesia.setText(tanggalFormatIndonesia);
     }
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -241,6 +241,8 @@ public class transaksiPenjualan extends javax.swing.JPanel {
             }
         ));
         tblData.setGridColor(new java.awt.Color(255, 255, 255));
+        tblData.setRowHeight(30);
+        tblData.setRowMargin(10);
         tblData.setSelectionBackground(new java.awt.Color(75, 22, 76));
         tblData.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -472,6 +474,8 @@ public class transaksiPenjualan extends javax.swing.JPanel {
                 "ID Transaksi", "Nama Product", "Harga Beli", "Harga Jual", "Jumlah Beli", "Harga", "Untung"
             }
         ));
+        tblDataDetail.setRowHeight(30);
+        tblDataDetail.setRowMargin(10);
         tblDataDetail.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblDataDetailMouseClicked(evt);
@@ -643,6 +647,8 @@ public class transaksiPenjualan extends javax.swing.JPanel {
             }
         ));
         tblDataSementara.setGridColor(new java.awt.Color(255, 255, 255));
+        tblDataSementara.setRowHeight(30);
+        tblDataSementara.setRowMargin(10);
         tblDataSementara.setSelectionBackground(new java.awt.Color(75, 22, 76));
         tblDataSementara.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -748,6 +754,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         jLabel25.setText("Poin");
         panelCustom8.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, -1, -1));
 
+        txtPoin.setText("0");
         txtPoin.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
         panelCustom8.add(txtPoin, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 480, 90, 50));
 
@@ -940,16 +947,16 @@ public class transaksiPenjualan extends javax.swing.JPanel {
     private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed
     int row = tblData.getSelectedRow();
 
-        String idTransaksi = tblData.getValueAt(row, 0).toString(); // Ambil ID Transaksi dari kolom pertama
+        String idTransaksi = tblData.getValueAt(row, 0).toString(); 
 
         try {
             String reportPath = "src/report/strukPenjualann.jasper"; 
 
-            // Siapkan parameter
             HashMap<String, Object> parameters = new HashMap<>();
-            parameters.put("id_transaksi", idTransaksi); // Sesuaikan dengan parameter yang ada di laporan
+            parameters.put("id_transaksi", idTransaksi); 
 
-            JasperPrint print = JasperFillManager.fillReport(reportPath, parameters, conn);
+            JasperPrint print = JasperFillManager.fillReport(reportPath, 
+                    parameters, conn);
 
             JasperViewer viewer = new JasperViewer(print, false);
             viewer.setExtendedState(JasperViewer.MAXIMIZED_BOTH);
@@ -1000,8 +1007,6 @@ public class transaksiPenjualan extends javax.swing.JPanel {
                 resetForm();
                 loadDataSementara();
 
-                // Reset tampilan input pembayar
-
                 txtJumlahBayar.setVisible(true);
                 jumlahBayar.setVisible(true);
                 txtKembalian.setVisible(true);
@@ -1033,13 +1038,15 @@ public class transaksiPenjualan extends javax.swing.JPanel {
             try {
             if (insertDataAndDetails()) {
                 deleteDataSementara(); // Clear temporary data if everything was successful
-                JOptionPane.showMessageDialog(this, "Transaksi Penjualan Berhasil", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Transaksi Penjualan Berhasil", 
+                        "Sukses", JOptionPane.INFORMATION_MESSAGE);
                 resetForm();
                 loadData();
                 showPanel();
             }
             } catch (Exception ex) {
-                Logger.getLogger(transaksiPenjualan.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(transaksiPenjualan.class.getName()).log
+        (Level.SEVERE, null, ex);
             }
         }
             
@@ -1236,30 +1243,31 @@ public class transaksiPenjualan extends javax.swing.JPanel {
     
     private boolean insertDataAndDetails() {
     try {
-        conn.setAutoCommit(false); // Start transaction
-
+        conn.setAutoCommit(false);
+        
         // Insert transaction data
         if (!insertData()) {
-            conn.rollback(); // Rollback if insertData fails
+            conn.rollback();
             return false;
         }
-
-        // Insert transaction details
+        
         if (!insertDataDetail()) {
-            conn.rollback(); // Rollback if insertDataDetail fails
+            conn.rollback();
             return false;
         }
-
-        conn.commit(); // Commit if all operations succeed
-        return true;
+        
+        conn.commit();
+        return true; // Pindahkan ke sini - hanya return true jika semua berhasil
+        
     } catch (Exception e) {
         try {
             conn.rollback(); // Rollback on exception
         } catch (SQLException rollbackEx) {
             rollbackEx.printStackTrace();
         }
-        Logger.getLogger(transaksiPenjualan.class.getName()).log(Level.SEVERE, null, e);
+        Logger.getLogger(transaksiPembeliaan.class.getName()).log(Level.SEVERE, null, e);
         return false;
+        
     } finally {
         try {
             conn.setAutoCommit(true); // Reset to auto-commit mode
@@ -1448,9 +1456,12 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         model.setRowCount(0);
         
         try {
-           String sql = "SELECT t.id_transaksi, cu.nama_member, DATE(t.tgl_penjualan) AS tgl_penjualan, t.total_harga, t.jumlah_bayar, "
-                   + "t.kembalian, us.nama AS nama_user FROM transaksi_penjualan t INNER JOIN member cu ON t.id_member = cu.id_member "
-                   + "INNER JOIN user us ON t.id_user = us.id_user ORDER BY t.id_transaksi ASC LIMIT ?,?";
+           String sql = "SELECT t.id_transaksi, cu.nama_member, DATE(t.tgl_penjualan) "
+                   + "AS tgl_penjualan, t.total_harga, t.jumlah_bayar, "
+                   + "t.kembalian, us.nama AS nama_user FROM transaksi_penjualan "
+                   + "t INNER JOIN member cu ON t.id_member = cu.id_member "
+                   + "INNER JOIN user us ON t.id_user = us.id_user "
+                   + "ORDER BY t.id_transaksi ASC LIMIT ?,?";
            try (PreparedStatement st = conn.prepareStatement(sql)) {
                st.setInt(1, startIndex);
                st.setInt(2, entriesPage);
@@ -1480,8 +1491,10 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         model.setRowCount(0);
         
         try {
-           String sql = "SELECT dt.id_detail, dt.id_transaksi, p.nama_product, p.harga_beli, p.harga_jual, dt.jumlah_beli, dt.harga, dt.untung"
-                   + " FROM detail_transaksi_penjualan dt INNER JOIN product p ON dt.id_product = p.id_product WHERE dt.id_transaksi = '"+id+"'";
+           String sql = "SELECT dt.id_detail, dt.id_transaksi, p.nama_product, "
+                   + "p.harga_beli, p.harga_jual, dt.jumlah_beli, dt.harga, dt.untung"
+                   + " FROM detail_transaksi_penjualan dt INNER JOIN product p "
+                   + "ON dt.id_product = p.id_product WHERE dt.id_transaksi = '"+id+"'";
            try (PreparedStatement st = conn.prepareStatement(sql)) {
                ResultSet rs = st.executeQuery();
                
@@ -1495,7 +1508,8 @@ public class transaksiPenjualan extends javax.swing.JPanel {
                     int Untung              = rs.getInt("untung");
                     
 
-                    Object[] rowData = {idTransaksi, namaProduct, hargaBeli, hargaJual, jumlahBeli, harga, Untung };
+                    Object[] rowData = {idTransaksi, namaProduct, hargaBeli, hargaJual, 
+                        jumlahBeli, harga, Untung };
                     model.addRow(rowData);
                 }
            }
@@ -1634,19 +1648,6 @@ public class transaksiPenjualan extends javax.swing.JPanel {
             int totalUntung = getTotalUntung(idTransaksiPenjualan);
             
             hargaTotal.setText(String.valueOf(totalHarga));
-            /*
-            if (txtDiscount.getText().equals("")) {
-                txtHargaTotal.setText(String.valueOf(totalHarga));
-                txtUntung.setText(String.valueOf(totalUntung));
-            } else {
-                int discount = Integer.parseInt(txtDiscount.getText());
-                int countHarga = totalHarga - (totalHarga * discount / 100);
-                totalUntung = totalUntung - (totalHarga * discount / 100);
-                
-                txtHargaTotal.setText(String.valueOf(countHarga));
-                txtUntung.setText(String.valueOf(totalUntung));
-            }
-            */
             loadDataSementara();
         }
     } catch (Exception e) {
@@ -1680,7 +1681,8 @@ public class transaksiPenjualan extends javax.swing.JPanel {
                     String untung = rs.getString("untung");
 
 
-                    Object[] rowData = {idTransaksi, idProduct, namaProduct ,hargaBeli, hargaJual, jumlahBeli, harga, untung};
+                    Object[] rowData = {idTransaksi, idProduct, namaProduct ,hargaBeli, hargaJual, jumlahBeli, 
+                        harga, untung};
                     model.addRow(rowData);
                 }
            }
@@ -1720,7 +1722,6 @@ public class transaksiPenjualan extends javax.swing.JPanel {
             Untung = "0"; // fallback
         }
 
-    // Dapatkan waktu sekarang dalam format yang benar
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     String tglPenjualan = LocalDateTime.now().format(formatter);
 
@@ -1756,27 +1757,76 @@ public class transaksiPenjualan extends javax.swing.JPanel {
     
     private boolean insertDataDetail() {
     String idTransaksiPenjualan = idTransaksi.getText();
-
     if (idTransaksiPenjualan == null || idTransaksiPenjualan.trim().isEmpty()) {
         System.err.println("ID Transaksi tidak boleh kosong");
         return false;
     }
-
-    String insertSQL = "INSERT INTO detail_transaksi_penjualan (id_transaksi, id_product, jumlah_beli, harga, untung) " +
-                       "SELECT ?, id_product, jumlah_beli, harga, untung FROM sementara_penjualan";
-
-    try (PreparedStatement insertStmt = conn.prepareStatement(insertSQL)) {
-        insertStmt.setString(1, idTransaksiPenjualan);
-        int affectedRows = insertStmt.executeUpdate();
-        
-        if (affectedRows > 0) {
-            return true;
-        } else {
-            System.err.println("Tidak ada data yang disisipkan ke detail_transaksi_penjualan");
+    
+    try {
+        // Pastikan koneksi aktif
+        if (conn == null || conn.isClosed()) {
+            System.err.println("Koneksi database tidak tersedia.");
             return false;
         }
+        
+        // 1. Insert ke detail_transaksi_penjualan dari sementara_penjualan
+        String insertSQL = "INSERT INTO detail_transaksi_penjualan (id_transaksi, id_product, jumlah_beli, harga, untung) " +
+                           "SELECT ?, id_product, jumlah_beli, harga, untung FROM sementara_penjualan";
+                           
+        try (PreparedStatement insertStmt = conn.prepareStatement(insertSQL)) {
+            insertStmt.setString(1, idTransaksiPenjualan);
+            int affectedRows = insertStmt.executeUpdate();
+            
+            if (affectedRows == 0) {
+                System.err.println("Tidak ada data yang disisipkan ke detail_transaksi_penjualan");
+                return false;
+            }
+        }
+        
+        // 2. Kurangi stok produk di tabel product (BERBEDA dengan pembelian)
+        String selectStokSQL = "SELECT id_product, jumlah_beli FROM sementara_penjualan";
+        try (PreparedStatement selectStmt = conn.prepareStatement(selectStokSQL);
+             ResultSet rs = selectStmt.executeQuery()) {
+             
+            while (rs.next()) {
+                String idProduct = rs.getString("id_product");
+                int jumlahJual = rs.getInt("jumlah_beli");
+                
+                // Cek stok terlebih dahulu untuk memastikan tidak minus
+                String checkStokSQL = "SELECT stok_product FROM product WHERE id_product = ?";
+                try (PreparedStatement checkStmt = conn.prepareStatement(checkStokSQL)) {
+                    checkStmt.setString(1, idProduct);
+                    try (ResultSet stokRs = checkStmt.executeQuery()) {
+                        if (stokRs.next()) {
+                            int stokSekarang = stokRs.getInt("stok_product");
+                            if (stokSekarang < jumlahJual) {
+                                System.err.println("Stok tidak mencukupi untuk produk ID: " + idProduct + 
+                                                 ". Stok tersedia: " + stokSekarang + ", diminta: " + jumlahJual);
+                                return false;
+                            }
+                        }
+                    }
+                }
+                
+                // Update stok dengan mengurangi (berbeda dengan pembelian yang menambah)
+                String updateStokSQL = "UPDATE product SET stok_product = stok_product - ? WHERE id_product = ?";
+                try (PreparedStatement updateStmt = conn.prepareStatement(updateStokSQL)) {
+                    updateStmt.setInt(1, jumlahJual);
+                    updateStmt.setString(2, idProduct);
+                    int updateResult = updateStmt.executeUpdate();
+                    
+                    if (updateResult == 0) {
+                        System.err.println("Gagal mengupdate stok untuk produk ID: " + idProduct);
+                        return false;
+                    }
+                }
+            }
+        }
+        
+        return true;
+        
     } catch (Exception e) {
-        Logger.getLogger(transaksiPenjualan.class.getName()).log(Level.SEVERE, null, e);
+        Logger.getLogger(transaksiPenjualan.class.getName()).log(Level.SEVERE, "Kesalahan saat insert detail penjualan", e);
         return false;
     }
 }
