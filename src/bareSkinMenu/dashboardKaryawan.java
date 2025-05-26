@@ -4,7 +4,13 @@
  */
 package bareSkinMenu;
 
+import config.koneksi;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,6 +23,9 @@ public class dashboardKaryawan extends javax.swing.JPanel {
      */
     public dashboardKaryawan() {
         initComponents();
+        tampilStokMenipis();
+        tampilItemTerlaris();
+        tampilProdukExpiring();
     }
 
     /**
@@ -31,8 +40,16 @@ public class dashboardKaryawan extends javax.swing.JPanel {
         panelMain = new javax.swing.JPanel();
         panelView = new javax.swing.JPanel();
         panelCustom1 = new custom.PanelCustom();
-        tNamaMenu1 = new javax.swing.JLabel();
-        tNamaMenu2 = new javax.swing.JLabel();
+        panelCustom3 = new custom.PanelCustom();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblStokMenipis = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblItemTerlaris = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblExp = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         panelCustom2 = new custom.PanelCustom();
         tNamaMenu = new javax.swing.JLabel();
 
@@ -50,17 +67,80 @@ public class dashboardKaryawan extends javax.swing.JPanel {
         panelCustom1.setRoundTopRight(20);
         panelCustom1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tNamaMenu1.setBackground(new java.awt.Color(245, 245, 245));
-        tNamaMenu1.setFont(new java.awt.Font("SansSerif", 1, 40)); // NOI18N
-        tNamaMenu1.setForeground(new java.awt.Color(75, 22, 76));
-        tNamaMenu1.setText("Selamat beraktivitas");
-        panelCustom1.add(tNamaMenu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 240, -1, -1));
+        panelCustom3.setBackground(new java.awt.Color(75, 22, 76));
+        panelCustom3.setRoundBottomLeft(20);
+        panelCustom3.setRoundBottomRight(20);
+        panelCustom3.setRoundTopLeft(20);
+        panelCustom3.setRoundTopRight(20);
+        panelCustom3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tNamaMenu2.setBackground(new java.awt.Color(245, 245, 245));
-        tNamaMenu2.setFont(new java.awt.Font("SansSerif", 1, 40)); // NOI18N
-        tNamaMenu2.setForeground(new java.awt.Color(75, 22, 76));
-        tNamaMenu2.setText("Selamat datang, Nama!");
-        panelCustom1.add(tNamaMenu2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, -1, -1));
+        tblStokMenipis.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Nama Produk", "Satuan", "Stok"
+            }
+        ));
+        tblStokMenipis.setRowHeight(30);
+        tblStokMenipis.setRowMargin(10);
+        jScrollPane1.setViewportView(tblStokMenipis);
+
+        panelCustom3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 390, 680));
+
+        tblItemTerlaris.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Nama Item", "Satuan", "Terjual"
+            }
+        ));
+        tblItemTerlaris.setRowHeight(30);
+        tblItemTerlaris.setRowMargin(10);
+        jScrollPane2.setViewportView(tblItemTerlaris);
+
+        panelCustom3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 110, 410, 680));
+
+        tblExp.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Nama Produk", "Tanggal Expired"
+            }
+        ));
+        tblExp.setRowHeight(30);
+        tblExp.setRowMargin(10);
+        jScrollPane3.setViewportView(tblExp);
+
+        panelCustom3.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 110, 400, 680));
+
+        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Produk Mendekati Expired");
+        panelCustom3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 50, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Stok Menipis");
+        panelCustom3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Item Terlaris");
+        panelCustom3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 50, -1, -1));
+
+        panelCustom1.add(panelCustom3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 1510, 860));
 
         panelView.add(panelCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 1600, 940));
 
@@ -83,15 +163,96 @@ public class dashboardKaryawan extends javax.swing.JPanel {
 
         add(panelMain, "card2");
     }// </editor-fold>//GEN-END:initComponents
+    private void tampilStokMenipis() {
+        String query = "SELECT nama_product, stok_product, satuan " +
+                       "FROM product " +
+                       "WHERE stok_product <= 10 " +
+                       "ORDER BY stok_product ASC";
 
+        try {
+            Connection conn = koneksi.getConnection();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+
+            DefaultTableModel model = (DefaultTableModel) tblStokMenipis.getModel();
+            model.setRowCount(0);
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getString("nama_product"),
+                    rs.getInt("stok_product"),
+                    rs.getString("satuan")
+                });
+            }
+        } catch (SQLException e) {
+            System.err.println("Error tampilStokMenipis: " + e.getMessage());
+        }
+    }
+    
+    private void tampilItemTerlaris() {
+        String query = "SELECT p.nama_product, p.satuan, SUM(dtp.jumlah_beli) AS total_terjual " +
+                       "FROM detail_transaksi_penjualan dtp " +
+                       "JOIN product p ON dtp.id_product = p.id_product " +
+                       "GROUP BY p.nama_product, p.satuan " +
+                       "ORDER BY total_terjual DESC LIMIT 10";
+
+        try {
+            Connection conn = koneksi.getConnection();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+
+            DefaultTableModel model = (DefaultTableModel) tblItemTerlaris.getModel();
+            model.setRowCount(0);
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getString("nama_product"),
+                    rs.getString("satuan"),
+                    rs.getInt("total_terjual")
+                });
+            }
+        } catch (SQLException e) {
+            System.err.println("Error tampilItemTerlaris: " + e.getMessage());
+        }
+    }
+    
+    private void tampilProdukExpiring() {
+        String query = "SELECT nama_product, tgl_expired " +
+                       "FROM product " +
+                       "WHERE tgl_expired BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 1 YEAR) " +
+                       "ORDER BY tgl_expired ASC";
+
+        try {
+            Connection conn = koneksi.getConnection();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+
+            DefaultTableModel model = (DefaultTableModel) tblExp.getModel();
+            model.setRowCount(0);
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getString("nama_product"),
+                    rs.getDate("tgl_expired")
+                });
+            }
+        } catch (SQLException e) {
+            System.err.println("Error tampilProdukExpiring: " + e.getMessage());
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private custom.PanelCustom panelCustom1;
     private custom.PanelCustom panelCustom2;
+    private custom.PanelCustom panelCustom3;
     private javax.swing.JPanel panelMain;
     private javax.swing.JPanel panelView;
     private javax.swing.JLabel tNamaMenu;
-    private javax.swing.JLabel tNamaMenu1;
-    private javax.swing.JLabel tNamaMenu2;
+    private javax.swing.JTable tblExp;
+    private javax.swing.JTable tblItemTerlaris;
+    private javax.swing.JTable tblStokMenipis;
     // End of variables declaration//GEN-END:variables
 }

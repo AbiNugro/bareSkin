@@ -4,47 +4,178 @@
  */
 package bareSkinMenu;
 
+import java.util.*;
+import javax.swing.*;
 import java.awt.Color;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JOptionPane;
-import java.awt.BorderLayout;
+import config.koneksi;
+import java.sql.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.time.LocalDate;
-import java.util.LinkedHashMap;
+import java.text.NumberFormat;
 import java.util.Locale;
-import java.util.Map;
-import config.koneksi;
-import javax.swing.JPanel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.awt.BorderLayout;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.chart.plot.PlotOrientation;
+import java.time.LocalDate;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.NumberTickUnit;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.renderer.category.AreaRenderer;
 
-/**
- *
- * @author LENOVO
- */
+
+
+
 public class dashboardAdmin extends javax.swing.JPanel {
-
-    /**
-     * Creates new form transaksiPenjualan
-     */
+    
     public dashboardAdmin() {
         
         initComponents();
-        /*
-        loadPendapatan();
-        loadPengeluaran();
-        loadKeuntungan();
-        loadStokMenipis();
-        loadItemTerlaris();
-        loadExpired();
+        tampilStokMenipis();
+        tampilItemTerlaris();
+        tampilProdukExpiring();
+        loadKeuangan();
         initComboBox();
+        // Pasang listener
+        cbBulan.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateChart();
+            }
+        });
+        cbMinggu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateChart();
+            }
+        });
+        // Tampilkan chart pertama kali
         updateChart();
-        */
+    }
+
+    private void initComboBox() {
+        // Inisialisasi bulan
+        cbBulan.removeAllItems();
+        String[] bulan = {"Januari","Februari","Maret","April","Mei","Juni",
+                          "Juli","Agustus","September","Oktober","November","Desember"};
+        for (String b : bulan) {
+            cbBulan.addItem(b);
+        }
+        // Inisialisasi minggu
+        cbMinggu.removeAllItems();
+        for (int i = 1; i <= 5; i++) {
+            cbMinggu.addItem("Minggu ke-" + i);
+        }
     }
     
+    private void updateChart() {
+        int bulanIndex = cbBulan.getSelectedIndex() + 1;
+        int mingguKe = cbMinggu.getSelectedIndex() + 1;
+
+        LocalDate awalBulan = LocalDate.of(LocalDate.now().getYear(), bulanIndex, 1);
+        LocalDate mingguAwal = awalBulan.plusDays((mingguKe - 1) * 7);
+        LocalDate mingguAkhir = mingguAwal.plusDays(6);
+
+        String[] hariList = {"Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"};
+        Map<String, Integer> pendapatanMap = new LinkedHashMap<>();
+        Map<String, Integer> pengeluaranMap = new LinkedHashMap<>();
+        Map<String, Integer> keuntunganMap = new LinkedHashMap<>();
+
+        for (String hari : hariList) {
+            pendapatanMap.put(hari, 0);
+            pengeluaranMap.put(hari, 0);
+            keuntunganMap.put(hari, 0);
+        }
+
+        try {
+            Connection conn = koneksi.getConnection();
+
+            // Pendapatan
+            String sqlPendapatan =
+                "SELECT CASE DAYOFWEEK(tgl_penjualan) " +
+                "WHEN 1 THEN 'Minggu' WHEN 2 THEN 'Senin' WHEN 3 THEN 'Selasa' " +
+                "WHEN 4 THEN 'Rabu' WHEN 5 THEN 'Kamis' WHEN 6 THEN 'Jumat' WHEN 7 THEN 'Sabtu' END AS hari, " +
+                "SUM(total_harga) AS total " +
+                "FROM transaksi_penjualan " +
+                "WHERE DATE(tgl_penjualan) BETWEEN ? AND ? " +
+                "GROUP BY hari";
+            PreparedStatement stmtPendapatan = conn.prepareStatement(sqlPendapatan);
+            stmtPendapatan.setDate(1, java.sql.Date.valueOf(mingguAwal));
+            stmtPendapatan.setDate(2, java.sql.Date.valueOf(mingguAkhir));
+            ResultSet rsPendapatan = stmtPendapatan.executeQuery();
+            while (rsPendapatan.next()) {
+                String hari = rsPendapatan.getString("hari");
+                int total = rsPendapatan.getInt("total");
+                pendapatanMap.put(hari, total);
+            }
+
+            // Pengeluaran dari transaksi_pembelian
+            String sqlPengeluaran =
+                "SELECT CASE DAYOFWEEK(tgl_pembelian) " +
+                "WHEN 1 THEN 'Minggu' WHEN 2 THEN 'Senin' WHEN 3 THEN 'Selasa' " +
+                "WHEN 4 THEN 'Rabu' WHEN 5 THEN 'Kamis' WHEN 6 THEN 'Jumat' WHEN 7 THEN 'Sabtu' END AS hari, " +
+                "SUM(total_harga_pembelian) AS total " +
+                "FROM transaksi_pembelian " +
+                "WHERE DATE(tgl_pembelian) BETWEEN ? AND ? " +
+                "GROUP BY hari";
+            PreparedStatement stmtPengeluaran = conn.prepareStatement(sqlPengeluaran);
+            stmtPengeluaran.setDate(1, java.sql.Date.valueOf(mingguAwal));
+            stmtPengeluaran.setDate(2, java.sql.Date.valueOf(mingguAkhir));
+            ResultSet rsPengeluaran = stmtPengeluaran.executeQuery();
+            while (rsPengeluaran.next()) {
+                String hari = rsPengeluaran.getString("hari");
+                int total = rsPengeluaran.getInt("total");
+                pengeluaranMap.put(hari, total);
+            }
+
+            for (String hari : hariList) {
+                int pendapatan = pendapatanMap.getOrDefault(hari, 0);
+                int pengeluaran = pengeluaranMap.getOrDefault(hari, 0);
+                int keuntungan = Math.max(0, pendapatan - pengeluaran);
+                keuntunganMap.put(hari, keuntungan);
+            }
+
+            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+            for (String hari : hariList) {
+                dataset.addValue(pendapatanMap.get(hari), "Pendapatan", hari);
+                dataset.addValue(pengeluaranMap.get(hari), "Pengeluaran", hari);
+                dataset.addValue(keuntunganMap.get(hari), "Keuntungan", hari);
+            }
+
+            JFreeChart chart = ChartFactory.createAreaChart(
+                "Laporan Mingguan", "Hari", "Jumlah (Rp)", dataset,
+                PlotOrientation.VERTICAL, true, true, false
+            );
+
+            CategoryPlot plot = (CategoryPlot) chart.getPlot();
+            plot.setRenderer(new AreaRenderer());
+            NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
+            rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+            rangeAxis.setTickUnit(new NumberTickUnit(50000));
+
+            ChartPanel chartPanel = new ChartPanel(chart);
+            chartPanel.setPreferredSize(new java.awt.Dimension(600, 400));
+            panelChart.removeAll();
+            panelChart.setLayout(new BorderLayout());
+            panelChart.add(chartPanel, BorderLayout.CENTER);
+            panelChart.revalidate();
+            panelChart.repaint();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Gagal memuat grafik: " + e.getMessage());
+        }
+    }
+
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -78,9 +209,9 @@ public class dashboardAdmin extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         panelGRAFIK = new custom.PanelCustom();
         jLabel3 = new javax.swing.JLabel();
-        panelChart = new custom.PanelCustom();
         cbBulan = new javax.swing.JComboBox<>();
         cbMinggu = new javax.swing.JComboBox<>();
+        panelChart = new javax.swing.JPanel();
         panelStokMenipis = new custom.PanelCustom();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -228,19 +359,14 @@ public class dashboardAdmin extends javax.swing.JPanel {
         jLabel3.setText("Grafik Keuangan");
         panelGRAFIK.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, -1, -1));
 
-        panelChart.setBackground(new java.awt.Color(255, 255, 255));
-        panelChart.setRoundBottomLeft(20);
-        panelChart.setRoundBottomRight(20);
-        panelChart.setRoundTopLeft(20);
-        panelChart.setRoundTopRight(20);
-        panelChart.setLayout(new java.awt.BorderLayout());
-        panelGRAFIK.add(panelChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 630, 480));
-
         cbBulan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         panelGRAFIK.add(cbBulan, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 589, 300, 50));
 
         cbMinggu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         panelGRAFIK.add(cbMinggu, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 590, 290, 50));
+
+        panelChart.setLayout(new java.awt.BorderLayout());
+        panelGRAFIK.add(panelChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 580, 450));
 
         panelCustom1.add(panelGRAFIK, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 670, 660));
 
@@ -323,252 +449,123 @@ public class dashboardAdmin extends javax.swing.JPanel {
 
         add(panelMain, "card2");
     }// </editor-fold>//GEN-END:initComponents
-    /*
-    private void loadPendapatan() {
-        try {
-            Connection conn = koneksi.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(
-                "SELECT SUM(total_harga) AS total_pendapatan FROM transaksi_penjualan WHERE DATE(tgl_penjualan) = CURDATE()"
-            );
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                double pendapatan = rs.getDouble("total_pendapatan");
-                nominalPendapatan.setText(String.format("%,.0f", pendapatan));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-    private void loadPengeluaran() {
-        try {
-            Connection conn = koneksi.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(
-                "SELECT SUM(total_harga_pembelian) AS total_pengeluaran FROM transaksi_pembelian WHERE DATE(tgl_pembelian) = CURDATE()"
-            );
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                double pengeluaran = rs.getDouble("total_pengeluaran");
-                nominalPengeluaran.setText(String.format("%,.0f", pengeluaran));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-    private void loadKeuntungan() {
-        try {
-            Connection conn = koneksi.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(
-                "SELECT SUM(untung) AS total_untung FROM transaksi_penjualan WHERE DATE(tgl_penjualan) = CURDATE()"
-            );
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                double keuntungan = rs.getDouble("total_untung");
-                nominalKeuntungan.setText(String.format("%,.0f", keuntungan));
-            }
-        } catch (Exception e) { 
-            e.printStackTrace();
-        }
-    }
-    
-    private void loadStokMenipis() {
-        DefaultTableModel model = (DefaultTableModel) tblStokMenipis.getModel();
-        model.setRowCount(0); // kosongkan tabel
+    private void tampilStokMenipis() {
+        String query = "SELECT nama_product, stok_product, satuan " +
+                       "FROM product " +
+                       "WHERE stok_product <= 10 " +
+                       "ORDER BY stok_product ASC";
 
         try {
             Connection conn = koneksi.getConnection();
-            String sql = "SELECT nama_product, stok_product, satuan FROM product WHERE stok_product <= 20 ORDER BY stok_product ASC";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
 
+            DefaultTableModel model = (DefaultTableModel) tblStokMenipis.getModel();
+            model.setRowCount(0);
             while (rs.next()) {
-                String namaProduk = rs.getString("nama_product");
-                int stok = rs.getInt("stok_product");
-                String satuan = rs.getString("satuan");
-                model.addRow(new Object[]{namaProduk, stok, satuan});
+                model.addRow(new Object[]{
+                    rs.getString("nama_product"),
+                    rs.getInt("stok_product"),
+                    rs.getString("satuan")
+                });
             }
-
-            rs.close();
-            ps.close();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Gagal menampilkan data stok menipis: " + e.getMessage());
+            System.err.println("Error tampilStokMenipis: " + e.getMessage());
         }
     }
     
-    private void loadItemTerlaris() {
-        DefaultTableModel model = (DefaultTableModel) tblItemTerlaris.getModel();
-        model.setRowCount(0); // kosongkan tabel
+    private void tampilItemTerlaris() {
+        String query = "SELECT p.nama_product, p.satuan, SUM(dtp.jumlah_beli) AS total_terjual " +
+                       "FROM detail_transaksi_penjualan dtp " +
+                       "JOIN product p ON dtp.id_product = p.id_product " +
+                       "GROUP BY p.nama_product, p.satuan " +
+                       "ORDER BY total_terjual DESC LIMIT 10";
 
         try {
             Connection conn = koneksi.getConnection();
-            String sql = "SELECT p.nama_product, p.satuan, SUM(dtp.jumlah_beli) AS total_terjual\n" +
-            "FROM detail_transaksi_penjualan dtp\n" +
-            "JOIN product p ON dtp.id_product = p.id_product\n" +
-            "GROUP BY dtp.id_product\n" +
-            "ORDER BY total_terjual DESC\n" +
-            "LIMIT 10;";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
 
+            DefaultTableModel model = (DefaultTableModel) tblItemTerlaris.getModel();
+            model.setRowCount(0);
             while (rs.next()) {
-                String namaProduk = rs.getString("nama_product");
-                String satuan = rs.getString("satuan");
-                int terjual = rs.getInt("total_terjual");
-                model.addRow(new Object[]{namaProduk,satuan, terjual});
+                model.addRow(new Object[]{
+                    rs.getString("nama_product"),
+                    rs.getString("satuan"),
+                    rs.getInt("total_terjual")
+                });
             }
-
-            rs.close();
-            ps.close();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Gagal menampilkan data stok menipis: " + e.getMessage());
+            System.err.println("Error tampilItemTerlaris: " + e.getMessage());
         }
     }
     
-    private void loadExpired() {
-        DefaultTableModel model = (DefaultTableModel) tblExp.getModel();
-        model.setRowCount(0); // kosongkan tabel
+    private void tampilProdukExpiring() {
+        String query = "SELECT nama_product, tgl_expired " +
+                       "FROM product " +
+                       "WHERE tgl_expired BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 1 YEAR) " +
+                       "ORDER BY tgl_expired ASC";
 
         try {
             Connection conn = koneksi.getConnection();
-            String sql = "SELECT nama_product, tgl_expired FROM product WHERE tgl_expired <= DATE_ADD(CURDATE(), INTERVAL 5 MONTH) ORDER BY tgl_expired ASC";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
 
+            DefaultTableModel model = (DefaultTableModel) tblExp.getModel();
+            model.setRowCount(0);
             while (rs.next()) {
-                String namaProduk = rs.getString("nama_product");
-                String tglExp = rs.getString("tgl_expired");
-                model.addRow(new Object[]{namaProduk,tglExp});
+                model.addRow(new Object[]{
+                    rs.getString("nama_product"),
+                    rs.getDate("tgl_expired")
+                });
             }
-
-            rs.close();
-            ps.close();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Gagal menampilkan data stok menipis: " + e.getMessage());
+            System.err.println("Error tampilProdukExpiring: " + e.getMessage());
         }
     }
     
-    private void initComboBox() {
-        cbBulan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {
-            "Januari", "Februari", "Maret", "April", "Mei", "Juni",
-            "Juli", "Agustus", "September", "Oktober", "November", "Desember"
-        }));
+    private void loadKeuangan() {
+    try {
+        Connection con = config.koneksi.getConnection(); // koneksi shared
+        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(new Locale("in", "ID"));
 
-        cbMinggu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {
-            "Minggu ke-1", "Minggu ke-2", "Minggu ke-3", "Minggu ke-4"
-        }));
+        // PENDAPATAN HARI INI
+        String sqlPendapatan = "SELECT SUM(total_harga) AS total FROM transaksi_penjualan WHERE DATE(tgl_penjualan) = CURDATE()";
+        PreparedStatement pst1 = con.prepareStatement(sqlPendapatan);
+        ResultSet rs1 = pst1.executeQuery();
+        if (rs1.next()) {
+            double pendapatan = rs1.getDouble("total");
+            nominalPendapatan.setText(formatRupiah.format(pendapatan));
+        }
 
-        cbBulan.addActionListener(e -> updateChart());
-        cbMinggu.addActionListener(e -> updateChart());
+        // PENGELUARAN HARI INI
+        String sqlPengeluaran = "SELECT SUM(total_harga_pembelian) AS total FROM transaksi_pembelian WHERE DATE(tgl_pembelian) = CURDATE()";
+        PreparedStatement pst2 = con.prepareStatement(sqlPengeluaran);
+        ResultSet rs2 = pst2.executeQuery();
+        if (rs2.next()) {
+            double pengeluaran = rs2.getDouble("total");
+            nominalPengeluaran.setText(formatRupiah.format(pengeluaran));
+        }
+
+        // KEUNTUNGAN HARI INI
+        String sqlKeuntungan = "SELECT SUM(untung) AS total FROM transaksi_penjualan WHERE DATE(tgl_penjualan) = CURDATE()";
+        PreparedStatement pst3 = con.prepareStatement(sqlKeuntungan);
+        ResultSet rs3 = pst3.executeQuery();
+        if (rs3.next()) {
+            double keuntungan = rs3.getDouble("total");
+            nominalKeuntungan.setText(formatRupiah.format(keuntungan));
+        }
+
+        // Tutup statement dan resultset (koneksi tetap terbuka)
+        rs1.close(); pst1.close();
+        rs2.close(); pst2.close();
+        rs3.close(); pst3.close();
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Gagal memuat data keuangan harian\n" + e.getMessage());
     }
+}
     
-    private void updateChart() {
-    int bulanIndex = cbBulan.getSelectedIndex() + 1;
-    int mingguKe = cbMinggu.getSelectedIndex() + 1;
-
-    LocalDate awalBulan = LocalDate.of(LocalDate.now().getYear(), bulanIndex, 1);
-    LocalDate mingguAwal = awalBulan.plusDays((mingguKe - 1) * 7);
-    LocalDate mingguAkhir = mingguAwal.plusDays(6);
-
-    String[] hariList = {"Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"};
-    Map<String, Integer> pendapatanMap = new LinkedHashMap<>();
-    Map<String, Integer> pengeluaranMap = new LinkedHashMap<>();
-    Map<String, Integer> keuntunganMap = new LinkedHashMap<>();
-
-    for (String hari : hariList) {
-        pendapatanMap.put(hari, 0);
-        pengeluaranMap.put(hari, 0);
-        keuntunganMap.put(hari, 0);
-    }
-
-    try (Connection conn = koneksi.getConnection()) {
-        // Pendapatan
-        String sqlPendapatan = 
-            "SELECT CASE DAYOFWEEK(tgl_penjualan) " +
-            " WHEN 1 THEN 'Minggu' WHEN 2 THEN 'Senin' WHEN 3 THEN 'Selasa' " +
-            " WHEN 4 THEN 'Rabu' WHEN 5 THEN 'Kamis' WHEN 6 THEN 'Jumat' WHEN 7 THEN 'Sabtu' END AS hari, " +
-            "SUM(total_harga) AS total " +
-            "FROM transaksi_penjualan " +
-            "WHERE DATE(tgl_penjualan) BETWEEN ? AND ? " +
-            "GROUP BY hari";
-
-        PreparedStatement stmtPendapatan = conn.prepareStatement(sqlPendapatan);
-        stmtPendapatan.setDate(1, java.sql.Date.valueOf(mingguAwal));
-        stmtPendapatan.setDate(2, java.sql.Date.valueOf(mingguAkhir));
-        ResultSet rsPendapatan = stmtPendapatan.executeQuery();
-        while (rsPendapatan.next()) {
-            pendapatanMap.put(rsPendapatan.getString("hari"), rsPendapatan.getInt("total"));
-        }
-
-        // Pengeluaran
-        String sqlPengeluaran = 
-            "SELECT CASE DAYOFWEEK(tgl_pembelian) " +
-            " WHEN 1 THEN 'Minggu' WHEN 2 THEN 'Senin' WHEN 3 THEN 'Selasa' " +
-            " WHEN 4 THEN 'Rabu' WHEN 5 THEN 'Kamis' WHEN 6 THEN 'Jumat' WHEN 7 THEN 'Sabtu' END AS hari, " +
-            "SUM(total_harga_pembelian) AS total " +
-            "FROM transaksi_pembelian " +
-            "WHERE DATE(tgl_pembelian) BETWEEN ? AND ? " +
-            "GROUP BY hari";
-
-        PreparedStatement stmtPengeluaran = conn.prepareStatement(sqlPengeluaran);
-        stmtPengeluaran.setDate(1, java.sql.Date.valueOf(mingguAwal));
-        stmtPengeluaran.setDate(2, java.sql.Date.valueOf(mingguAkhir));
-        ResultSet rsPengeluaran = stmtPengeluaran.executeQuery();
-        while (rsPengeluaran.next()) {
-            pengeluaranMap.put(rsPengeluaran.getString("hari"), rsPengeluaran.getInt("total"));
-        }
-
-        // Hitung keuntungan
-        for (String hari : hariList) {
-            int pendapatan = pendapatanMap.get(hari);
-            int pengeluaran = pengeluaranMap.get(hari);
-            keuntunganMap.put(hari, pendapatan - pengeluaran);
-        }
-
-    } catch (SQLException e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(null, "Gagal memuat data grafik: " + e.getMessage());
-    }
-
-    // Dataset
-    DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-    for (String hari : hariList) {
-        dataset.addValue(pendapatanMap.get(hari), "Pendapatan", hari);
-        dataset.addValue(pengeluaranMap.get(hari), "Pengeluaran", hari);
-        dataset.addValue(keuntunganMap.get(hari), "Keuntungan", hari);
-    }
-
-    // Chart
-    JFreeChart chart = ChartFactory.createAreaChart(
-        "Laporan Keuangan - Minggu ke-" + mingguKe + ", Bulan " + cbBulan.getSelectedItem(),
-        "Hari",
-        "Jumlah (Rp)",
-        dataset,
-        PlotOrientation.VERTICAL,
-        true, true, false
-    );
-
-    CategoryPlot plot = chart.getCategoryPlot();
-    plot.setBackgroundPaint(Color.WHITE);
-    plot.setRangeGridlinePaint(Color.BLACK);
-
-    NumberAxis yAxis = (NumberAxis) plot.getRangeAxis();
-    yAxis.setNumberFormatOverride(new DecimalFormat("#,##0", new DecimalFormatSymbols(new Locale("id", "ID"))));
-    yAxis.setTickUnit(new NumberTickUnit(50000));
-
-    // Update panel chart
-    panelChart.removeAll();
-    panelChart.setLayout(new BorderLayout()); // Tambahkan ini jika belum diset di constructor
-    panelChart.add(new ChartPanel(chart), BorderLayout.CENTER);
-    panelChart.revalidate();
-    panelChart.repaint(); // Penting untuk menampilkan grafik baru
-*/
-
-
-
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbBulan;
@@ -588,7 +585,7 @@ public class dashboardAdmin extends javax.swing.JPanel {
     private javax.swing.JLabel nominalPengeluaran;
     private custom.PanelCustom panel1;
     private custom.PanelCustom panel2;
-    private custom.PanelCustom panelChart;
+    private javax.swing.JPanel panelChart;
     private custom.PanelCustom panelCustom1;
     private custom.PanelCustom panelCustom2;
     private custom.PanelCustom panelExpired;
@@ -608,6 +605,4 @@ public class dashboardAdmin extends javax.swing.JPanel {
     private javax.swing.JTable tblItemTerlaris;
     private javax.swing.JTable tblStokMenipis;
     // End of variables declaration//GEN-END:variables
-
-
 }

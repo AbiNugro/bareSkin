@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="226" pageHeight="842" columnWidth="204" leftMargin="11" rightMargin="11" topMargin="11" bottomMargin="11" uuid="905fe528-9e7d-4e5e-b7bf-592d10bd4678">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="226" pageHeight="842" columnWidth="222" leftMargin="2" rightMargin="2" topMargin="2" bottomMargin="2" uuid="905fe528-9e7d-4e5e-b7bf-592d10bd4678">
 	<property name="ireport.zoom" value="3.797498335832418"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="553"/>
+	<property name="ireport.y" value="423"/>
 	<parameter name="id_transaksi" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -66,7 +66,7 @@ WHERE t.id_transaksi = $P{id_transaksi};]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="108" splitType="Stretch">
+		<band height="112" splitType="Stretch">
 			<image>
 				<reportElement x="77" y="0" width="50" height="50" uuid="aaec2c4e-001e-4e64-9255-489d2fbe7166"/>
 				<imageExpression><![CDATA["../icon/STRUKBS.png"]]></imageExpression>
@@ -155,7 +155,7 @@ WHERE t.id_transaksi = $P{id_transaksi};]]>
 				<textFieldExpression><![CDATA[$F{jumlah_beli} + " x " +  new java.text.DecimalFormat("#,##0").format($F{harga_jual}.intValue())]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="109" y="20" width="95" height="14" uuid="9c300c1e-5af8-4354-a6f9-88847ab57c51"/>
+				<reportElement x="102" y="20" width="95" height="14" uuid="9c300c1e-5af8-4354-a6f9-88847ab57c51"/>
 				<textElement textAlignment="Right">
 					<font fontName="Consolas" size="10" isBold="false"/>
 				</textElement>
@@ -193,21 +193,21 @@ WHERE t.id_transaksi = $P{id_transaksi};]]>
 				<textFieldExpression><![CDATA["Kembalian  "]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="109" y="7" width="95" height="14" uuid="ceb744d8-e2a9-4680-8f63-dd480b6a8ebc"/>
+				<reportElement x="102" y="7" width="95" height="14" uuid="ceb744d8-e2a9-4680-8f63-dd480b6a8ebc"/>
 				<textElement textAlignment="Right">
 					<font fontName="Consolas" size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Rp. " + new java.text.DecimalFormat("#,##0").format($F{total_harga}.intValue())]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="109" y="24" width="95" height="14" uuid="473f6017-6a07-45d8-930a-43003d99fba6"/>
+				<reportElement x="102" y="24" width="95" height="14" uuid="473f6017-6a07-45d8-930a-43003d99fba6"/>
 				<textElement textAlignment="Right">
 					<font fontName="Consolas" size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Rp. " + new java.text.DecimalFormat("#,##0").format($F{jumlah_bayar}.intValue())]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="109" y="41" width="95" height="14" uuid="f343eec1-79f8-48d5-8d39-a59527441bb4"/>
+				<reportElement x="102" y="41" width="95" height="14" uuid="f343eec1-79f8-48d5-8d39-a59527441bb4"/>
 				<textElement textAlignment="Right">
 					<font fontName="Consolas" size="10" isBold="false"/>
 				</textElement>

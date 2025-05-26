@@ -224,7 +224,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         });
         pnMain.add(btnCetak, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, 130, 60));
 
-        tblData.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        tblData.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
         tblData.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -633,7 +633,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         panelCustom8.setRoundTopRight(20);
         panelCustom8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tblDataSementara.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        tblDataSementara.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
         tblDataSementara.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},

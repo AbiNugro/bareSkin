@@ -28,7 +28,7 @@ import javax.swing.JOptionPane;
 public class menuProductt extends javax.swing.JPanel {
     
     private int halamanSaatIni = 1;
-    private int dataPerHalaman = 14;
+    private int dataPerHalaman = 15;
     private int totalPages;
     private final Connection conn;
     private String id_user;
@@ -188,6 +188,11 @@ public class menuProductt extends javax.swing.JPanel {
         pnMain.setRoundBottomRight(20);
         pnMain.setRoundTopLeft(20);
         pnMain.setRoundTopRight(20);
+        pnMain.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnMainMouseClicked(evt);
+            }
+        });
         pnMain.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tblData.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
@@ -410,7 +415,7 @@ public class menuProductt extends javax.swing.JPanel {
 
         cbx_data.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
         cbx_data.setForeground(new java.awt.Color(75, 22, 76));
-        cbx_data.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "14", "20", "25" }));
+        cbx_data.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "15", "20", "25" }));
 
         btn_before.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
         btn_before.setForeground(new java.awt.Color(75, 22, 76));
@@ -532,7 +537,7 @@ public class menuProductt extends javax.swing.JPanel {
         panelCustom8.setRoundTopRight(20);
         panelCustom8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tblDataSementara.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        tblDataSementara.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
         tblDataSementara.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -878,6 +883,14 @@ public class menuProductt extends javax.swing.JPanel {
         // Tampilkan barcode tanpa input manual
         new barcode(idProduct).setVisible(true);
     }//GEN-LAST:event_btnGenerateActionPerformed
+
+    private void pnMainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnMainMouseClicked
+        tblData.clearSelection();
+        btnHapus.setText("OPNAME");
+        btnTambah.setText("TAMBAH");
+        btnBatal.setVisible(false);
+        btnGenerate.setVisible(false);
+    }//GEN-LAST:event_pnMainMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

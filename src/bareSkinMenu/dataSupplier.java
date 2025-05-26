@@ -85,7 +85,7 @@ public class dataSupplier extends javax.swing.JDialog {
         panelView.setBackground(new java.awt.Color(255, 255, 255));
         panelView.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tblData.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        tblData.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
         tblData.setForeground(new java.awt.Color(75, 22, 76));
         tblData.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

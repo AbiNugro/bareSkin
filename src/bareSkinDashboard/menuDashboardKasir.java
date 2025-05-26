@@ -35,7 +35,7 @@ public class menuDashboardKasir extends javax.swing.JFrame{
         this.nama = nama;
         this.id_user = id_user;
         this.level = level;
-        switchPanel(new bareSkinMenu.dashboardAdmin());
+        switchPanel(new bareSkinMenu.dashboardKaryawan());
         activeButton = tDashboard;
         
     }

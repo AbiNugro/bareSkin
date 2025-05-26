@@ -100,7 +100,7 @@ public class menuSupplier extends javax.swing.JPanel {
         pnMain.setRoundTopRight(20);
         pnMain.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tblData.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        tblData.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
         tblData.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
