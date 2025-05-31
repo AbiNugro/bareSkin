@@ -3,6 +3,7 @@ package bareSkinMenu;
 import bareSkinLogin.loginBareSkin;
 import config.koneksi;
 import java.awt.Color;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -63,7 +64,7 @@ public class tambahKaryawan extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-
+        max10digit();
         conn = koneksi.getConnection();
 
         this.id_user = id;
@@ -218,7 +219,33 @@ public class tambahKaryawan extends javax.swing.JDialog {
     private custom.JTextFieldRounded txtPassword;
     private custom.JTextFieldRounded txtUsername;
     // End of variables declaration//GEN-END:variables
-
+    
+    private void max10digit() {
+    txtIdKaryawan.addKeyListener(new KeyAdapter() {
+        @Override
+        public void keyTyped(KeyEvent e) {
+            char c = e.getKeyChar();
+            
+            if (Character.isISOControl(c)) {
+                return;
+            }
+            
+            if (!Character.isDigit(c)) {
+                e.consume();
+                Toolkit.getDefaultToolkit().beep();
+                JOptionPane.showMessageDialog(null, "ID hanya boleh berisi angka!");
+                return;
+            }
+            
+            if (txtIdKaryawan.getText().length() >= 10) {
+                e.consume(); 
+                Toolkit.getDefaultToolkit().beep(); 
+                JOptionPane.showMessageDialog(null, "ID Product tidak boleh lebih dari 10 digit.");
+            }
+        }
+    });
+}
+    
     private void fieldColor(JTextField field) {
         field.setOpaque(true);
         field.setEditable(false);

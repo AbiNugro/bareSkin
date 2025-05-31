@@ -7,6 +7,7 @@ package bareSkinMenu;
 import java.util.*;
 import javax.swing.*;
 import java.awt.Color;
+import java.awt.Font;
 import config.koneksi;
 import java.sql.*;
 import java.sql.Connection;
@@ -29,6 +30,9 @@ import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.NumberTickUnit;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.renderer.category.AreaRenderer;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.LineAndShapeRenderer;
+
 
 
 
@@ -42,8 +46,15 @@ public class dashboardAdmin extends javax.swing.JPanel {
         tampilItemTerlaris();
         tampilProdukExpiring();
         loadKeuangan();
+        
         initComboBox();
         // Pasang listener
+        cbJenisGrafik.setModel(new DefaultComboBoxModel<>(new String[]{"Line Chart", "Bar Chart", "Area Chart"}));
+        cbJenisGrafik.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                updateChart();
+            }
+        });
         cbBulan.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -76,13 +87,14 @@ public class dashboardAdmin extends javax.swing.JPanel {
     }
     
     private void updateChart() {
-        int bulanIndex = cbBulan.getSelectedIndex() + 1;
+    int bulanIndex = cbBulan.getSelectedIndex() + 1;
         int mingguKe = cbMinggu.getSelectedIndex() + 1;
 
         LocalDate awalBulan = LocalDate.of(LocalDate.now().getYear(), bulanIndex, 1);
         LocalDate mingguAwal = awalBulan.plusDays((mingguKe - 1) * 7);
         LocalDate mingguAkhir = mingguAwal.plusDays(6);
 
+        String chartType = (String) cbJenisGrafik.getSelectedItem();
         String[] hariList = {"Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"};
         Map<String, Integer> pendapatanMap = new LinkedHashMap<>();
         Map<String, Integer> pengeluaranMap = new LinkedHashMap<>();
@@ -97,7 +109,6 @@ public class dashboardAdmin extends javax.swing.JPanel {
         try {
             Connection conn = koneksi.getConnection();
 
-            // Pendapatan
             String sqlPendapatan =
                 "SELECT CASE DAYOFWEEK(tgl_penjualan) " +
                 "WHEN 1 THEN 'Minggu' WHEN 2 THEN 'Senin' WHEN 3 THEN 'Selasa' " +
@@ -116,7 +127,6 @@ public class dashboardAdmin extends javax.swing.JPanel {
                 pendapatanMap.put(hari, total);
             }
 
-            // Pengeluaran dari transaksi_pembelian
             String sqlPengeluaran =
                 "SELECT CASE DAYOFWEEK(tgl_pembelian) " +
                 "WHEN 1 THEN 'Minggu' WHEN 2 THEN 'Senin' WHEN 3 THEN 'Selasa' " +
@@ -149,22 +159,83 @@ public class dashboardAdmin extends javax.swing.JPanel {
                 dataset.addValue(keuntunganMap.get(hari), "Keuntungan", hari);
             }
 
-            JFreeChart chart = ChartFactory.createAreaChart(
-                "Laporan Mingguan", "Hari", "Jumlah (Rp)", dataset,
-                PlotOrientation.VERTICAL, true, true, false
-            );
+            JFreeChart chart;
+            switch (chartType) {
+                case "Bar Chart":
+                    chart = ChartFactory.createBarChart("Laporan Mingguan", "Hari", "Jumlah Rp.", dataset, PlotOrientation.VERTICAL, true, true, false);
+                    break;
+                case "Line Chart":
+                    chart = ChartFactory.createLineChart("Laporan Mingguan", "Hari", "Jumlah (Rp 500.000)", dataset, PlotOrientation.VERTICAL, true, true, false);
+                    break;
+                default:
+                    chart = ChartFactory.createAreaChart("Laporan Mingguan", "Hari", "Jumlah (Rp 500.000)", dataset, PlotOrientation.VERTICAL, true, true, false);
+                    break;
+            }
 
             CategoryPlot plot = (CategoryPlot) chart.getPlot();
-            plot.setRenderer(new AreaRenderer());
+            if (chartType.equals("Area Chart")) {
+                AreaRenderer renderer = new AreaRenderer();
+                renderer.setSeriesPaint(0, Color.decode("#4B164C")); // Pendapatan - ungu
+                renderer.setSeriesPaint(1, Color.decode("#FF66FF")); // Pengeluaran - pink
+                renderer.setSeriesPaint(2, Color.decode("#F8E7F6")); // Keuntungan - putih
+                plot.setRenderer(renderer);
+            } else if (chartType.equals("Bar Chart")) {
+                BarRenderer renderer = new BarRenderer();
+                renderer.setSeriesPaint(0, Color.decode("#4B164C"));
+                renderer.setSeriesPaint(1, Color.decode("#FF66FF"));
+                renderer.setSeriesPaint(2, Color.decode("#F8E7F6"));
+                plot.setRenderer(renderer);
+            } else if (chartType.equals("Line Chart")) {
+                LineAndShapeRenderer renderer = new LineAndShapeRenderer();
+                renderer.setSeriesPaint(0, Color.decode("#4B164C"));
+                renderer.setSeriesPaint(1, Color.decode("#FF66FF"));
+                renderer.setSeriesPaint(2, Color.decode("#F8E7F6"));
+                plot.setRenderer(renderer);
+            }
+            
+            // CUSTOM WARNA YEAHG
+            chart.setBackgroundPaint(Color.WHITE); // latar belakang chart
+            plot.setBackgroundPaint(Color.WHITE);  // latar belakang area plot
+            plot.setDomainGridlinePaint(Color.LIGHT_GRAY); // garis grid vertikal
+            plot.setRangeGridlinePaint(Color.LIGHT_GRAY);  // garis grid horizontal
+
+            // Set font dan gaya judul
+            chart.getTitle().setFont(new Font("SansSerif", Font.BOLD, 16));
+            chart.getTitle().setPaint(Color.decode("#4B164C")); // Ungu gelap
+
+            // Pertegas garis sumbu X dan Y
+            plot.getDomainAxis().setAxisLinePaint(Color.DARK_GRAY);
+            plot.getRangeAxis().setAxisLinePaint(Color.DARK_GRAY);
+            plot.getDomainAxis().setTickLabelFont(new Font("SansSerif", Font.PLAIN, 12));
+            plot.getRangeAxis().setTickLabelFont(new Font("SansSerif", Font.PLAIN, 12));
+            plot.getDomainAxis().setLabelFont(new Font("SansSerif", Font.BOLD, 13));
+            plot.getRangeAxis().setLabelFont(new Font("SansSerif", Font.BOLD, 13));
+
+            // Optional: Hilangkan outline bar agar tidak terlalu tajam
+            if (chartType.equals("Bar Chart")) {
+                BarRenderer renderer = (BarRenderer) plot.getRenderer();
+                renderer.setDrawBarOutline(false); // hilangkan garis tepi bar
+            }
+
+            // Optional: Aktifkan garis halus pada Line Chart
+            if (chartType.equals("Line Chart")) {
+                LineAndShapeRenderer renderer = (LineAndShapeRenderer) plot.getRenderer();
+                renderer.setBaseShapesVisible(true); // titik pada line
+                renderer.setBaseShapesFilled(true);
+            }
+
+
             NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
             rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-            rangeAxis.setTickUnit(new NumberTickUnit(50000));
+            rangeAxis.setTickUnit(new NumberTickUnit(500_000));
+            rangeAxis.setNumberFormatOverride(NumberFormat.getNumberInstance(new Locale("id", "ID")));
+            rangeAxis.setLabel("Jumlah (Rp)");
+            
 
-            ChartPanel chartPanel = new ChartPanel(chart);
-            chartPanel.setPreferredSize(new java.awt.Dimension(600, 400));
+
             panelChart.removeAll();
             panelChart.setLayout(new BorderLayout());
-            panelChart.add(chartPanel, BorderLayout.CENTER);
+            panelChart.add(new ChartPanel(chart), BorderLayout.CENTER);
             panelChart.revalidate();
             panelChart.repaint();
 
@@ -212,6 +283,7 @@ public class dashboardAdmin extends javax.swing.JPanel {
         cbBulan = new javax.swing.JComboBox<>();
         cbMinggu = new javax.swing.JComboBox<>();
         panelChart = new javax.swing.JPanel();
+        cbJenisGrafik = new javax.swing.JComboBox<>();
         panelStokMenipis = new custom.PanelCustom();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -357,16 +429,25 @@ public class dashboardAdmin extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Grafik Keuangan");
-        panelGRAFIK.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, -1, -1));
+        panelGRAFIK.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
 
         cbBulan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        panelGRAFIK.add(cbBulan, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 589, 300, 50));
+        cbBulan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbBulanActionPerformed(evt);
+            }
+        });
+        panelGRAFIK.add(cbBulan, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, 100, 50));
 
         cbMinggu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        panelGRAFIK.add(cbMinggu, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 590, 290, 50));
+        panelGRAFIK.add(cbMinggu, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, 100, 50));
 
+        panelChart.setBackground(new java.awt.Color(255, 255, 255));
         panelChart.setLayout(new java.awt.BorderLayout());
-        panelGRAFIK.add(panelChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 580, 450));
+        panelGRAFIK.add(panelChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 640, 570));
+
+        cbJenisGrafik.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        panelGRAFIK.add(cbJenisGrafik, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 10, 100, 50));
 
         panelCustom1.add(panelGRAFIK, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 670, 660));
 
@@ -449,6 +530,10 @@ public class dashboardAdmin extends javax.swing.JPanel {
 
         add(panelMain, "card2");
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cbBulanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbBulanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbBulanActionPerformed
     private void tampilStokMenipis() {
         String query = "SELECT nama_product, stok_product, satuan " +
                        "FROM product " +
@@ -569,6 +654,7 @@ public class dashboardAdmin extends javax.swing.JPanel {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbBulan;
+    private javax.swing.JComboBox<String> cbJenisGrafik;
     private javax.swing.JComboBox<String> cbMinggu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;

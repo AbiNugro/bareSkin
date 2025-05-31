@@ -19,6 +19,8 @@ import config.koneksi;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -35,7 +37,7 @@ import notification.Notification;
 public class menuReturr extends javax.swing.JPanel {
     
     private int halamanSaatIni = 1;
-    private int dataPerHalaman = 14;
+    private int dataPerHalaman = 15;
     private int totalPages;
     private String id_user;
     private String nama;
@@ -96,7 +98,7 @@ public class menuReturr extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         panelCustom7 = new custom.PanelCustom();
-        jLabel6 = new javax.swing.JLabel();
+        txtRugiToday = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         panelCustom16 = new custom.PanelCustom();
@@ -134,6 +136,7 @@ public class menuReturr extends javax.swing.JPanel {
         jLabel13 = new javax.swing.JLabel();
         tanggalPenjualan = new javax.swing.JLabel();
         totalHargaa = new javax.swing.JLabel();
+        txtRugi = new javax.swing.JLabel();
         txtTotalProduct = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         txtStok = new custom.JTextFieldRounded();
@@ -150,7 +153,7 @@ public class menuReturr extends javax.swing.JPanel {
         btnSimpan = new rojerusan.RSMaterialButtonRectangle();
         txtIdProduct = new custom.JTextFieldRounded();
         jhargaBeli = new javax.swing.JLabel();
-        txtSatuan = new custom.JTextFieldRounded();
+        txtHarga = new custom.JTextFieldRounded();
         panelCustom14 = new custom.PanelCustom();
         tPenjualan2 = new javax.swing.JLabel();
         btnBack = new rojerusan.RSMaterialButtonRectangle();
@@ -177,17 +180,17 @@ public class menuReturr extends javax.swing.JPanel {
         tblData.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
         tblData.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID Retur", "Tgl Penjualan", "Total Product", "Petugas"
+                "ID Retur", "Tgl Penjualan", "Total Product", "Rugi", "Petugas"
             }
         ));
         tblData.setGridColor(new java.awt.Color(255, 255, 255));
@@ -260,13 +263,13 @@ public class menuReturr extends javax.swing.JPanel {
         panelCustom7.setRoundTopLeft(20);
         panelCustom7.setRoundTopRight(20);
 
-        jLabel6.setBackground(new java.awt.Color(75, 22, 76));
-        jLabel6.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
-        jLabel6.setText("100.000");
+        txtRugiToday.setBackground(new java.awt.Color(75, 22, 76));
+        txtRugiToday.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
+        txtRugiToday.setText("100.000");
 
         jLabel7.setBackground(new java.awt.Color(106, 106, 106));
         jLabel7.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        jLabel7.setText("Rugi");
+        jLabel7.setText("Rugi ( Today )");
 
         jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/moneyy.png"))); // NOI18N
 
@@ -278,8 +281,8 @@ public class menuReturr extends javax.swing.JPanel {
                 .addGap(36, 36, 36)
                 .addGroup(panelCustom7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
+                    .addComponent(txtRugiToday))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
                 .addComponent(jLabel20)
                 .addGap(28, 28, 28))
         );
@@ -292,7 +295,7 @@ public class menuReturr extends javax.swing.JPanel {
                     .addGroup(panelCustom7Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6)))
+                        .addComponent(txtRugiToday)))
                 .addGap(27, 27, 27))
         );
 
@@ -413,15 +416,15 @@ public class menuReturr extends javax.swing.JPanel {
         tblDataDetail.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         tblDataDetail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID Retur", "Nama Product", "Jumlah", "Keterangan"
+                "ID Retur", "Nama Product", "Jumlah", "Harga/satuan", "Keterangan"
             }
         ));
         tblDataDetail.setRowHeight(30);
@@ -491,7 +494,7 @@ public class menuReturr extends javax.swing.JPanel {
 
         cbx_data.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
         cbx_data.setForeground(new java.awt.Color(75, 22, 76));
-        cbx_data.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "14", "20", "25" }));
+        cbx_data.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "15", "20", "25" }));
 
         btn_before.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
         btn_before.setForeground(new java.awt.Color(75, 22, 76));
@@ -593,7 +596,7 @@ public class menuReturr extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID Retur", "ID Product", "Nama Product", "Stok", "Satuan", "Jumlah", "Keterangan"
+                "ID Retur", "ID Product", "Nama Product", "Stok", "Harga Satuan", "Jumlah", "Keterangan"
             }
         ));
         tblDataSementara.setGridColor(new java.awt.Color(255, 255, 255));
@@ -625,7 +628,7 @@ public class menuReturr extends javax.swing.JPanel {
 
         jLabel13.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("Tgl. Transaksi :");
+        jLabel13.setText("Tgl. Retur :");
 
         tanggalPenjualan.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         tanggalPenjualan.setForeground(new java.awt.Color(255, 255, 255));
@@ -633,7 +636,11 @@ public class menuReturr extends javax.swing.JPanel {
 
         totalHargaa.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         totalHargaa.setForeground(new java.awt.Color(255, 255, 255));
-        totalHargaa.setText("Total Product :");
+        totalHargaa.setText("Total Rugi :");
+
+        txtRugi.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        txtRugi.setForeground(new java.awt.Color(255, 255, 255));
+        txtRugi.setText("999999");
 
         txtTotalProduct.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         txtTotalProduct.setForeground(new java.awt.Color(255, 255, 255));
@@ -650,10 +657,12 @@ public class menuReturr extends javax.swing.JPanel {
                 .addComponent(jLabel13)
                 .addGap(18, 18, 18)
                 .addComponent(tanggalPenjualan)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 237, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 191, Short.MAX_VALUE)
+                .addComponent(txtTotalProduct)
+                .addGap(54, 54, 54)
                 .addComponent(totalHargaa)
                 .addGap(18, 18, 18)
-                .addComponent(txtTotalProduct)
+                .addComponent(txtRugi)
                 .addGap(205, 205, 205))
             .addGroup(panelCustom4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelCustom4Layout.createSequentialGroup()
@@ -668,7 +677,8 @@ public class menuReturr extends javax.swing.JPanel {
                 .addGroup(panelCustom4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelCustom4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(totalHargaa, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtTotalProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtTotalProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtRugi, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelCustom4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(tanggalPenjualan, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -767,18 +777,18 @@ public class menuReturr extends javax.swing.JPanel {
         panelCustom8.add(txtIdProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 190, 50));
 
         jhargaBeli.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
-        jhargaBeli.setText("Satuan");
+        jhargaBeli.setText("Harga Satuan");
         panelCustom8.add(jhargaBeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 330, -1, -1));
 
-        txtSatuan.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
-        txtSatuan.addActionListener(new java.awt.event.ActionListener() {
+        txtHarga.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
+        txtHarga.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSatuanActionPerformed(evt);
+                txtHargaActionPerformed(evt);
             }
         });
-        panelCustom8.add(txtSatuan, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 370, 140, -1));
+        panelCustom8.add(txtHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 370, 140, -1));
 
-        panelAdd.add(panelCustom8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 1600, 940));
+        panelAdd.add(panelCustom8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 1600, 940));
 
         panelCustom14.setBackground(new java.awt.Color(255, 255, 255));
         panelCustom14.setRoundBottomLeft(20);
@@ -821,6 +831,7 @@ public class menuReturr extends javax.swing.JPanel {
     private void tblDataSementaraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDataSementaraMouseClicked
         dataTabelSementara();
         totalHargaa.setVisible(false);
+        txtRugi.setVisible(false);
         txtTotalProduct.setVisible(false);
         btnSimpan.setText("UBAH");
         cancelFieldColor(txtJumlah);
@@ -842,15 +853,19 @@ public class menuReturr extends javax.swing.JPanel {
                 btnBatal.setVisible(false);
         
                 int total = getTotal(txtIdReturn.getText());
-
+                int rugi = getRugi(txtIdReturn.getText());
+                
                 txtTotalProduct.setText(String.valueOf(total));
-                txtTotalProduct.setVisible(true);
+                txtRugi.setText(String.valueOf(rugi));
+                
+                txtTotalProduct.setVisible(false);
                 resetForm();
                 loadDataSementara();
 
                 // Reset tampilan input pembayar
                 btnSimpan.setText("SIMPAN");
                 totalHargaa.setVisible(true);
+                txtRugi.setVisible(true);
                 fieldColor(txtKeterangan);
                 fieldColor(txtJumlah);
     }//GEN-LAST:event_btnBatalActionPerformed
@@ -927,9 +942,9 @@ public class menuReturr extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNamaProductActionPerformed
 
-    private void txtSatuanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSatuanActionPerformed
+    private void txtHargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHargaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtSatuanActionPerformed
+    }//GEN-LAST:event_txtHargaActionPerformed
 
     private void pnMainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnMainMouseClicked
         deleteDataSementara();
@@ -966,7 +981,6 @@ public class menuReturr extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
@@ -999,12 +1013,14 @@ public class menuReturr extends javax.swing.JPanel {
     private javax.swing.JTable tblDataDetail;
     private javax.swing.JTable tblDataSementara;
     private javax.swing.JLabel totalHargaa;
+    private custom.JTextFieldRounded txtHarga;
     private custom.JTextFieldRounded txtIdProduct;
     private javax.swing.JLabel txtIdReturn;
     private custom.JTextFieldRounded txtJumlah;
     private custom.JTextFieldRounded txtKeterangan;
     private custom.JTextFieldRounded txtNamaProduct;
-    private custom.JTextFieldRounded txtSatuan;
+    private javax.swing.JLabel txtRugi;
+    private javax.swing.JLabel txtRugiToday;
     private custom.JTextFieldRounded txtSearch;
     private custom.JTextFieldRounded txtStok;
     private javax.swing.JLabel txtTotalProduct;
@@ -1068,9 +1084,10 @@ public class menuReturr extends javax.swing.JPanel {
         fieldColor(txtIdProduct);
         fieldColor(txtNamaProduct);
         fieldColor(txtStok);
-        fieldColor(txtSatuan);
+        fieldColor(txtHarga);
         txtTotalProduct.setVisible(false);
         totalHargaa.setVisible(false);
+        txtRugi.setVisible(false);
     }
     
     private void setProduct(){
@@ -1080,7 +1097,7 @@ public class menuReturr extends javax.swing.JPanel {
         
         txtIdProduct.setText(product.getId_product());
         txtNamaProduct.setText(product.getNama_product());
-        txtSatuan.setText(product.getSatuan());
+        txtHarga.setText(product.getHarga_beli());
         txtStok.setText(product.getStok_product());
     }
     
@@ -1170,9 +1187,7 @@ public class menuReturr extends javax.swing.JPanel {
         model.setRowCount(0);
         
         try {
-           String sql = "SELECT rt.id_return, DATE(rt.tgl_return) AS tgl_return, rt.total_product, "
-                   + "us.nama AS nama_user FROM return_produk rt "
-                   + "INNER JOIN user us ON rt.id_user = us.id_user ORDER BY rt.id_return ASC LIMIT ?,?";
+           String sql = "SELECT * FROM view_retur_produk LIMIT ?,?";
            try (PreparedStatement st = conn.prepareStatement(sql)) {
                st.setInt(1, startIndex);
                st.setInt(2, entriesPage);
@@ -1182,10 +1197,11 @@ public class menuReturr extends javax.swing.JPanel {
                     String idReturn = rs.getString("id_return");
                     String tglReturn = rs.getString("tgl_return");
                     int totalProduct = rs.getInt("total_product");
+                    int rugi = rs.getInt("rugi");
                     String namaUser = rs.getString("nama_user");
                     
 
-                    Object[] rowData = {idReturn, tglReturn, totalProduct, namaUser};
+                    Object[] rowData = {idReturn, tglReturn, totalProduct,rugi, namaUser};
                     model.addRow(rowData);
                 }
            }
@@ -1198,8 +1214,7 @@ public class menuReturr extends javax.swing.JPanel {
         model.setRowCount(0);
         
         try {
-           String sql = "SELECT dr.id_return, p.nama_product, dr.jumlah, dr.keterangan"
-                   + " FROM detail_return_product dr INNER JOIN product p ON dr.id_product = p.id_product WHERE dr.id_return = '"+id+"'";
+           String sql = "SELECT view_detail_retur_produk WHERE dr.id_return = '"+id+"'";
            try (PreparedStatement st = conn.prepareStatement(sql)) {
                ResultSet rs = st.executeQuery();
                
@@ -1207,15 +1222,39 @@ public class menuReturr extends javax.swing.JPanel {
                     String idReturn         = rs.getString("id_return");
                     String namaProduct      = rs.getString("nama_product");
                     int jumlah              = rs.getInt("jumlah");
+                    int hargaBeli           = rs.getInt("harga_beli");
                     String keterangan       = rs.getString("keterangan");
                     
 
-                    Object[] rowData = {idReturn, namaProduct, jumlah, keterangan};
+                    Object[] rowData = {idReturn, namaProduct, jumlah, hargaBeli, keterangan};
                     model.addRow(rowData);
                 }
            }
         }catch (Exception e) {
             Logger.getLogger(menuReturr.class.getName()).log(Level.SEVERE,null, e);
+        }
+    }
+    
+    private void total() {
+        try {
+            String sql = "SELECT SUM(rugi) AS total_rugi FROM return_produk WHERE DATE(tgl_return) = CURDATE()";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                int pengeluaran = rs.getInt("total_rugi");
+
+                // Format ke dalam format Indonesia tanpa "Rp"
+                DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+                symbols.setGroupingSeparator('.');
+                symbols.setDecimalSeparator(',');
+                DecimalFormat decimalFormat = new DecimalFormat("#,##0.00", symbols);
+                String rugiFormatted = decimalFormat.format(pengeluaran);
+
+                txtRugiToday.setText(rugiFormatted);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     
@@ -1229,6 +1268,7 @@ public class menuReturr extends javax.swing.JPanel {
         getData(startIndex, dataPerHalaman, (DefaultTableModel) tblData.getModel());
         pnDetail.setVisible(false);
         namaUser.setText(nama.split("\\s+")[0].toUpperCase());
+        total();
     }
     
     private void setTabelModel() {
@@ -1242,7 +1282,7 @@ public class menuReturr extends javax.swing.JPanel {
     private void resetForm() {
         txtIdProduct.setText("");
         txtNamaProduct.setText("");
-        txtSatuan.setText("");
+        txtHarga.setText("");
         txtStok.setText("");
         txtJumlah.setText("");
         txtKeterangan.setText("");
@@ -1250,7 +1290,7 @@ public class menuReturr extends javax.swing.JPanel {
     
     private void clickNoSementara() {
                 btnSetProduct.setVisible(false);
-                txtSatuan.setEnabled(false);
+                txtHarga.setEnabled(false);
                 txtJumlah.setText("");
     }
     
@@ -1273,31 +1313,49 @@ public class menuReturr extends javax.swing.JPanel {
         return totalHarga;
     }
     
+    private int getRugi(String idReturn) {
+        int totalRugi = 0;
+
+        try {
+        String sql = "SELECT SUM(harga_satuan * jumlah) AS total FROM sementara_return WHERE id_return = ?";
+        try (PreparedStatement st = conn.prepareStatement(sql)) {
+            st.setString(1, idReturn);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                totalRugi = rs.getInt("total");
+            }
+        } 
+        } catch (Exception e) {
+                Logger.getLogger(transaksiPenjualan.class.getName()).log(Level.SEVERE, null, e);
+            }
+
+        return totalRugi;
+    }
+    
     private void insertDataSementara() {
     String idReturn = txtIdReturn.getText();
     String idProduct = txtIdProduct.getText();
     String namaProduct = txtNamaProduct.getText();
     String stok = txtStok.getText();
-    String satuan = txtSatuan.getText();
+    String harga = txtHarga.getText();
     String jumlah = txtJumlah.getText();
     String keterangan    = txtKeterangan.getText();
 
     if (idReturn.isEmpty() || idProduct.isEmpty() || jumlah.isEmpty() || keterangan.isEmpty()) {
-            // Menggunakan JOptionPane untuk menampilkan pesan peringatan
             JOptionPane.showMessageDialog(this, "Semua Kolom Harus Di-isi", 
                     "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
     try {
-        String sql = "INSERT INTO sementara_return (id_return, id_product ,nama_product, stok, satuan, jumlah,"
+        String sql = "INSERT INTO sementara_return (id_return, id_product ,nama_product, stok, harga_satuan, jumlah,"
                 + "keterangan) VALUES (?,?,?,?,?,?,?)";
         try (PreparedStatement st = conn.prepareStatement(sql)) {
             st.setString(1, idReturn);
             st.setString(2, idProduct);
             st.setString(3, namaProduct);
             st.setString(4, stok);
-            st.setString(5, satuan);
+            st.setString(5, harga);
             st.setString(6, jumlah);
             st.setString(7, keterangan);
             st.executeUpdate();
@@ -1313,13 +1371,16 @@ public class menuReturr extends javax.swing.JPanel {
                 fieldColor(txtJumlah);
                 fieldColor(txtKeterangan);
                 totalHargaa.setVisible(true);
-                txtTotalProduct.setVisible(true);
+                txtTotalProduct.setVisible(false);
+                txtRugi.setVisible(true);
                 btnSimpan.setText("SIMPAN");
                 txtKeterangan.setText("");
             }
             int total = getTotal(idReturn);
+            int rugi = getRugi(idReturn);
             
             txtTotalProduct.setText(String.valueOf(total));
+            txtRugi.setText(String.valueOf(rugi));
             loadDataSementara();
         }
     } catch (Exception e) {
@@ -1349,12 +1410,12 @@ public class menuReturr extends javax.swing.JPanel {
                     String idProduct = rs.getString("id_product");
                     String namaProduct = rs.getString("nama_product");
                     String stok = rs.getString("stok");
-                    String satuan = rs.getString("satuan");
+                    String harga = rs.getString("harga_satuan");
                     String jumlah = rs.getString("jumlah");
                     String keterangan = rs.getString("keterangan");
 
 
-                    Object[] rowData = {idReturn, idProduct, namaProduct ,stok, satuan, jumlah, keterangan};
+                    Object[] rowData = {idReturn, idProduct, namaProduct ,stok, harga, jumlah, keterangan};
                     model.addRow(rowData);
                 }
            }
@@ -1374,20 +1435,21 @@ public class menuReturr extends javax.swing.JPanel {
     private boolean insertData() {
     String idReturn = txtIdReturn.getText();
     String totalProduct = txtTotalProduct.getText();
-
+    String totalRugi  = txtRugi.getText();
 
     // Dapatkan waktu sekarang dalam format yang benar
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     String tglReturn = LocalDateTime.now().format(formatter);
 
     try {
-        String sql = "INSERT INTO return_produk (id_return, tgl_return, total_product, id_user) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO return_produk (id_return, tgl_return, total_product, rugi, id_user) VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement st = conn.prepareStatement(sql)) {
             st.setString(1, idReturn);
             st.setString(2, tglReturn);
             st.setString(3, totalProduct);
-            st.setString(4, id_user);
+            st.setString(4, totalRugi);
+            st.setString(5, id_user);
 
             int rowInserted = st.executeUpdate();
             return rowInserted > 0;
@@ -1407,13 +1469,11 @@ public class menuReturr extends javax.swing.JPanel {
     }
     
     try {
-        // Pastikan koneksi aktif
         if (conn == null || conn.isClosed()) {
             System.err.println("Koneksi database tidak tersedia.");
             return false;
         }
         
-        // 1. Insert ke detail_return_product dari sementara_return
         String insertSQL = "INSERT INTO detail_return_product (id_return, id_product, jumlah, keterangan) " +
                            "SELECT ?, id_product, jumlah, keterangan FROM sementara_return";
                            
@@ -1427,7 +1487,6 @@ public class menuReturr extends javax.swing.JPanel {
             }
         }
         
-        // 2. Tambah kembali stok produk yang di-return (kebalikan dari penjualan)
         String selectReturnSQL = "SELECT id_product, jumlah FROM sementara_return";
         try (PreparedStatement selectStmt = conn.prepareStatement(selectReturnSQL);
              ResultSet rs = selectStmt.executeQuery()) {
@@ -1484,7 +1543,7 @@ public class menuReturr extends javax.swing.JPanel {
         txtIdProduct.setText(tblDataSementara.getValueAt(row, 1).toString());
         txtNamaProduct.setText(tblDataSementara.getValueAt(row, 2).toString());
         txtStok.setText(tblDataSementara.getValueAt(row, 3).toString());
-        txtSatuan.setText(tblDataSementara.getValueAt(row, 4).toString());
+        txtHarga.setText(tblDataSementara.getValueAt(row, 4).toString());
         txtJumlah.setText(tblDataSementara.getValueAt(row, 5).toString());
         txtKeterangan.setText(tblDataSementara.getValueAt(row, 6).toString());
         
@@ -1497,7 +1556,7 @@ public class menuReturr extends javax.swing.JPanel {
         String idProduct = txtIdProduct.getText();
         String namaProduct = txtNamaProduct.getText();
         String stok = txtStok.getText();
-        String satuan = txtSatuan.getText();
+        String hargaSatuan = txtHarga.getText();
         String jumlah = txtJumlah.getText();
         String keterangan    = txtKeterangan.getText();
 
@@ -1508,13 +1567,13 @@ public class menuReturr extends javax.swing.JPanel {
         }
 
 
-        String sql = "UPDATE sementara_return SET id_return=?, nama_product=?, stok=?, satuan=?, jumlah=?, keterangan=? WHERE id_product=?";
+        String sql = "UPDATE sementara_return SET id_return=?, nama_product=?, stok=?, harga_satuan=?, jumlah=?, keterangan=? WHERE id_product=?";
 
         try (PreparedStatement st = conn.prepareStatement(sql)) {
             st.setString(1, idReturn);
             st.setString(2, namaProduct);
             st.setString(3, stok);
-            st.setString(4, satuan);
+            st.setString(4, hargaSatuan);
             st.setString(5, jumlah);
             st.setString(6, keterangan);
             st.setString(7, idProduct);
@@ -1525,9 +1584,11 @@ public class menuReturr extends javax.swing.JPanel {
 
                 // Update total harga dan total untung setelah perubahan
                 int total = getTotal(idReturn);
+                int rugi = getRugi(idReturn);
 
                 txtTotalProduct.setText(String.valueOf(total));
-                txtTotalProduct.setVisible(true);
+                txtRugi.setText(String.valueOf(rugi));
+                txtTotalProduct.setVisible(false);
                 resetForm();
                 loadDataSementara();
 
@@ -1536,6 +1597,7 @@ public class menuReturr extends javax.swing.JPanel {
                 fieldColor(txtKeterangan);
                 btnSimpan.setText("SIMPAN");
                 totalHargaa.setVisible(true);
+                txtRugi.setVisible(true);
                 btnHapus.setVisible(false);
                 btnBatal.setVisible(false);
                 fieldColor(txtJumlah);
@@ -1573,9 +1635,10 @@ public class menuReturr extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(this, "Data berhasil dihapus", "Sukses", JOptionPane.INFORMATION_MESSAGE);
 
                         int total = getTotal(txtIdReturn.getText());
-
+                        int rugi = getRugi(txtIdReturn.getText());
+                        
                         txtTotalProduct.setText(String.valueOf(total));
-
+                        txtRugi.setText(String.valueOf(rugi));
                         loadDataSementara();
                         txtJumlah.setText("");
                         txtJumlah.setEnabled( false);
@@ -1590,9 +1653,11 @@ public class menuReturr extends javax.swing.JPanel {
             }
         }
                 int total = getTotal(txtIdReturn.getText());
-
+                int rugi = getRugi(txtIdReturn.getText());
+                
                 txtTotalProduct.setText(String.valueOf(total));
-                txtTotalProduct.setVisible(true);
+                txtRugi.setText(String.valueOf(rugi));
+                txtTotalProduct.setVisible(false);
                 resetForm();
                 loadDataSementara();
 
@@ -1600,6 +1665,7 @@ public class menuReturr extends javax.swing.JPanel {
                 fieldColor(txtKeterangan);
                 btnSimpan.setText("SIMPAN");
                 totalHargaa.setVisible(true);
+                txtRugi.setVisible(true);
                 btnHapus.setVisible(false);
                 btnBatal.setVisible(false);
                 fieldColor(txtJumlah);
@@ -1625,7 +1691,7 @@ public class menuReturr extends javax.swing.JPanel {
     
     
     try {
-        String sql = "SELECT rt.id_return, DATE(rt.tgl_return) AS tgl_return, rt.total_product, "
+        String sql = "SELECT rt.id_return, DATE(rt.tgl_return) AS tgl_return, rt.total_product, rt.rugi"
            + "us.nama FROM return_produk rt "
            + "INNER JOIN user us ON rt.id_user = us.id_user "
            + "WHERE rt.id_return LIKE ? OR DATE(rt.tgl_return) LIKE ? "
@@ -1638,6 +1704,7 @@ public class menuReturr extends javax.swing.JPanel {
             st.setString(2, "%" + kataKunci + "%");
             st.setString(3, "%" + kataKunci + "%");
             st.setString(4, "%" + kataKunci + "%");
+            st.setString(5, "%" + kataKunci + "%");
 
             ResultSet rs = st.executeQuery();
 
@@ -1645,8 +1712,9 @@ public class menuReturr extends javax.swing.JPanel {
                 String idReturn = rs.getString("id_return");
                 String tglReturn = rs.getString("tgl_return");
                 int totalProduct = rs.getInt("total_product");
+                int rugi = rs.getInt("rugi");
                 String namaUser = rs.getString("nama");
-                Object[] rowData = {idReturn, tglReturn, totalProduct, namaUser};
+                Object[] rowData = {idReturn, tglReturn, totalProduct, rugi, namaUser};
                 model.addRow(rowData);
             }
         }

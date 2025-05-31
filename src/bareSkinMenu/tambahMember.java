@@ -2,6 +2,9 @@ package bareSkinMenu;
 
 import config.koneksi;
 import java.awt.Color;
+import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.logging.Level;
@@ -50,7 +53,7 @@ public class tambahMember extends javax.swing.JDialog {
     super(parent, modal);
     initComponents();
     setLocationRelativeTo(null);
-
+    max10digit();
     conn = koneksi.getConnection();
     finishing();
 
@@ -120,7 +123,7 @@ public class tambahMember extends javax.swing.JDialog {
                 txtIdMemberActionPerformed(evt);
             }
         });
-        panelView.add(txtIdMember, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, 190, 50));
+        panelView.add(txtIdMember, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, 150, 50));
 
         jLabel23.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
         jLabel23.setText("Nama Member");
@@ -217,6 +220,56 @@ public class tambahMember extends javax.swing.JDialog {
     private custom.JTextFieldRounded txtPoin;
     // End of variables declaration//GEN-END:variables
 
+    private void max10digit() {
+    txtIdMember.addKeyListener(new KeyAdapter() {
+        @Override
+        public void keyTyped(KeyEvent e) {
+            char c = e.getKeyChar();
+            
+            if (Character.isISOControl(c)) {
+                return;
+            }
+            
+            if (!Character.isDigit(c)) {
+                e.consume();
+                Toolkit.getDefaultToolkit().beep();
+                JOptionPane.showMessageDialog(null, "ID hanya boleh berisi angka!");
+                return;
+            }
+            
+            if (txtIdMember.getText().length() >= 10) {
+                e.consume(); 
+                Toolkit.getDefaultToolkit().beep(); 
+                JOptionPane.showMessageDialog(null, "ID Product tidak boleh lebih dari 10 digit.");
+            }
+        }
+    });
+    
+    txtNomorTelepon.addKeyListener(new KeyAdapter() {
+        @Override
+        public void keyTyped(KeyEvent e) {
+            char c = e.getKeyChar();
+            
+            if (Character.isISOControl(c)) {
+                return;
+            }
+            
+            if (!Character.isDigit(c)) {
+                e.consume();
+                Toolkit.getDefaultToolkit().beep();
+                JOptionPane.showMessageDialog(null, "Nomor hanya boleh berisi angka!");
+                return;
+            }
+            
+            if (txtNomorTelepon.getText().length() >= 13) {
+                e.consume(); 
+                Toolkit.getDefaultToolkit().beep(); 
+                JOptionPane.showMessageDialog(null, "ID Product tidak boleh lebih dari 13 digit.");
+            }
+        }
+    });
+}
+    
     private void fieldColor(JTextField field) {
         field.setOpaque(true);
         field.setEditable(false);

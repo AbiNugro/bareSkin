@@ -30,7 +30,7 @@ public class menuKaryawan extends javax.swing.JPanel {
      */
     
     private int halamanSaatIni = 1;
-    private int dataPerHalaman = 14;
+    private int dataPerHalaman = 15;
     private int totalPages;
     private String nama;
     private final Connection conn;
@@ -306,7 +306,7 @@ public class menuKaryawan extends javax.swing.JPanel {
 
         cbx_data.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
         cbx_data.setForeground(new java.awt.Color(75, 22, 76));
-        cbx_data.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "14", "20", "25" }));
+        cbx_data.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "15", "20", "25" }));
 
         btn_before.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
         btn_before.setForeground(new java.awt.Color(75, 22, 76));

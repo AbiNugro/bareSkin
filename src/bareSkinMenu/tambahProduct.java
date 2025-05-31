@@ -2,6 +2,7 @@ package bareSkinMenu;
 
 import config.koneksi;
 import java.awt.Color;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -11,6 +12,8 @@ import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -75,7 +78,7 @@ public class tambahProduct extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-
+        max13digit();
         conn = koneksi.getConnection();
         finishing();
         
@@ -124,6 +127,7 @@ public class tambahProduct extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        dateChooser1 = new com.raven.datechooser.DateChooser();
         panelView = new javax.swing.JPanel();
         databahan = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
@@ -143,6 +147,8 @@ public class tambahProduct extends javax.swing.JDialog {
         jLabel26 = new javax.swing.JLabel();
         txtHargaJual = new custom.JTextFieldRounded();
         btnSimpan = new rojerusan.RSMaterialButtonRectangle();
+
+        dateChooser1.setTextRefernce(txtTanggalExpired);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -294,6 +300,7 @@ public class tambahProduct extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cbxKategori;
     private javax.swing.JComboBox<String> cbxSatuan;
     private javax.swing.JLabel databahan;
+    private com.raven.datechooser.DateChooser dateChooser1;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
@@ -311,6 +318,34 @@ public class tambahProduct extends javax.swing.JDialog {
     private custom.JTextFieldRounded txtTanggalExpired;
     // End of variables declaration//GEN-END:variables
 
+    
+    private void max13digit() {
+    txtIdProduct.addKeyListener(new KeyAdapter() {
+        @Override
+        public void keyTyped(KeyEvent e) {
+            char c = e.getKeyChar();
+            
+            if (Character.isISOControl(c)) {
+                return;
+            }
+            
+            if (!Character.isDigit(c)) {
+                e.consume();
+                Toolkit.getDefaultToolkit().beep();
+                JOptionPane.showMessageDialog(null, "ID hanya boleh berisi angka!");
+                return;
+            }
+            
+            if (txtIdProduct.getText().length() >= 13) {
+                e.consume(); // mencegah input lebih dari 13 karakter
+                Toolkit.getDefaultToolkit().beep(); // tanda peringatan
+                JOptionPane.showMessageDialog(null, "ID Product tidak boleh lebih dari 13 digit.");
+            }
+        }
+    });
+}
+
+    
     private void fieldColor(JTextField field) {
         field.setOpaque(true);
         field.setEditable(false);
@@ -344,15 +379,34 @@ public class tambahProduct extends javax.swing.JDialog {
         String tgl_expired = txtTanggalExpired.getText().trim();
         String kategori = cbxKategori.getSelectedItem().toString();
 
-        if (id_product.isEmpty() || nama_product.isEmpty() || stok_product.isEmpty() 
-                || harga_beli.isEmpty() || harga_jual.isEmpty() || tgl_expired.isEmpty() || 
-                cbxSatuan.getSelectedItem().toString().equals("Pilih Satuan Product") 
-                || cbxKategori.getSelectedItem().toString().equals("Pilih Kategori Product")) {
-            // Menggunakan JOptionPane untuk menampilkan pesan peringatan
-            JOptionPane.showMessageDialog(this, "Semua Kolom Harus Di-isi", 
+        // Validasi input kosong atau belum dipilih
+        if (id_product.isEmpty() || nama_product.isEmpty() || stok_product.isEmpty()
+                || harga_beli.isEmpty() || harga_jual.isEmpty() || tgl_expired.isEmpty()
+                || satuan.equals("Pilih Satuan Product")
+                || kategori.equals("Pilih Kategori Product")) {
+            JOptionPane.showMessageDialog(this, "Semua Kolom Harus Di-isi",
                     "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
+        
+        String tanggalUntukDatabase;
+        try {
+            if (tgl_expired.matches("\\d{4}-\\d{2}-\\d{2}")) {
+                tanggalUntukDatabase = tgl_expired;
+            } else {
+                SimpleDateFormat sdfInput = new SimpleDateFormat("dd-MM-yyyy");
+                Date tanggal = sdfInput.parse(tgl_expired);
+
+                SimpleDateFormat sdfOutput = new SimpleDateFormat("yyyy-MM-dd");
+                tanggalUntukDatabase = sdfOutput.format(tanggal);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Format tanggal tidak valid. Gunakan format dd-MM-yyyy atau yyyy-MM-dd.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+            return;
+        }
+
 
         try {
             String sql = "INSERT INTO product (id_product, nama_product, stok_product, satuan, "
@@ -364,13 +418,12 @@ public class tambahProduct extends javax.swing.JDialog {
                 st.setString(4, satuan);
                 st.setString(5, harga_beli);
                 st.setString(6, harga_jual);
-                st.setString(7, tgl_expired);
+                st.setString(7, tanggalUntukDatabase); // Gunakan format yang benar!
                 st.setString(8, kategori);
 
                 int rowInserted = st.executeUpdate();
                 if (rowInserted > 0) {
-                    // Notifikasi sukses
-                    JOptionPane.showMessageDialog(this, "Data Berhasil Ditambahkan", 
+                    JOptionPane.showMessageDialog(this, "Data Berhasil Ditambahkan",
                             "Sukses", JOptionPane.INFORMATION_MESSAGE);
 
                     resetForm();
@@ -379,47 +432,64 @@ public class tambahProduct extends javax.swing.JDialog {
             }
         } catch (Exception e) {
             Logger.getLogger(tambahSupplier.class.getName()).log(Level.SEVERE, null, e);
+            JOptionPane.showMessageDialog(this, "Gagal menambahkan data ke database.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
     
     private void updateData() {
-        String id_product = txtIdProduct.getText();
-        String nama_product = txtNamaProduct.getText();
-        String stok_product = txtStok.getText();
+        String id_product = txtIdProduct.getText().trim();
+        String nama_product = txtNamaProduct.getText().trim();
+        String stok_product = txtStok.getText().trim();
         String satuan = cbxSatuan.getSelectedItem().toString();
-        String hargaBeli = txtHargaBeli.getText();
-        String hargaJual = txtHargaJual.getText();
-        String tgl_expired = txtTanggalExpired.getText();
+        String harga_beli = txtHargaBeli.getText().trim();
+        String harga_jual = txtHargaJual.getText().trim();
+        String tgl_expired = txtTanggalExpired.getText().trim();
         String kategori = cbxKategori.getSelectedItem().toString();
-        
-        
-        if (id_product.isEmpty() || nama_product.isEmpty() || stok_product.isEmpty() 
-                || harga_beli.isEmpty() || harga_jual.isEmpty() || tgl_expired.isEmpty() || 
-                cbxSatuan.getSelectedItem().toString().equals("Pilih Satuan Product") 
-                || cbxKategori.getSelectedItem().toString().equals("Pilih Kategori Product")) {
-            // Menggunakan JOptionPane untuk menampilkan pesan peringatan
-            JOptionPane.showMessageDialog(this, "Semua Kolom Harus Di-isi", 
+
+        // Validasi input kosong
+        if (id_product.isEmpty() || nama_product.isEmpty() || stok_product.isEmpty()
+                || harga_beli.isEmpty() || harga_jual.isEmpty() || tgl_expired.isEmpty()
+                || satuan.equals("Pilih Satuan Product")
+                || kategori.equals("Pilih Kategori Product")) {
+            JOptionPane.showMessageDialog(this, "Semua Kolom Harus Di-isi",
                     "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
+
+        // Konversi tanggal ke format yyyy-MM-dd
+        String tanggalUntukDatabase;
+        try {
+            SimpleDateFormat sdfInput = new SimpleDateFormat("dd-MM-yyyy");
+            Date tanggal = sdfInput.parse(tgl_expired);
+
+            SimpleDateFormat sdfOutput = new SimpleDateFormat("yyyy-MM-dd");
+            tanggalUntukDatabase = sdfOutput.format(tanggal);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Format tanggal tidak valid. Gunakan format dd-MM-yyyy.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+            return;
+        }
+
+        // Proses update data ke database
         try {
             String sql = "UPDATE product SET nama_product=?, stok_product=?, satuan=?, harga_beli=?, "
                     + "harga_jual=?, tgl_expired=?, kategori=? WHERE id_product=?";
-            try(PreparedStatement st = conn.prepareStatement(sql)){
+            try (PreparedStatement st = conn.prepareStatement(sql)) {
                 st.setString(1, nama_product);
                 st.setString(2, stok_product);
                 st.setString(3, satuan);
-                st.setString(4, hargaBeli);
-                st.setString(5, hargaJual);
-                st.setString(6, tgl_expired);
+                st.setString(4, harga_beli);
+                st.setString(5, harga_jual);
+                st.setString(6, tanggalUntukDatabase); // Format tanggal yang benar!
                 st.setString(7, kategori);
                 st.setString(8, id_product);
-                
-                int rowInserted = st.executeUpdate();
-                if (rowInserted > 0) {
-                    // Notifikasi sukses
-                    JOptionPane.showMessageDialog(this, "Data Berhasil Diubah", 
+
+                int rowUpdated = st.executeUpdate();
+                if (rowUpdated > 0) {
+                    JOptionPane.showMessageDialog(this, "Data Berhasil Diubah",
                             "Sukses", JOptionPane.INFORMATION_MESSAGE);
 
                     resetForm();
@@ -428,7 +498,10 @@ public class tambahProduct extends javax.swing.JDialog {
             }
         } catch (Exception e) {
             Logger.getLogger(tambahSupplier.class.getName()).log(Level.SEVERE, null, e);
+            JOptionPane.showMessageDialog(this, "Gagal mengubah data ke database.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
     
 }

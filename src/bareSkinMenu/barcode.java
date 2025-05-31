@@ -9,18 +9,16 @@ package bareSkinMenu;
  * @author Amandaanisa
  */
 import java.awt.Image;
-import java.awt.Window;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import net.sourceforge.jbarcodebean.JBarcodeBean;
+import net.sourceforge.jbarcodebean.JBarcodeBean; 
+
 
 //import jnafilechooser.api.JnaFileChooser;
 import net.sourceforge.jbarcodebean.model.AbstractBarcodeStrategy;
@@ -36,62 +34,47 @@ import net.sourceforge.jbarcodebean.model.MSI;
 
 public class barcode extends javax.swing.JFrame {
     
+    private String idProduk;
     private BufferedImage image = null;
+    /**
+     * Creates new form barcode
+     */
+public barcode(String idProduk) {
+    initComponents();
+    setLocationRelativeTo(null);
+    setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+    this.idProduk = idProduk;
+    generateBarcode((String) cbx_code.getSelectedItem(), idProduk); 
 
-    public barcode(String idProduk) {
-        initComponents();
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
+    if (lb_barcode != null) {
+        // Pastikan barcode type sesuai pilihan
+        String selectedType = (String) cbx_code.getSelectedItem(); // Bisa diganti nanti jika dari combo box
+        AbstractBarcodeStrategy strategy = getCodeType(selectedType);
 
-        if (lb_barcode != null) {
-            // Pastikan barcode type sesuai pilihan
-            String selectedType = "Code128"; // Bisa diganti nanti jika dari combo box
-            AbstractBarcodeStrategy strategy = getCodeType(selectedType);
+        if (strategy != null) {
+            JBarcodeBean barcodeBean = new JBarcodeBean();
+            barcodeBean.setCodeType(strategy);
+            barcodeBean.setCode(idProduk);
 
-            if (strategy != null) {
-                JBarcodeBean barcodeBean = new JBarcodeBean();
-                barcodeBean.setCodeType(strategy);
-                barcodeBean.setCode(idProduk);
+            int barcodeWidth = 200;
+            int barcodeHeight = 100;
+            image = barcodeBean.draw(new BufferedImage(barcodeWidth, barcodeHeight, BufferedImage.TYPE_INT_RGB));
 
-                int barcodeWidth = 200;
-                int barcodeHeight = 100;
-                image = barcodeBean.draw(new BufferedImage(barcodeWidth, barcodeHeight, BufferedImage.TYPE_INT_RGB));
+            //image = barcodeBean.draw(new BufferedImage(lb_barcode.getWidth(), lb_barcode.getHeight(), BufferedImage.TYPE_INT_RGB));
+            ImageIcon iconBarcode = new ImageIcon(
+            new ImageIcon(image).getImage().getScaledInstance(
+            lb_barcode.getWidth(),
+            lb_barcode.getHeight(),
+            Image.SCALE_SMOOTH
+        )
+    );
+        
+    // Tampilkan barcode di label
+    lb_barcode.setIcon(iconBarcode);
 
-                //image = barcodeBean.draw(new BufferedImage(lb_barcode.getWidth(), lb_barcode.getHeight(), BufferedImage.TYPE_INT_RGB));
-                ImageIcon iconBarcode = new ImageIcon(
-                new ImageIcon(image).getImage().getScaledInstance(
-                lb_barcode.getWidth(),
-                lb_barcode.getHeight(),
-                Image.SCALE_SMOOTH
-            )
-        );
-
-        // Tampilkan barcode di label
-        lb_barcode.setIcon(iconBarcode);
-
-
-    //        JBarcodeBean barcodeBean = new JBarcodeBean();
-    //    barcodeBean.setCodeType(new Code128()); // atau get dari combo box
-    //    barcodeBean.setCode(idProduk);
-    //
-    //    int barcodeWidth = 200;
-    //    int barcodeHeight = 100;
-    //    BufferedImage image = barcodeBean.draw(new BufferedImage(barcodeWidth, barcodeHeight, BufferedImage.TYPE_INT_RGB));
-    //
-    //    ImageIcon iconBarcode = new ImageIcon(
-    //        new ImageIcon(image).getImage().getScaledInstance(
-    //            lb_barcode.getWidth(),
-    //            lb_barcode.getHeight(),
-    //            Image.SCALE_SMOOTH
-    //        )
-    //    );
-    //
-    //    lb_barcode.setIcon(iconBarcode);
-
-            }
-
-        }
+        } 
     }
+}
     private AbstractBarcodeStrategy getCodeType(String codeType){
     AbstractBarcodeStrategy mCodeType = null;
     switch (codeType){
@@ -128,6 +111,28 @@ public class barcode extends javax.swing.JFrame {
     return mCodeType;
 }
 
+    private void generateBarcode(String codeType, String idProduk) {
+    AbstractBarcodeStrategy strategy = getCodeType(codeType);
+    if (strategy != null) {
+        JBarcodeBean barcodeBean = new JBarcodeBean();
+        barcodeBean.setCodeType(strategy);
+        barcodeBean.setCode(idProduk);
+
+        int barcodeWidth = 200;
+        int barcodeHeight = 100;
+        image = barcodeBean.draw(new BufferedImage(barcodeWidth, barcodeHeight, BufferedImage.TYPE_INT_RGB));
+
+        ImageIcon iconBarcode = new ImageIcon(
+            new ImageIcon(image).getImage().getScaledInstance(
+                lb_barcode.getWidth(),
+                lb_barcode.getHeight(),
+                Image.SCALE_SMOOTH
+            )
+        );
+
+        lb_barcode.setIcon(iconBarcode);
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -145,11 +150,10 @@ public class barcode extends javax.swing.JFrame {
         lb_barcode = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(248, 231, 246));
 
         jPanel1.setBackground(new java.awt.Color(248, 231, 246));
 
-        cbx_code.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Code128", "Codebar", "Ean13" }));
+        cbx_code.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Code128", "Codabar", "Ean13" }));
         cbx_code.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbx_codeActionPerformed(evt);
@@ -171,14 +175,14 @@ public class barcode extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(62, 62, 62)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(cbx_code, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnExport, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(64, 64, 64)
@@ -196,7 +200,7 @@ public class barcode extends javax.swing.JFrame {
                     .addComponent(btnExport, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(50, 50, 50)
                 .addComponent(lb_barcode, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -207,9 +211,7 @@ public class barcode extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -217,41 +219,44 @@ public class barcode extends javax.swing.JFrame {
 
     private void cbx_codeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_codeActionPerformed
         // TODO add your handling code here:
+        String selectedType = (String) cbx_code.getSelectedItem();
+        generateBarcode(selectedType, idProduk);
     }//GEN-LAST:event_cbx_codeActionPerformed
 
     private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
         // TODO add your handling code here:
         //exportBarcode(image);
+    if (image == null) {
+        JOptionPane.showMessageDialog(this, "Barcode belum digenerate!");
+        return;
+    }
 
+    // Buka file chooser
+    JFileChooser fileChooser = new JFileChooser(new File("C:\\Users\\Public")); // Lokasi awal aman
+    fileChooser.setDialogTitle("Simpan Barcode sebagai PNG");
+    fileChooser.setFileFilter(new FileNameExtensionFilter("PNG Images", "png"));
+
+    int userSelection = fileChooser.showSaveDialog(this);
+    if (userSelection == JFileChooser.APPROVE_OPTION) {
+        File fileToSave = fileChooser.getSelectedFile();
+
+        // Tambahkan ekstensi jika belum ada
+        String path = fileToSave.getAbsolutePath();
+        if (!path.toLowerCase().endsWith(".png")) {
+            fileToSave = new File(path + ".png");
+        }
+
+        try {
+            ImageIO.write(image, "png", fileToSave);
+            JOptionPane.showMessageDialog(this, "Barcode berhasil disimpan ke:\n" + fileToSave.getAbsolutePath());
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Gagal menyimpan barcode: " + e.getMessage());
+        }
+    }
+
+ 
     }//GEN-LAST:event_btnExportActionPerformed
     
-//    private boolean exportBarcode(BufferedImage imageBarcode) {
-//    JFileChooser fileChooser = new JFileChooser(new File("C:\\Users\\Public")); // Lokasi awal aman
-//    fileChooser.setDialogTitle("Simpan Barcode sebagai PNG");
-//    fileChooser.setFileFilter(new FileNameExtensionFilter("PNG Images", "png"));
-
-//    SwingUtilities.windowForComponent(this); // Tidak dipakai, bisa dihapus
-//    int action = fileChooser.showSaveDialog(this);
-//
-//    if (action == JFileChooser.APPROVE_OPTION) {
-//        File fileBarcode = fileChooser.getSelectedFile();
-//        
-//        // Tambahkan ".png" jika user tidak menulis ekstensi
-//        if (!fileBarcode.getName().toLowerCase().endsWith(".png")) {
-//            fileBarcode = new File(fileBarcode.getAbsolutePath() + ".png");
-//        }
-//
-//        try {
-//            ImageIO.write(imageBarcode, "png", fileBarcode);
-//            return true; // Berhasil
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return false; // Gagal saat menyimpan
-//        }
-//    } else {
-//        return false; // User klik Cancel
-//    }
-//}
 
     /**
      * @param args the command line arguments
@@ -291,7 +296,7 @@ public class barcode extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             private String idProduk;
             public void run() {
-                new barcode(idProduk).setVisible(true);
+                new barcode("PRODUK001").setVisible(true);
             }
         });
     }

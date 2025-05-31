@@ -25,7 +25,7 @@ public class menuSupplier extends javax.swing.JPanel {
 
     
     private int halamanSaatIni = 1;
-    private int dataPerHalaman = 14;
+    private int dataPerHalaman = 15;
     private int totalPages;
     private final Connection conn;
     private String nama;
@@ -295,7 +295,7 @@ public class menuSupplier extends javax.swing.JPanel {
 
         cbx_data.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
         cbx_data.setForeground(new java.awt.Color(75, 22, 76));
-        cbx_data.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "14", "20", "25" }));
+        cbx_data.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "15", "20", "25" }));
 
         btn_before.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
         btn_before.setForeground(new java.awt.Color(75, 22, 76));
@@ -473,16 +473,47 @@ public class menuSupplier extends javax.swing.JPanel {
     private javax.swing.JTable tblData;
     private custom.JTextFieldRounded txtSearch;
     // End of variables declaration//GEN-END:variables
-    
 
+    
     private void tambahSupplier() {
-        tambahSupplier supplier = new tambahSupplier(null, true, 
-                null, null, null, null);
-        supplier.setVisible(true);
-        loadData();
+    String idBaru = setidSupplier(); // Dapatkan ID otomatis
+    tambahSupplier supplier = new tambahSupplier(null, true, 
+            idBaru, null, null, null); // Kirim ID ke konstruktor
+    supplier.setVisible(true);
+    loadData();
+}
+
+    private String setidSupplier() {
+    String urutan = null;
+    String prefix = "SUP";
+
+    try {
+        // Ambil semua ID yang ada
+        String sql = "SELECT CAST(SUBSTRING(id_supplier, 4) AS UNSIGNED) AS Nomor FROM supplier WHERE id_supplier LIKE ? ORDER BY Nomor ASC";
+        try (PreparedStatement st = conn.prepareStatement(sql)) {
+            st.setString(1, prefix + "%");
+            ResultSet rs = st.executeQuery();
+
+            int expectedNomor = 1;
+            while (rs.next()) {
+                int currentNomor = rs.getInt("Nomor");
+                if (currentNomor != expectedNomor) {
+                    urutan = prefix + String.format("%02d", expectedNomor);
+                    return urutan;
+                }
+                expectedNomor++;
+            }
+
+            urutan = prefix + String.format("%02d", expectedNomor);
+        }
+    } catch (Exception e) {
+        Logger.getLogger(tambahSupplier.class.getName()).log(Level.SEVERE, null, e);
     }
 
-
+    return urutan;
+}
+    
+    
     private void pagination() {
         btn_first.addActionListener(new ActionListener(){
             @Override
@@ -593,23 +624,6 @@ public class menuSupplier extends javax.swing.JPanel {
         int startIndex = (halamanSaatIni - 1) * dataPerHalaman;
         getData(startIndex, dataPerHalaman, (DefaultTableModel) tblData.getModel());
         
-        /*
-        try {
-            String sql = "SELECT nama_member, poin FROM member WHERE poin = (SELECT MAX(poin) FROM member) LIMIT 1";
-            PreparedStatement st = conn.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
-            if (rs.next()) {
-                String namaPoinTertinggi = rs.getString("nama_member");
-                namaPoin.setText(namaPoinTertinggi);
-            } else {
-                namaPoin.setText("NONE");
-            }
-            rs.close();
-            st.close();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Gagal menampilkan poin tertinggi: " + e.getMessage(), "Kesalahan", JOptionPane.ERROR_MESSAGE);
-        }
-        */
     }
 
     

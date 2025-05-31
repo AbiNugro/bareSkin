@@ -88,9 +88,9 @@ public class menuProductt extends javax.swing.JPanel {
             // Ambil dua kata pertama dan ubah ke uppercase
             String duaKataPertama = "";
             if (kata.length >= 2) {
-                duaKataPertama = (kata[0] + " " + kata[1]).toUpperCase();
+                duaKataPertama = (kata[0] + " " + kata[1]);
             } else {
-                duaKataPertama = namaLengkap.toUpperCase(); // fallback jika hanya 1 kata
+                duaKataPertama = namaLengkap; // fallback jika hanya 1 kata
             }
 
             lblProdukTerlaris.setText(duaKataPertama);
@@ -774,6 +774,7 @@ public class menuProductt extends javax.swing.JPanel {
             {
                 ubahData();
                 loadData();
+                btnHapus.setText("OPNAME");
             }
     }//GEN-LAST:event_btnTambahActionPerformed
 
@@ -789,6 +790,8 @@ public class menuProductt extends javax.swing.JPanel {
                 txtIdOpname.setText(generateId());
                 loadDataSementara();
                 btnSetProduct.setVisible(true);
+                cancelFieldColor(txtStokFisik);
+                cancelFieldColor(txtKeterangan);
             }
     }//GEN-LAST:event_btnHapusActionPerformed
 
@@ -882,6 +885,7 @@ public class menuProductt extends javax.swing.JPanel {
 
         // Tampilkan barcode tanpa input manual
         new barcode(idProduct).setVisible(true);
+        
     }//GEN-LAST:event_btnGenerateActionPerformed
 
     private void pnMainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnMainMouseClicked
@@ -1335,8 +1339,10 @@ public class menuProductt extends javax.swing.JPanel {
             }
         }
         loadData();
-        btnBatal.setVisible(false);
+        btnHapus.setText("OPNAME");
         btnTambah.setText("TAMBAH");
+        btnBatal.setVisible(false);
+        btnGenerate.setVisible(false);
     }
     
     private void resetForm() {

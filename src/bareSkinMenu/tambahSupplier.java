@@ -2,8 +2,12 @@ package bareSkinMenu;
 
 import config.koneksi;
 import java.awt.Color;
+import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -46,10 +50,11 @@ public class tambahSupplier extends javax.swing.JDialog {
     super(parent, modal);
     initComponents();
     setLocationRelativeTo(null);
-
+    max10digit();
     conn = koneksi.getConnection();
+    
+    fieldColor(txtIdSupplier);
 
-    // Set data ke field dan komponen input
     this.id_supplier = id;
     this.nama_supplier = nama;
     this.no_telepon = nomor;
@@ -61,7 +66,7 @@ public class tambahSupplier extends javax.swing.JDialog {
     txtAlamat.setText(alamat);
     btnSimpan.setText("SIMPAN");
     
-    if (!txtIdSupplier.getText().trim().isEmpty()) {
+    if (!txtNamaSupplier.getText().trim().isEmpty()) {
         btnSimpan.setText("UBAH");
         txtIdSupplier.setEnabled(false);
         fieldColor(txtIdSupplier);
@@ -188,7 +193,64 @@ public class tambahSupplier extends javax.swing.JDialog {
     private custom.JTextFieldRounded txtNamaSupplier;
     private custom.JTextFieldRounded txtNomorTelepon;
     // End of variables declaration//GEN-END:variables
+    
+    private String setidSupplier() {
+    String urutan = null;
+    String prefix = "SUP";
 
+    try {
+        // Ambil semua ID yang ada
+        String sql = "SELECT CAST(SUBSTRING(id_supplier, 4) AS UNSIGNED) AS Nomor FROM supplier WHERE id_supplier LIKE ? ORDER BY Nomor ASC";
+        try (PreparedStatement st = conn.prepareStatement(sql)) {
+            st.setString(1, prefix + "%");
+            ResultSet rs = st.executeQuery();
+
+            int expectedNomor = 1;
+            while (rs.next()) {
+                int currentNomor = rs.getInt("Nomor");
+                if (currentNomor != expectedNomor) {
+                    urutan = prefix + String.format("%02d", expectedNomor);
+                    return urutan;
+                }
+                expectedNomor++;
+            }
+
+            urutan = prefix + String.format("%02d", expectedNomor);
+        }
+    } catch (Exception e) {
+        Logger.getLogger(tambahSupplier.class.getName()).log(Level.SEVERE, null, e);
+    }
+
+    return urutan;
+}
+
+    
+    private void max10digit() {
+    txtNomorTelepon.addKeyListener(new KeyAdapter() {
+        @Override
+        public void keyTyped(KeyEvent e) {
+            char c = e.getKeyChar();
+            
+            if (Character.isISOControl(c)) {
+                return;
+            }
+            
+            if (!Character.isDigit(c)) {
+                e.consume();
+                Toolkit.getDefaultToolkit().beep();
+                JOptionPane.showMessageDialog(null, "Nomor hanya boleh berisi angka!");
+                return;
+            }
+            
+            if (txtNomorTelepon.getText().length() >= 13) {
+                e.consume(); 
+                Toolkit.getDefaultToolkit().beep(); 
+                JOptionPane.showMessageDialog(null, "ID Product tidak boleh lebih dari 13 digit.");
+            }
+        }
+    });
+}
+    
     private void fieldColor(JTextField field) {
         field.setOpaque(true);
         field.setEditable(false);

@@ -19,6 +19,9 @@ import config.koneksi;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -35,7 +38,7 @@ import notification.Notification;
 public class transaksiPembeliaan extends javax.swing.JPanel {
     
     private int halamanSaatIni = 1;
-    private int dataPerHalaman = 14;
+    private int dataPerHalaman = 15;
     private int totalPages;
     private String id_user;
     private String nama;
@@ -86,6 +89,7 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        dateChooser1 = new com.raven.datechooser.DateChooser();
         panelMain = new javax.swing.JPanel();
         panelView = new javax.swing.JPanel();
         pnMain = new custom.PanelCustom();
@@ -97,7 +101,7 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         panelCustom7 = new custom.PanelCustom();
-        jLabel6 = new javax.swing.JLabel();
+        txtPengeluaran = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         panelCustom16 = new custom.PanelCustom();
@@ -152,6 +156,7 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
         txtSatuan = new custom.JTextFieldRounded();
         btnSetProduct = new javax.swing.JButton();
         jLabel32 = new javax.swing.JLabel();
+        txtTanggalExpired = new custom.JTextFieldRounded();
         txtJumlahBeli = new custom.JTextFieldRounded();
         btnBatal = new rojerusan.RSMaterialButtonRectangle();
         btnHapus = new rojerusan.RSMaterialButtonRectangle();
@@ -160,7 +165,6 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
         txtIdProduct = new custom.JTextFieldRounded();
         txtIdSupplier = new custom.JTextFieldRounded();
         jLabel33 = new javax.swing.JLabel();
-        cbxSatuan = new javax.swing.JComboBox<>();
         jLabel34 = new javax.swing.JLabel();
         txtHarga = new custom.JTextFieldRounded();
         jLabel35 = new javax.swing.JLabel();
@@ -169,6 +173,8 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
         panelCustom14 = new custom.PanelCustom();
         tPenjualan2 = new javax.swing.JLabel();
         btnBack = new rojerusan.RSMaterialButtonRectangle();
+
+        dateChooser1.setTextRefernce(txtTanggalExpired);
 
         setLayout(new java.awt.CardLayout());
 
@@ -275,13 +281,13 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
         panelCustom7.setRoundTopLeft(20);
         panelCustom7.setRoundTopRight(20);
 
-        jLabel6.setBackground(new java.awt.Color(75, 22, 76));
-        jLabel6.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
-        jLabel6.setText("100.000");
+        txtPengeluaran.setBackground(new java.awt.Color(75, 22, 76));
+        txtPengeluaran.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
+        txtPengeluaran.setText("100.000");
 
         jLabel7.setBackground(new java.awt.Color(106, 106, 106));
         jLabel7.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        jLabel7.setText("Pengeluaran");
+        jLabel7.setText("Pengeluaran ( Today )");
 
         jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/moneyy.png"))); // NOI18N
 
@@ -293,8 +299,8 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
                 .addGap(36, 36, 36)
                 .addGroup(panelCustom7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+                    .addComponent(txtPengeluaran))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(jLabel20)
                 .addGap(28, 28, 28))
         );
@@ -307,7 +313,7 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
                     .addGroup(panelCustom7Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6)))
+                        .addComponent(txtPengeluaran)))
                 .addGap(27, 27, 27))
         );
 
@@ -511,7 +517,7 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
 
         cbx_data.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
         cbx_data.setForeground(new java.awt.Color(75, 22, 76));
-        cbx_data.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "14", "20", "25" }));
+        cbx_data.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "15", "20", "25" }));
 
         btn_before.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
         btn_before.setForeground(new java.awt.Color(75, 22, 76));
@@ -771,6 +777,9 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
         jLabel32.setText("Jumlah Beli");
         panelCustom8.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 440, -1, -1));
 
+        txtTanggalExpired.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
+        panelCustom8.add(txtTanggalExpired, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 480, 170, -1));
+
         txtJumlahBeli.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
         panelCustom8.add(txtJumlahBeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 480, 140, -1));
 
@@ -829,17 +838,8 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
         panelCustom8.add(txtIdSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 190, 50));
 
         jLabel33.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
-        jLabel33.setText("Satuan");
+        jLabel33.setText("Tanggal Expired");
         panelCustom8.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 440, -1, -1));
-
-        cbxSatuan.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
-        cbxSatuan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Satuan Product", "Item", "Paket" }));
-        cbxSatuan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxSatuanActionPerformed(evt);
-            }
-        });
-        panelCustom8.add(cbxSatuan, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 480, 260, 50));
 
         jLabel34.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
         jLabel34.setText("Harga");
@@ -911,7 +911,10 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
         txtSatuan.setEnabled(true);
         cancelFieldColor(txtJumlahBeli);
         cancelFieldColor(txtHarga);
-        cbxSatuan.setEnabled(true);
+        cancelFieldColor(txtTanggalExpired);
+        txtTanggalExpired.setEnabled(true);
+        txtTanggalExpired.setText("");
+        
     }//GEN-LAST:event_tblDataSementaraMouseClicked
 
     private void btnSetProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetProductActionPerformed
@@ -932,9 +935,10 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
                 
 
                 txtHargaSatuan.setVisible(true);
-                cbxSatuan.setEnabled(false);
+                txtTanggalExpired.setEnabled(false);
                 fieldColor(txtHarga);
-                fieldColor(txtJumlahBeli);
+                fieldColor(txtJumlahBeli); 
+                fieldColor(txtTanggalExpired);
                 btnSimpan.setText("SIMPAN");
                 totalHargaa.setVisible(true);
                 
@@ -1027,10 +1031,6 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
         loadData();
     }//GEN-LAST:event_pnMainMouseClicked
 
-    private void cbxSatuanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxSatuanActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbxSatuanActionPerformed
-
     private void txtHargaSatuanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHargaSatuanActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtHargaSatuanActionPerformed
@@ -1053,9 +1053,9 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
     private javax.swing.JButton btn_first;
     private javax.swing.JButton btn_last;
     private javax.swing.JButton btn_next;
-    private javax.swing.JComboBox<String> cbxSatuan;
     private javax.swing.JComboBox<String> cbx_data;
     private javax.swing.JLabel databahan;
+    private com.raven.datechooser.DateChooser dateChooser1;
     private javax.swing.JLabel hargaTotal;
     private javax.swing.JLabel iSearch;
     private javax.swing.JLabel idPembelian;
@@ -1079,7 +1079,6 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
@@ -1121,9 +1120,11 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
     private custom.JTextFieldRounded txtNamaProduct;
     private custom.JTextFieldRounded txtNamaSupplier;
     private custom.JTextFieldRounded txtNomor;
+    private javax.swing.JLabel txtPengeluaran;
     private custom.JTextFieldRounded txtSatuan;
     private custom.JTextFieldRounded txtSearch;
     private custom.JTextFieldRounded txtStok;
+    private custom.JTextFieldRounded txtTanggalExpired;
     // End of variables declaration//GEN-END:variables
     
     private void countHarga() {
@@ -1227,6 +1228,7 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
         hargaTotal.setVisible(false);
         totalHargaa.setVisible(false);
         fieldColor(txtHargaSatuan);
+        txtTanggalExpired.setText("");
     }
     
     private void setProduct(){
@@ -1339,9 +1341,7 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
         model.setRowCount(0);
         
         try {
-           String sql = "SELECT t.id_pembelian, DATE(t.tgl_pembelian) AS tgl_pembelian, t.total_harga_pembelian,"
-                   + "us.nama AS nama_user FROM transaksi_pembelian t INNER JOIN user us ON t.id_user = us.id_user "
-                   + "ORDER BY t.id_pembelian ASC LIMIT ?,?";
+           String sql = "SELECT * FROM view_transaksi_pembelian LIMIT ?,?";
            try (PreparedStatement st = conn.prepareStatement(sql)) {
                st.setInt(1, startIndex);
                st.setInt(2, entriesPage);
@@ -1367,9 +1367,7 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
         model.setRowCount(0);
         
         try {
-           String sql = "SELECT dt.id_pembelian, s.nama_supplier, p.nama_product, dt.jumlah, dt.satuan, dt.harga_beli"
-                   + " FROM detail_transaksi_pembelian dt INNER JOIN product p ON dt.id_product = p.id_product INNER JOIN supplier s"
-                   + " ON dt.id_supplier = s.id_supplier WHERE dt.id_pembelian = '"+id+"'";
+           String sql = "SELECT * FROM view_detail_transaksi_pembelian WHERE id_pembelian = '"+id+"'";
            try (PreparedStatement st = conn.prepareStatement(sql)) {
                ResultSet rs = st.executeQuery();
                
@@ -1378,16 +1376,39 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
                     String namaSupplier     = rs.getString("nama_supplier");
                     String namaProduct      = rs.getString("nama_product");
                     int jumlah              = rs.getInt("jumlah");
-                    String satuan           = rs.getString("satuan");
+                    String tanggalExpired   = rs.getString("tgl_expired");
                     int hargaBeli           = rs.getInt("harga_beli");
                     
 
-                    Object[] rowData = {idPembelian, namaSupplier, namaProduct, jumlah, satuan, hargaBeli };
+                    Object[] rowData = {idPembelian, namaSupplier, namaProduct, jumlah, tanggalExpired, hargaBeli };
                     model.addRow(rowData);
                 }
            }
         }catch (Exception e) {
             Logger.getLogger(transaksiPembeliaan.class.getName()).log(Level.SEVERE,null, e);
+        }
+    }
+    
+    private void total() {
+        try {
+            String sql = "SELECT SUM(total_harga_pembelian) AS total_pembelian FROM transaksi_pembelian WHERE DATE(tgl_pembelian) = CURDATE()";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                int pengeluaran = rs.getInt("total_pembelian");
+
+                // Format ke dalam format Indonesia tanpa "Rp"
+                DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+                symbols.setGroupingSeparator('.');
+                symbols.setDecimalSeparator(',');
+                DecimalFormat decimalFormat = new DecimalFormat("#,##0.00", symbols);
+                String pengeluaranFormatted = decimalFormat.format(pengeluaran);
+
+                txtPengeluaran.setText(pengeluaranFormatted);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     
@@ -1401,6 +1422,7 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
         getData(startIndex, dataPerHalaman, (DefaultTableModel) tblData.getModel());
         pnDetail.setVisible(false);
         namaUser.setText(nama.split("\\s+")[0].toUpperCase());
+        total();
     }
     
     private void setTabelModel() {
@@ -1421,7 +1443,7 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
         txtStok.setText("");
         txtSatuan.setText("");
         txtJumlahBeli.setText("");
-        cbxSatuan.setSelectedItem("Pilih Satuan Product");
+        txtTanggalExpired.setText("");
         txtHarga.setText("");
         txtHargaSatuan.setText("");
     }
@@ -1462,12 +1484,26 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
     String stok = txtStok.getText();
     String satuan = txtSatuan.getText();
     String jumlahBeli    = txtJumlahBeli.getText();
-    String pilihanSatuan = cbxSatuan.getSelectedItem().toString();
+    String tanggalExpired = txtTanggalExpired.getText();
     String harga    = txtHarga.getText();
     String hargaSatuan    = txtHargaSatuan.getText();
 
+    String tanggalUntukDatabase;
+        try {
+            SimpleDateFormat sdfInput = new SimpleDateFormat("dd-MM-yyyy");
+            Date tanggal = sdfInput.parse(tanggalExpired);
+
+            SimpleDateFormat sdfOutput = new SimpleDateFormat("yyyy-MM-dd");
+            tanggalUntukDatabase = sdfOutput.format(tanggal);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Format tanggal tidak valid. Gunakan format dd-MM-yyyy.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+            return;
+        }
+    
     if (idTransaksiPembelian.isEmpty() || idSupplier.isEmpty() || idProduct.isEmpty() || jumlahBeli.isEmpty() || harga.isEmpty() 
-            || hargaSatuan.isEmpty() || cbxSatuan.getSelectedItem().toString().equals("Pilih Satuan Product")) {
+            || hargaSatuan.isEmpty() || tanggalExpired.isEmpty()) {
             // Menggunakan JOptionPane untuk menampilkan pesan peringatan
             JOptionPane.showMessageDialog(this, "Semua Kolom Harus Di-isi", "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
@@ -1475,7 +1511,7 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
 
     try {
         String sql = "INSERT INTO sementara_pembelian (id_pembelian, id_supplier, nama_supplier, no_telepon, alamat, id_product ,nama_product, "
-                + "stok_product , satuan, jumlah_beli, pilihan_satuan, harga, "
+                + "stok_product , satuan, jumlah_beli, tgl_expired, harga, "
                 + "harga_satuan) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try (PreparedStatement st = conn.prepareStatement(sql)) {
             st.setString(1, idTransaksiPembelian);
@@ -1488,7 +1524,7 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
             st.setString(8, stok);
             st.setString(9, satuan);
             st.setString(10, jumlahBeli);
-            st.setString(11, pilihanSatuan);
+            st.setString(11, tanggalUntukDatabase);
             st.setString(12, harga);
             st.setString(13, hargaSatuan);
             st.executeUpdate();
@@ -1500,10 +1536,11 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
                 btnSimpan.requestFocus();
                 clickNoSementara();
                 
-                cbxSatuan.setEnabled(false);
+                txtTanggalExpired.setEnabled(false);
                 fieldColor(txtHarga);
                 fieldColor(txtJumlahBeli);
                 fieldColor(txtSatuan);
+                fieldColor(txtTanggalExpired);
                 txtHargaSatuan.setVisible(true);
                 totalHargaa.setVisible(true);
                 hargaTotal.setVisible(true);
@@ -1546,13 +1583,13 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
                     String stokProduct = rs.getString("stok_product");
                     String satuan = rs.getString("satuan");
                     String jumlahBeli = rs.getString("jumlah_beli");
-                    String pilihanSatuan = rs.getString("pilihan_satuan");
+                    String  tanggalExpired = rs.getString("tgl_expired");
                     String harga = rs.getString("harga");
                     String hargaSatuan = rs.getString("harga_satuan");
 
 
                     Object[] rowData = {idPembelian, idSupplier, namaSupplier, noTelepon, alamat, idProduct, namaProduct ,
-                        stokProduct, satuan, jumlahBeli, pilihanSatuan, harga, hargaSatuan};
+                        stokProduct, satuan, jumlahBeli, tanggalExpired, harga, hargaSatuan};
                     model.addRow(rowData);
                 }
            }
@@ -1603,62 +1640,76 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
         System.err.println("ID Pembelian tidak boleh kosong");
         return false;
     }
-    
+
     try {
-        // Pastikan koneksi aktif
         if (conn == null || conn.isClosed()) {
             System.err.println("Koneksi database tidak tersedia.");
             return false;
         }
-        
-        // HAPUS: conn.setAutoCommit(false) - sudah diatur di method pemanggil
-        
-        // 1. Insert ke detail_transaksi_pembelian dari sementara_pembelian
+
+        // 1. Insert ke detail_transaksi_pembelian
         String insertSQL = "INSERT INTO detail_transaksi_pembelian " +
-                "(id_pembelian, id_supplier, id_product, jumlah, satuan, harga_beli, harga_per_satuan) " +
-                "SELECT ?, id_supplier, id_product, jumlah_beli, pilihan_satuan, harga, harga_satuan " +
+                "(id_pembelian, id_supplier, id_product, jumlah, tgl_expired, harga_beli, harga_per_satuan) " +
+                "SELECT ?, id_supplier, id_product, jumlah_beli, tgl_expired, harga, harga_satuan " +
                 "FROM sementara_pembelian";
-                
+
         try (PreparedStatement insertStmt = conn.prepareStatement(insertSQL)) {
             insertStmt.setString(1, idTransaksiPembelian);
             int rows = insertStmt.executeUpdate();
             if (rows == 0) {
                 System.err.println("Gagal menyisipkan ke detail_transaksi_pembelian");
-                return false; // Biarkan method pemanggil yang handle rollback
+                return false;
             }
         }
-        
-        // 2. Tambah stok produk di tabel product
+
+        // 2. Ambil data dari sementara_pembelian untuk update stok, tgl_expired, dan harga_beli
         String selectStokSQL = "SELECT id_product, jumlah_beli FROM sementara_pembelian";
         try (PreparedStatement selectStmt = conn.prepareStatement(selectStokSQL);
              ResultSet rs = selectStmt.executeQuery()) {
-             
+
             while (rs.next()) {
                 String idProduct = rs.getString("id_product");
                 int jumlahBeli = rs.getInt("jumlah_beli");
-                
+
+                // 2.1 Tambah stok
                 String updateStokSQL = "UPDATE product SET stok_product = stok_product + ? WHERE id_product = ?";
-                try (PreparedStatement updateStmt = conn.prepareStatement(updateStokSQL)) {
-                    updateStmt.setInt(1, jumlahBeli);
-                    updateStmt.setString(2, idProduct);
-                    updateStmt.executeUpdate();
+                try (PreparedStatement updateStokStmt = conn.prepareStatement(updateStokSQL)) {
+                    updateStokStmt.setInt(1, jumlahBeli);
+                    updateStokStmt.setString(2, idProduct);
+                    updateStokStmt.executeUpdate();
+                }
+
+                // 2.2 Ambil tgl_expired dan harga terbaru dari sementara_pembelian
+                String getExpiredAndHargaSQL = "SELECT tgl_expired, harga_satuan FROM sementara_pembelian WHERE id_product = ?";
+                try (PreparedStatement getStmt = conn.prepareStatement(getExpiredAndHargaSQL)) {
+                    getStmt.setString(1, idProduct);
+                    try (ResultSet detailRs = getStmt.executeQuery()) {
+                        if (detailRs.next()) {
+                            String tglExpired = detailRs.getString("tgl_expired");
+                            String hargaBeli = detailRs.getString("harga_satuan");
+
+                            // 2.3 Update tgl_expired dan harga_beli di tabel product
+                            String updateProductSQL = "UPDATE product SET tgl_expired = ?, harga_beli = ? WHERE id_product = ?";
+                            try (PreparedStatement updateProductStmt = conn.prepareStatement(updateProductSQL)) {
+                                updateProductStmt.setString(1, tglExpired);
+                                updateProductStmt.setString(2, hargaBeli);
+                                updateProductStmt.setString(3, idProduct);
+                                updateProductStmt.executeUpdate();
+                            }
+                        }
+                    }
                 }
             }
         }
-        
-        // HAPUS: conn.commit() - biarkan method pemanggil yang handle commit
+
         return true;
-        
+
     } catch (Exception e) {
-        // HAPUS: rollback handling - biarkan method pemanggil yang handle
         Logger.getLogger(transaksiPembeliaan.class.getName()).log(Level.SEVERE, "Kesalahan saat insert detail pembelian", e);
         return false;
     }
 }
 
-
-
-    
     private void dataTabelSementara() {
         int row = tblDataSementara.getSelectedRow();
         
@@ -1674,7 +1725,7 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
         txtStok.setText(tblDataSementara.getValueAt(row, 7).toString());
         txtSatuan.setText(tblDataSementara.getValueAt(row, 8).toString());
         txtJumlahBeli.setText(tblDataSementara.getValueAt(row, 9).toString());
-        cbxSatuan.setSelectedItem(tblDataSementara.getValueAt(row, 10).toString());
+        txtTanggalExpired.setText(tblDataSementara.getValueAt(row, 10).toString());
         txtHarga.setText(tblDataSementara.getValueAt(row, 11).toString());
         txtHargaSatuan.setText(tblDataSementara.getValueAt(row, 12).toString());
         
@@ -1693,19 +1744,33 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
         String stok = txtStok.getText();
         String satuan = txtSatuan.getText();
         String jumlahBeli    = txtJumlahBeli.getText();
-        String pilihanSatuan = cbxSatuan.getSelectedItem().toString();
+        String tanggalExpired    = txtTanggalExpired.getText();
         String harga    = txtHarga.getText();
         String hargaSatuan    = txtHargaSatuan.getText();
 
+        String tanggalUntukDatabase;
+        try {
+            SimpleDateFormat sdfInput = new SimpleDateFormat("dd-MM-yyyy");
+            Date tanggal = sdfInput.parse(tanggalExpired);
+
+            SimpleDateFormat sdfOutput = new SimpleDateFormat("yyyy-MM-dd");
+            tanggalUntukDatabase = sdfOutput.format(tanggal);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Format tanggal tidak valid. Gunakan format dd-MM-yyyy.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+            return;
+        }
+        
         if (idTransaksiPembelian.isEmpty() || idSupplier.isEmpty() || idProduct.isEmpty() || jumlahBeli.isEmpty() || harga.isEmpty() 
-            || hargaSatuan.isEmpty() || cbxSatuan.getSelectedItem().toString().equals("Pilih Satuan Product")) {
+            || hargaSatuan.isEmpty() || tanggalExpired.isEmpty()) {
             // Menggunakan JOptionPane untuk menampilkan pesan peringatan
             JOptionPane.showMessageDialog(this, "Semua Kolom Harus Di-isi", "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
         String sql = "UPDATE sementara_pembelian SET id_pembelian=?, id_supplier = ?, nama_supplier = ?, no_telepon = ?, alamat = ?,"
-                + "nama_product=?, stok_product=?, satuan=?, jumlah_beli=?, pilihan_satuan=?, harga=?, harga_satuan=? WHERE id_product=?";
+                + "nama_product=?, stok_product=?, satuan=?, jumlah_beli=?, tgl_expired=?, harga=?, harga_satuan=? WHERE id_product=?";
 
         try (PreparedStatement st = conn.prepareStatement(sql)) {
             st.setString(1, idTransaksiPembelian);
@@ -1717,7 +1782,7 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
             st.setString(7, stok);
             st.setString(8, satuan);
             st.setString(9, jumlahBeli);
-            st.setString(10, pilihanSatuan);
+            st.setString(10, tanggalUntukDatabase);
             st.setString(11, harga);
             st.setString(12, hargaSatuan);
             st.setString(13, idProduct);
@@ -1734,10 +1799,10 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
                 resetForm();
                 loadDataSementara();
 
-                cbxSatuan.setEnabled(false);
+                txtTanggalExpired.setEnabled(false);
                 fieldColor(txtHarga);
                 fieldColor(txtJumlahBeli);
-
+                fieldColor(txtTanggalExpired);
                 txtHargaSatuan.setVisible(true);
                 btnSimpan.setText("SIMPAN");
                 totalHargaa.setVisible(true);
@@ -1807,10 +1872,10 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
                 resetForm();
                 loadDataSementara();
 
-                cbxSatuan.setEnabled(false);
+                txtTanggalExpired.setEnabled(false);
                 fieldColor(txtHarga);
                 fieldColor(txtJumlahBeli);
-
+                fieldColor(txtTanggalExpired);
                 txtHargaSatuan.setVisible(true);
                 btnSimpan.setText("SIMPAN");
                 totalHargaa.setVisible(true);

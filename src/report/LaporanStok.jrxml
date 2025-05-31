@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f0f31662-abef-4c4b-b4bf-408d6468573e">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT so.*, dso.*, p.kategori, p.nama_product, p.tgl_expired, p.harga_beli, p.harga_jual, p.stok_product, p.satuan
+FROM detail_stok_opname dso
+JOIN stok_opname so ON dso.id_opname = so.id_opname
+JOIN product p ON dso.id_product = p.id_product
+ORDER BY p.nama_product ASC;]]>
+	</queryString>
+	<field name="id_opname" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tanggal_opname" class="java.time.LocalDateTime">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_user" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_detail" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_product" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="stok_sistem" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="stok_fisik" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="selisih" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="keterangan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="kategori" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nama_product" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tgl_expired" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="harga_beli" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="harga_jual" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="stok_product" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="satuan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#DD88CF" uuid="e59ea9c1-f1b0-4d86-a969-e7f4b2e750b7"/>
+				<staticText>
+					<reportElement x="20" y="20" width="555" height="43" forecolor="#FFFFFF" uuid="9aad6fee-786f-4b22-a668-334835ccebfb"/>
+					<textElement textAlignment="Center">
+						<font size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[LAPORAN STOK PRODUK]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="190" y="63" width="180" height="20" forecolor="#FFFFFF" uuid="92219c2b-f565-47ab-bb89-b89d93506aaf"/>
+					<textElement textAlignment="Center">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[BARESKIN]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="26175026-c60e-4ea2-a371-81b8341a2f55"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="139" y="-1" width="88" height="20" forecolor="#DD88CF" backcolor="#E6E6E6" uuid="49f9d01d-1a62-4419-a79a-966cc091420e"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[stok_sistem]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="227" y="-1" width="77" height="20" forecolor="#DD88CF" backcolor="#E6E6E6" uuid="046c6e61-c0c4-4a4c-b8c4-568e8b3e93a5"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[stok_fisik]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="304" y="-1" width="68" height="20" forecolor="#DD88CF" backcolor="#E6E6E6" uuid="3ad4babf-4c98-40c2-948c-4bbcd0b9e66d"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[selisih]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="469" y="-1" width="86" height="20" forecolor="#DD88CF" backcolor="#E6E6E6" uuid="800bd08c-ed28-4bb2-a115-b45013324c83"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[keterangan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="-1" width="139" height="20" forecolor="#DD88CF" backcolor="#E6E6E6" uuid="3fe16681-add4-48af-9ec6-66ce191bfe49"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[nama_product]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="372" y="-1" width="97" height="20" forecolor="#DD88CF" backcolor="#E6E6E6" uuid="3b0e1614-5b63-4de9-a98a-ae9b22aa38e7"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[satuan]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="3890e844-d190-46cc-b79c-542596f894db"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="304" y="0" width="68" height="20" uuid="8c70502a-cbf1-43cb-a8f4-fc3d5146bb32"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{selisih}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="469" y="0" width="86" height="20" uuid="f18504ec-a691-456c-8e63-67fa7192df4d"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{keterangan}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="139" height="20" uuid="fe181118-321b-43a3-9ba2-0ef7a4bf3e89"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nama_product}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="372" y="0" width="97" height="20" uuid="6a6ff97f-fb3d-4b81-bb52-961d7a5a4c53"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{satuan}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="139" y="0" width="88" height="20" uuid="7e75c094-c876-4eac-ae17-68e01190aeab"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{stok_sistem}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="227" y="0" width="77" height="20" uuid="d26004dc-e3ae-48a7-802e-4053dd1c7a03"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{stok_fisik}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="169">
+			<staticText>
+				<reportElement x="397" y="56" width="100" height="20" uuid="e7c8dfeb-978a-419a-96ae-0c7c241c45a4"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Ana]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="350" y="32" width="132" height="24" uuid="847454e7-01e8-4851-80dd-6420e4c87250"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="372" y="121" width="151" height="20" uuid="f14fe434-c8e4-4b12-9b0d-90d808d29a61"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[OWNER BARESKIN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="482" y="32" width="54" height="24" uuid="635788d3-a012-40aa-a4bf-fa17c85f5bd8"/>
+				<textElement textAlignment="Justified">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Jember]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="7885385a-c644-428c-84c6-94d8419c6d7c"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="1ecdaabd-dd05-4ac8-b075-e19ee34153a1"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="6012cfa8-b5a7-49c7-a902-2c4af2cbb753"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

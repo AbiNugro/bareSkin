@@ -809,7 +809,7 @@ public class menuDashboardAdmin extends javax.swing.JFrame{
 
     private void pnLaporanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnLaporanMouseClicked
         setActiveButton(pnLaporan, tLaporan, iLaporanG, iLaporanT, Klaporan);
-        switchPanel(new bareSkinMenu.menuLaporan());
+        switchPanel(new bareSkinMenu.menuLaporan1());
     }//GEN-LAST:event_pnLaporanMouseClicked
 
     private void pnLaporanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnLaporanMouseEntered

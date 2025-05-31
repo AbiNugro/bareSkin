@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
 public class dataSupplier extends javax.swing.JDialog {
     
     private int halamanSaatIni = 1;
-    private int dataPerHalaman = 14;
+    private int dataPerHalaman = 10;
     private int totalPages;
     private Connection conn;
     
@@ -103,7 +103,7 @@ public class dataSupplier extends javax.swing.JDialog {
         tblData.setRowMargin(10);
         jScrollPane1.setViewportView(tblData);
 
-        panelView.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 132, 870, 348));
+        panelView.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 132, 870, 330));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/search.png"))); // NOI18N
         panelView.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 80, -1, -1));
@@ -124,19 +124,19 @@ public class dataSupplier extends javax.swing.JDialog {
 
         btn_first.setForeground(new java.awt.Color(75, 22, 76));
         btn_first.setText("First Page");
-        panelView.add(btn_first, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 520, -1, -1));
+        panelView.add(btn_first, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 500, -1, -1));
 
         btn_last.setForeground(new java.awt.Color(75, 22, 76));
         btn_last.setText("Last Page");
-        panelView.add(btn_last, new org.netbeans.lib.awtextra.AbsoluteConstraints(535, 520, -1, -1));
+        panelView.add(btn_last, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 500, -1, -1));
 
         btn_before.setForeground(new java.awt.Color(75, 22, 76));
         btn_before.setText("<");
-        panelView.add(btn_before, new org.netbeans.lib.awtextra.AbsoluteConstraints(389, 520, -1, -1));
+        panelView.add(btn_before, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 500, -1, -1));
 
         cbx_data.setForeground(new java.awt.Color(75, 22, 76));
-        cbx_data.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
-        panelView.add(cbx_data, new org.netbeans.lib.awtextra.AbsoluteConstraints(422, 520, 68, -1));
+        cbx_data.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10", "15", "20" }));
+        panelView.add(cbx_data, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 500, 68, -1));
 
         btn_next.setForeground(new java.awt.Color(75, 22, 76));
         btn_next.setText(">");
@@ -145,11 +145,11 @@ public class dataSupplier extends javax.swing.JDialog {
                 btn_nextActionPerformed(evt);
             }
         });
-        panelView.add(btn_next, new org.netbeans.lib.awtextra.AbsoluteConstraints(502, 520, -1, -1));
+        panelView.add(btn_next, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 500, -1, -1));
 
         lb_halaman.setForeground(new java.awt.Color(75, 22, 76));
         lb_halaman.setText("Halaman Of Total Halaman");
-        panelView.add(lb_halaman, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 495, -1, -1));
+        panelView.add(lb_halaman, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 480, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
