@@ -1063,9 +1063,9 @@ public class menuReturr extends javax.swing.JPanel {
 }
     
         private String generateId() {
-            SimpleDateFormat sdf = new SimpleDateFormat("HHmmddM"); 
+            SimpleDateFormat sdf = new SimpleDateFormat("ssmmddMM");
             String dateTime = sdf.format(new Date());
-            return "R" + dateTime; 
+            return "R" + dateTime;
         }
     
     private void fieldColor(JTextField field) {

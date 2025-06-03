@@ -26,6 +26,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import java.time.LocalDate;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.text.DecimalFormat;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.NumberTickUnit;
 import org.jfree.chart.plot.CategoryPlot;
@@ -611,45 +612,49 @@ public class dashboardAdmin extends javax.swing.JPanel {
     
     private void loadKeuangan() {
     try {
-        Connection con = config.koneksi.getConnection(); // koneksi shared
-        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(new Locale("in", "ID"));
+        Connection con = config.koneksi.getConnection();
+        DecimalFormat formatRupiah = new DecimalFormat("#,##0.00");
 
         // PENDAPATAN HARI INI
         String sqlPendapatan = "SELECT SUM(total_harga) AS total FROM transaksi_penjualan WHERE DATE(tgl_penjualan) = CURDATE()";
         PreparedStatement pst1 = con.prepareStatement(sqlPendapatan);
         ResultSet rs1 = pst1.executeQuery();
+        double pendapatan = 0;
         if (rs1.next()) {
-            double pendapatan = rs1.getDouble("total");
-            nominalPendapatan.setText(formatRupiah.format(pendapatan));
+            pendapatan = rs1.getDouble("total");
         }
+        nominalPendapatan.setText(formatRupiah.format(pendapatan));
+        rs1.close(); pst1.close();
 
-        // PENGELUARAN HARI INI
+        // PENGELUARAN HARI INI (opsional, hanya tampil — tidak memengaruhi keuntungan)
         String sqlPengeluaran = "SELECT SUM(total_harga_pembelian) AS total FROM transaksi_pembelian WHERE DATE(tgl_pembelian) = CURDATE()";
         PreparedStatement pst2 = con.prepareStatement(sqlPengeluaran);
         ResultSet rs2 = pst2.executeQuery();
+        double pengeluaran = 0;
         if (rs2.next()) {
-            double pengeluaran = rs2.getDouble("total");
-            nominalPengeluaran.setText(formatRupiah.format(pengeluaran));
+            pengeluaran = rs2.getDouble("total");
         }
+        nominalPengeluaran.setText(formatRupiah.format(pengeluaran));
+        rs2.close(); pst2.close();
 
-        // KEUNTUNGAN HARI INI
+        // KEUNTUNGAN HARI INI — hanya dari transaksi_penjualan
         String sqlKeuntungan = "SELECT SUM(untung) AS total FROM transaksi_penjualan WHERE DATE(tgl_penjualan) = CURDATE()";
         PreparedStatement pst3 = con.prepareStatement(sqlKeuntungan);
         ResultSet rs3 = pst3.executeQuery();
+        double keuntungan = 0;
         if (rs3.next()) {
-            double keuntungan = rs3.getDouble("total");
-            nominalKeuntungan.setText(formatRupiah.format(keuntungan));
+            keuntungan = rs3.getDouble("total");
+            if (rs3.wasNull() || keuntungan < 0) keuntungan = 0; // cegah minus
         }
-
-        // Tutup statement dan resultset (koneksi tetap terbuka)
-        rs1.close(); pst1.close();
-        rs2.close(); pst2.close();
+        nominalKeuntungan.setText(formatRupiah.format(keuntungan));
         rs3.close(); pst3.close();
 
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, "Gagal memuat data keuangan harian\n" + e.getMessage());
     }
 }
+    
+   
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

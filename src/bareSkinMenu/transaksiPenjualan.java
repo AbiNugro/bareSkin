@@ -1067,14 +1067,13 @@ public class transaksiPenjualan extends javax.swing.JPanel {
 
             if (konfirmasi == JOptionPane.YES_OPTION) {
                 try {
-                    if (insertDataAndDetails()) {
+                    String newTransactionId = insertDataAndDetails();
+                    if (newTransactionId != null) {
                         deleteDataSementara(); 
                         JOptionPane.showMessageDialog(this, "Transaksi Penjualan Berhasil", 
                                 "Sukses", JOptionPane.INFORMATION_MESSAGE);
-
-                        // Cetak nota setelah transaksi berhasil
-                        cetakStruk(idTransaksiTerakhir()); // Fungsi ambil ID terakhir
-
+                        // Cetak nota dengan ID yang baru dibuat
+                        cetakStruk(newTransactionId);
                         resetForm();
                         loadData();
                         showPanel();
@@ -1267,21 +1266,6 @@ public class transaksiPenjualan extends javax.swing.JPanel {
         }
     }
     
-    private String idTransaksiTerakhir() {
-        String id = null;
-        try {
-            String sql = "SELECT id_transaksi FROM transaksi_penjualan ORDER BY id_transaksi DESC LIMIT 1";
-            PreparedStatement st = conn.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
-            if (rs.next()) {
-                id = rs.getString("id_transaksi");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return id;
-    }
-
     
     
     private void countHarga() {
@@ -1329,36 +1313,36 @@ public class transaksiPenjualan extends javax.swing.JPanel {
 }
 
     
-    private boolean insertDataAndDetails() {
+    private String insertDataAndDetails() {
     try {
         conn.setAutoCommit(false);
         
-        // Insert transaction data
-        if (!insertData()) {
+        // Insert transaction data dan ambil ID-nya
+        String newTransactionId = insertData();
+        if (newTransactionId == null) {
             conn.rollback();
-            return false;
+            return null;
         }
         
         if (!insertDataDetail()) {
             conn.rollback();
-            return false;
+            return null;
         }
         
         conn.commit();
-        return true; // Pindahkan ke sini - hanya return true jika semua berhasil
+        return newTransactionId; // Return ID yang baru dibuat
         
     } catch (Exception e) {
         try {
-            conn.rollback(); // Rollback on exception
+            conn.rollback();
         } catch (SQLException rollbackEx) {
             rollbackEx.printStackTrace();
         }
-        Logger.getLogger(transaksiPembeliaan.class.getName()).log(Level.SEVERE, null, e);
-        return false;
-        
+        Logger.getLogger(transaksiPenjualan.class.getName()).log(Level.SEVERE, null, e);
+        return null;
     } finally {
         try {
-            conn.setAutoCommit(true); // Reset to auto-commit mode
+            conn.setAutoCommit(true);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -1395,10 +1379,10 @@ public class transaksiPenjualan extends javax.swing.JPanel {
     }
     
     private String generateId() {
-            SimpleDateFormat sdf = new SimpleDateFormat("HHmmddM"); 
-            String dateTime = sdf.format(new Date());
-            return "P" + dateTime; 
-        }
+        SimpleDateFormat sdf = new SimpleDateFormat("ssmmddMM");
+        String dateTime = sdf.format(new Date());
+        return "P" + dateTime;
+    }
     
     private void fieldColor(JTextField field) {
         field.setOpaque(true);
@@ -1831,7 +1815,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
 
     
     // main
-    private boolean insertData() {
+    private String insertData() {
         String idTransaksiPenjualan = idTransaksi.getText();
         String idMember = txtIdMember.getText();
         String totalHarga = hargaTotal.getText();
@@ -1859,7 +1843,7 @@ public class transaksiPenjualan extends javax.swing.JPanel {
 
         if (jumlahBayar.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Semua Kolom Harus Di-isi", "Peringatan", JOptionPane.WARNING_MESSAGE);
-                return false;
+                return null;
         }
 
         try {
@@ -1935,14 +1919,14 @@ public class transaksiPenjualan extends javax.swing.JPanel {
                 }
             }
 
-                        return true;
+                        return idTransaksiPenjualan;
                     } else {
-                        return false;
+                        return null;
                     }
                 }
             } catch (Exception e) {
                 Logger.getLogger(transaksiPenjualan.class.getName()).log(Level.SEVERE, null, e);
-                return false;
+                return null;
             }
     }
     

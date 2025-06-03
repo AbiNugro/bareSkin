@@ -60,8 +60,8 @@ public class menuLaporan extends javax.swing.JPanel {
         panelCustom7 = new custom.PanelCustom();
         jLabel27 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        txtIdMember = new custom.JTextFieldRounded();
-        txtIdMember1 = new custom.JTextFieldRounded();
+        txtTanggalMulai = new custom.JTextFieldRounded();
+        txtTanggalSampai = new custom.JTextFieldRounded();
         btnTambah2 = new rojerusan.RSMaterialButtonRectangle();
         jLabel24 = new javax.swing.JLabel();
         pnHeader = new custom.PanelCustom();
@@ -178,7 +178,7 @@ public class menuLaporan extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblData);
 
-        pnMain.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 1560, 690));
+        pnMain.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 1560, 640));
 
         iSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/search.png"))); // NOI18N
         pnMain.add(iSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(1530, 70, 30, 30));
@@ -355,23 +355,21 @@ public class menuLaporan extends javax.swing.JPanel {
         jLabel22.setText("Tanggal Mulai");
         pnMain.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
 
-        txtIdMember.setText("12/10/2025");
-        txtIdMember.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
-        txtIdMember.addActionListener(new java.awt.event.ActionListener() {
+        txtTanggalMulai.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
+        txtTanggalMulai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdMemberActionPerformed(evt);
+                txtTanggalMulaiActionPerformed(evt);
             }
         });
-        pnMain.add(txtIdMember, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 200, 50));
+        pnMain.add(txtTanggalMulai, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 200, 50));
 
-        txtIdMember1.setText("12/10/2025");
-        txtIdMember1.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
-        txtIdMember1.addActionListener(new java.awt.event.ActionListener() {
+        txtTanggalSampai.setFont(new java.awt.Font("SansSerif", 0, 22)); // NOI18N
+        txtTanggalSampai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdMember1ActionPerformed(evt);
+                txtTanggalSampaiActionPerformed(evt);
             }
         });
-        pnMain.add(txtIdMember1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, 210, 50));
+        pnMain.add(txtTanggalSampai, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, 210, 50));
 
         btnTambah2.setBackground(new java.awt.Color(75, 22, 76));
         btnTambah2.setText("CETAK");
@@ -1210,13 +1208,13 @@ public class menuLaporan extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnTambah1ActionPerformed
 
-    private void txtIdMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdMemberActionPerformed
+    private void txtTanggalMulaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTanggalMulaiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdMemberActionPerformed
+    }//GEN-LAST:event_txtTanggalMulaiActionPerformed
 
-    private void txtIdMember1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdMember1ActionPerformed
+    private void txtTanggalSampaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTanggalSampaiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdMember1ActionPerformed
+    }//GEN-LAST:event_txtTanggalSampaiActionPerformed
 
     private void btnTambah2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambah2ActionPerformed
         // TODO add your handling code here:
@@ -1445,8 +1443,6 @@ public class menuLaporan extends javax.swing.JPanel {
     private javax.swing.JTable tblData1;
     private javax.swing.JTable tblData2;
     private javax.swing.JTable tblData3;
-    private custom.JTextFieldRounded txtIdMember;
-    private custom.JTextFieldRounded txtIdMember1;
     private custom.JTextFieldRounded txtIdMember2;
     private custom.JTextFieldRounded txtIdMember3;
     private custom.JTextFieldRounded txtIdMember4;
@@ -1457,6 +1453,8 @@ public class menuLaporan extends javax.swing.JPanel {
     private custom.JTextFieldRounded txtSearch1;
     private custom.JTextFieldRounded txtSearch2;
     private custom.JTextFieldRounded txtSearch3;
+    private custom.JTextFieldRounded txtTanggalMulai;
+    private custom.JTextFieldRounded txtTanggalSampai;
     // End of variables declaration//GEN-END:variables
     
     

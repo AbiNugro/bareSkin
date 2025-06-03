@@ -787,6 +787,8 @@ public class menuProductt extends javax.swing.JPanel {
         else if(btnHapus.getText().equals("OPNAME"))
             {
                 opnameStok();
+                resetForm();
+                btnSimpan.setText("TAMBAH");
                 txtIdOpname.setText(generateId());
                 loadDataSementara();
                 btnSetProduct.setVisible(true);
@@ -985,10 +987,12 @@ public class menuProductt extends javax.swing.JPanel {
     }
     
     private String generateId() {
-            SimpleDateFormat sdf = new SimpleDateFormat("HHmmddM"); 
-            String dateTime = sdf.format(new Date());
-            return "O" + dateTime; 
-        }
+        SimpleDateFormat sdf = new SimpleDateFormat("HHmmss"); // Jam, menit, detik (6 digit)
+        String dateTime = sdf.format(new Date());
+        int dayOfMonth = new Date().getDate() % 100; // Ambil tanggal dalam bulan (max 2 digit)
+        return "O" + dateTime + (dayOfMonth < 10 ? "0" + dayOfMonth : String.valueOf(dayOfMonth)).substring(0, 1); 
+        // Total: 1 huruf + 7 angka = 8 karakter
+    }
     
     private void setProduct(){
         boolean closable = true;

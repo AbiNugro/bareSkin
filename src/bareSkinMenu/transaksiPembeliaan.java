@@ -1199,9 +1199,9 @@ public class transaksiPembeliaan extends javax.swing.JPanel {
     
     
         private String generateId() {
-            SimpleDateFormat sdf = new SimpleDateFormat("HHmmddM"); 
+            SimpleDateFormat sdf = new SimpleDateFormat("ssmmddMM");
             String dateTime = sdf.format(new Date());
-            return "B" + dateTime; 
+            return "B" + dateTime;
         }
     
     private void fieldColor(JTextField field) {
